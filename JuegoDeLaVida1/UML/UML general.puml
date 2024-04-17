@@ -1,0 +1,50 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+abstract class Elemento {
+
+----
+}
+
+abstract class Recurso extends Elemento {
+}
+abstract class Individuo extends Elemento{
+-progenitor1
+-progenitor2
+-id
+-edad
+-vidas
+-reproduccion%
+-mutacion%
+-clonacion%
+-muerte%
+-agua
+-reproducciones
+-mutaciones
+----
++mover()
+}
+class IndividuoBasico extends Individuo{
++mover():void
+}
+
+class IndividuoNormal extends Individuo{
++mover():void
+}
+
+class IndividuoAvanzado extends Individuo{
++mover():void
+}
+class Agua extends Recurso {
+}
+class Comida extends Recurso {
+}
+class Montaña extends Recurso {
+}
+class Tesoro extends Recurso {
+}
+class Biblioteca extends Recurso {
+}
+class Pozo extends Recurso {
+}
+
+@enduml
