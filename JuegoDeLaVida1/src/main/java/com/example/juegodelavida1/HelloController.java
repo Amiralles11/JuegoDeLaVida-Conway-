@@ -1,14 +1,22 @@
 package com.example.juegodelavida1;
 
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class HelloController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class HelloController implements Initializable {
+    TextAnimator textAnimator;
     @FXML
-    private Label welcomeText;
+    private Text text;
 
     @FXML
     protected void NuevaPartidaButton() {
@@ -35,5 +43,30 @@ public class HelloController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        TextOutput textOutput = new TextOutput() {
+            @Override
+            public void writeText(String textOut) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        text.setText(textOut);
+                    }
+                });
+            }
+        };
+
+        textAnimator = new TextAnimator("Juego de la Vida",
+                100, textOutput);
+    }
+
+    @FXML
+    void TextoAnimado(ActionEvent event) {
+        Thread thread = new Thread(textAnimator);
+        thread.start();
     }
 }
