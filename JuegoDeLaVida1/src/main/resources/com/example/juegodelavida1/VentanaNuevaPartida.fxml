@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.juegodelavida1.HelloController"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
-
+<VBox alignment="CENTER" prefHeight="180.0" prefWidth="497.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.HelloController">
+   <children>
+      <TabPane prefHeight="236.0" prefWidth="497.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Individuos">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab text="Recursos">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="209.0" prefWidth="497.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</VBox>
