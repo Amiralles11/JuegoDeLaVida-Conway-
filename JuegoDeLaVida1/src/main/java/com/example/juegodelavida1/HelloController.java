@@ -1,14 +1,25 @@
 package com.example.juegodelavida1;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 
 public class HelloController {
+    static int contadorDeVentanasHijas = 0;
     @FXML
-    private Label welcomeText;
+    private Label labelValorSlider;
+    @FXML
+    private Slider miSlider;
+
+    protected StringProperty texto = new SimpleStringProperty("No Hay Nada");
+    protected IntegerProperty medida = new SimpleIntegerProperty(0);
 
     @FXML
     protected void NuevaPartidaButton() {
