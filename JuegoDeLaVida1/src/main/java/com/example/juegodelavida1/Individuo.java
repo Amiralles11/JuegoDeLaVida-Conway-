@@ -1,6 +1,6 @@
 package com.example.juegodelavida1;
 
-public class Individuo {
+public abstract class Individuo {
     private int vidas;
     private int porcentajeReproduccion;
     private int porcentajeClonacion;

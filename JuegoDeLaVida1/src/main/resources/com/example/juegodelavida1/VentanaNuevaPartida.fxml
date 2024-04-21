@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="720" prefWidth="960" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.IndividuoParameterController">
+<VBox alignment="CENTER" prefHeight="720" prefWidth="960" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.ParameterController">
    <children>
       <Label prefHeight="94.0" prefWidth="482.0" text="Parametros" textAlignment="CENTER">
          <font>
@@ -108,12 +108,12 @@
                         <Button layoutX="366.0" layoutY="248.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="31.0" text="?" />
                         <Button layoutX="366.0" layoutY="64.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="31.0" text="?" />
                         <Button layoutX="366.0" layoutY="26.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="244.0" layoutY="348.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="205.0" text="Restablecer">
+                        <Button layoutX="244.0" layoutY="348.0" mnemonicParsing="false" onAction="#onBotonReiniciarClick2" prefHeight="51.0" prefWidth="205.0" text="Restablecer">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
                            </font>
                         </Button>
-                        <Button layoutX="528.0" layoutY="348.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="190.0" text="Guardar">
+                        <Button layoutX="528.0" layoutY="348.0" mnemonicParsing="false" onAction="#onBotonGuardarClick2" prefHeight="51.0" prefWidth="190.0" text="Guardar">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
                            </font>
@@ -143,14 +143,54 @@
                               <Font name="Britannic Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Slider accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="29.0" majorTickUnit="20.0" min="1.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
-                        <Slider layoutX="423.0" layoutY="67.0" majorTickUnit="20.0" minorTickCount="5" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="50.0" />
-                        <Slider accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="117.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="30.0" />
-                        <Slider accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="286.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
-                        <Slider accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="251.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
-                        <Slider accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="218.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
-                        <Slider accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="184.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
-                        <Slider accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="150.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
+                        <Slider fx:id="sliderTiempoAparicion" accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="29.0" majorTickUnit="20.0" min="1.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
+                        <Slider fx:id="sliderPorcentajeAparicion" layoutX="423.0" layoutY="67.0" majorTickUnit="20.0" minorTickCount="5" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="50.0" />
+                        <Slider fx:id="sliderPorcentajeAparicionAgua" accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="117.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
+                        <Slider fx:id="sliderPorcentajeAparicionPozo" accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="286.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
+                        <Slider fx:id="sliderPorcentajeAparicionBiblioteca" accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="251.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
+                        <Slider fx:id="sliderPorcentajeAparicionTesoro" accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="218.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
+                        <Slider fx:id="sliderPorcentajeAparicionMontaña" accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="184.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
+                        <Slider fx:id="sliderPorcentajeAparicionComida" accessibleRole="IMAGE_VIEW" blockIncrement="20.0" layoutX="423.0" layoutY="150.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
+                        <Label fx:id="ValorTiempoAparicion" layoutX="846.0" layoutY="24.0" text="--">
+                           <font>
+                              <Font name="Britannic Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ValorSliderPorcentajeAparicionComida" layoutX="846.0" layoutY="145.0" text="--">
+                           <font>
+                              <Font name="Britannic Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ValorSliderPorcentajeAparicionAgua" layoutX="846.0" layoutY="110.0" text="--">
+                           <font>
+                              <Font name="Britannic Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ValorSliderPorcentajeAparicion" layoutX="846.0" layoutY="62.0" text="--">
+                           <font>
+                              <Font name="Britannic Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ValorSliderPorcentajeAparicionTesoro" layoutX="846.0" layoutY="212.0" text="--">
+                           <font>
+                              <Font name="Britannic Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ValorSliderPorcentajeAparicionMontaña" layoutX="846.0" layoutY="179.0" text="--">
+                           <font>
+                              <Font name="Britannic Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ValorSliderPorcentajeAparicionBiblioteca" layoutX="846.0" layoutY="247.0" text="--">
+                           <font>
+                              <Font name="Britannic Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ValorSliderPorcentajeAparicionPozo" layoutX="846.0" layoutY="281.0" text="--">
+                           <font>
+                              <Font name="Britannic Bold" size="25.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
             </content>
