@@ -84,6 +84,19 @@ public class ParameterController implements Initializable {
     protected IntegerProperty medida18 = new SimpleIntegerProperty(0);
 
 
+
+
+    //TABLERO:::
+    @FXML
+    private Slider sliderColumnas;
+    @FXML
+    private Label ValorColumnas;
+    @FXML
+    private Slider sliderFilas;
+    @FXML
+    private Label ValorFilas;
+    protected IntegerProperty medida21 = new SimpleIntegerProperty(0);
+    protected IntegerProperty medida22 = new SimpleIntegerProperty(0);
     /**
      * Controlador con modelo de datos en el que trabajar
      **/
@@ -97,6 +110,8 @@ public class ParameterController implements Initializable {
     private RecursoParametros.RecursoParametrosTesoro modelTesoro;
     private RecursoParametros.RecursoParametrosBiblioteca modelBiblioteca;
     private RecursoParametros.RecursoParametrosPozo modelPozo;
+
+    private TableroParametros modelTablero;
     private Stage scene;
 
 
@@ -121,6 +136,10 @@ public class ParameterController implements Initializable {
         modelPozo.commit();
         modelTesoro.commit();
     }
+    @FXML
+    protected void onBotonGuardarClick3() {
+        modelTablero.commit();
+    }
 
     @FXML
     protected void onBotonReiniciarClick() {
@@ -135,6 +154,10 @@ public class ParameterController implements Initializable {
         modelBiblioteca.rollback();
         modelPozo.rollback();
         modelTesoro.rollback();
+    }
+    @FXML
+    protected void onBotonReiniciarClick3() {
+        modelTablero.rollback();
     }
 
 
@@ -156,6 +179,9 @@ public class ParameterController implements Initializable {
         sliderPorcentajeAparicionTesoro.valueProperty().bindBidirectional(modelTesoro.PorcentajeAparicion2Property());
         sliderPorcentajeAparicionBiblioteca.valueProperty().bindBidirectional(modelBiblioteca.PorcentajeAparicion2Property());
         sliderPorcentajeAparicionPozo.valueProperty().bindBidirectional(modelPozo.PorcentajeAparicion2Property());
+
+        sliderFilas.valueProperty().bindBidirectional(modelTablero.FilasProperty());
+        sliderColumnas.valueProperty().bindBidirectional(modelTablero.ColumnasProperty());
     }
 
     /**
@@ -163,7 +189,8 @@ public class ParameterController implements Initializable {
      **/
     public void loadUserData(IndividuoParametros parametrosData, RecursoParametros parametrosData2, RecursoParametros.RecursoParametrosAgua parametrosAgua, RecursoParametros.RecursoParametrosComida parametrosComida,
                              RecursoParametros.RecursoParametrosMontaña parametrosMontaña, RecursoParametros.RecursoParametrosTesoro parametrosTesoro,
-                             RecursoParametros.RecursoParametrosBiblioteca parametrosBiblioteca, RecursoParametros.RecursoParametrosPozo parametrosPozo) {
+                             RecursoParametros.RecursoParametrosBiblioteca parametrosBiblioteca, RecursoParametros.RecursoParametrosPozo parametrosPozo,
+                             TableroParametros tableroParametros) {
         this.model = parametrosData;
         this.model2 = parametrosData2;
         this.modelAgua = parametrosAgua;
@@ -172,6 +199,7 @@ public class ParameterController implements Initializable {
         this.modelTesoro = parametrosTesoro;
         this.modelBiblioteca = parametrosBiblioteca;
         this.modelPozo = parametrosPozo;
+        this.modelTablero = tableroParametros;
         this.updateGUIwithModel();
     }
     public void setStage(Stage s){
@@ -222,6 +250,12 @@ public class ParameterController implements Initializable {
 
         sliderPorcentajeAparicionPozo.valueProperty().bindBidirectional(medida18);
         ValorSliderPorcentajeAparicionPozo.textProperty().bind(medida18.asString());
+
+        sliderFilas.valueProperty().bindBidirectional(medida21);
+        ValorFilas.textProperty().bind(medida21.asString());
+
+        sliderColumnas.valueProperty().bindBidirectional(medida22);
+        ValorColumnas.textProperty().bind(medida22.asString());
 
     }
 }
