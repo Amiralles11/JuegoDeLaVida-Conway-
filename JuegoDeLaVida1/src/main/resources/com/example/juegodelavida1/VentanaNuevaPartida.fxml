@@ -210,19 +210,29 @@
                               <Font name="Britannic Bold" size="30.0" />
                            </font>
                         </Label>
-                        <Button layoutX="244.0" layoutY="348.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="205.0" text="Restablecer">
+                        <Button layoutX="244.0" layoutY="348.0" mnemonicParsing="false" onAction="#onBotonReiniciarClick3" prefHeight="51.0" prefWidth="205.0" text="Restablecer">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
                            </font>
                         </Button>
-                        <Button layoutX="528.0" layoutY="348.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="190.0" text="Guardar">
+                        <Button layoutX="528.0" layoutY="348.0" mnemonicParsing="false" onAction="#onBotonGuardarClick3" prefHeight="51.0" prefWidth="190.0" text="Guardar">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
                            </font>
                         </Button>
                         <Button layoutX="366.0" layoutY="184.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Slider layoutX="435.0" layoutY="102.0" majorTickUnit="5.0" max="20.0" min="1.0" minorTickCount="5" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="10.0" />
-                        <Slider layoutX="435.0" layoutY="188.0" majorTickUnit="10.0" max="50.0" min="1.0" minorTickCount="5" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="20.0" />
+                        <Slider fx:id="sliderFilas" layoutX="435.0" layoutY="102.0" majorTickUnit="5.0" max="20.0" min="1.0" minorTickCount="5" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="10.0" />
+                        <Slider fx:id="sliderColumnas" layoutX="435.0" layoutY="188.0" majorTickUnit="10.0" max="50.0" min="1.0" minorTickCount="5" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="20.0" />
+                        <Label fx:id="ValorFilas" layoutX="871.0" layoutY="97.0" text="--">
+                           <font>
+                              <Font name="Britannic Bold" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ValorColumnas" layoutX="871.0" layoutY="183.0" text="--">
+                           <font>
+                              <Font name="Britannic Bold" size="30.0" />
+                           </font>
+                        </Label>
                      </children></AnchorPane>
               </content>
             </Tab>

@@ -18,6 +18,7 @@ public class HelloController implements Initializable {
     private RecursoTesoro parametrosDataTesoro = new RecursoTesoro(-1, -1,20 );
     private RecursoBiblioteca parametrosDataBiblioteca = new RecursoBiblioteca(-1, -1,20 );
     private RecursoPozo parametrosDataPozo = new RecursoPozo(-1, -1,20 );
+    private Tablero parametrosTablero = new Tablero(10, 20);
     private IndividuoParametros modeloParaGUICompartido = new IndividuoParametros(parametrosData);
     private RecursoParametros modeloParaGUICompartido2 = new RecursoParametros(parametrosData2);
     private RecursoParametros.RecursoParametrosAgua modeloParaGUICompartidoAgua = new RecursoParametros.RecursoParametrosAgua(parametrosDataAgua);
@@ -26,6 +27,8 @@ public class HelloController implements Initializable {
     private RecursoParametros.RecursoParametrosTesoro modeloParaGUICompartidoTesoro = new RecursoParametros.RecursoParametrosTesoro(parametrosDataTesoro);
     private RecursoParametros.RecursoParametrosBiblioteca modeloParaGUICompartidoBiblioteca = new RecursoParametros.RecursoParametrosBiblioteca(parametrosDataBiblioteca);
     private RecursoParametros.RecursoParametrosPozo modeloParaGUICompartidoPozo = new RecursoParametros.RecursoParametrosPozo(parametrosDataPozo);
+    private TableroParametros modeloParaGUICompartidoTablero = new TableroParametros(parametrosTablero);
+
         @FXML
         protected void NuevaPartidaButton() {
             Stage stage = new Stage();
@@ -35,7 +38,10 @@ public class HelloController implements Initializable {
                 stage.setTitle("Establezca parámetros: ");
                 stage.setScene(scene);
                 ParameterController p = fxmlLoader.getController();
-                p.loadUserData(this.modeloParaGUICompartido,this.modeloParaGUICompartido2,this.modeloParaGUICompartidoAgua,this.modeloParaGUICompartidoComida,this.modeloParaGUICompartidoMontaña,this.modeloParaGUICompartidoTesoro,this.modeloParaGUICompartidoBiblioteca,this.modeloParaGUICompartidoPozo); //Carga los datos del modelo en el gui, todas las ventanas comparten el mismo en este caso
+                p.loadUserData(this.modeloParaGUICompartido,this.modeloParaGUICompartido2,
+                        this.modeloParaGUICompartidoAgua,this.modeloParaGUICompartidoComida,
+                        this.modeloParaGUICompartidoMontaña,this.modeloParaGUICompartidoTesoro,
+                        this.modeloParaGUICompartidoBiblioteca,this.modeloParaGUICompartidoPozo,this.modeloParaGUICompartidoTablero); //Carga los datos del modelo en el gui, todas las ventanas comparten el mismo en este caso
                 p.setStage(stage);
                 stage.show();
             } catch (Exception e) {
