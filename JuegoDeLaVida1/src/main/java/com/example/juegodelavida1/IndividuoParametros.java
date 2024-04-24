@@ -1,10 +1,9 @@
 package com.example.juegodelavida1;
-
 import javafx.beans.property.*;
 
 public class IndividuoParametros {
     //Modelo de datos original
-    protected Individuo original;
+    private Individuo original;
     private IntegerProperty vidas = new SimpleIntegerProperty();
     private IntegerProperty porcentajeReproduccion = new SimpleIntegerProperty();
     private IntegerProperty porcentajeClonacion = new SimpleIntegerProperty();

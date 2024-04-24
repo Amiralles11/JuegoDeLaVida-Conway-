@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="720" prefWidth="960" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.ParameterController">
+<VBox alignment="CENTER" prefHeight="720" prefWidth="960" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.ParameterController">
    <children>
       <Label prefHeight="94.0" prefWidth="482.0" text="Parametros" textAlignment="CENTER">
          <font>
@@ -12,7 +18,7 @@
          </font>
       </Label>
       <Label />
-      <TabPane prefHeight="442.0" prefWidth="960.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="442.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Individuos">
             <content>
@@ -238,7 +244,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Button mnemonicParsing="false" prefHeight="66.0" prefWidth="294.0" text="Tablero">
+      <Button mnemonicParsing="false" onAction="#ButtonOnClickTablero" prefHeight="66.0" prefWidth="294.0" text="Tablero">
          <font>
             <Font name="Britannic Bold" size="39.0" />
          </font>

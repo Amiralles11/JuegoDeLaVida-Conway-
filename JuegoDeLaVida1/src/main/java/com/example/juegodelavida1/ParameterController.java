@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -17,6 +19,10 @@ public class ParameterController implements Initializable {
     /**
      * Hooks de conexión entre los controles visuales y el código, llevan @FXML para identificarlos
      **/
+
+
+
+    //SLIDEERS VALORES Y MEDIDAS DE INDIVIDUO
     @FXML
     private Slider sliderVidas;
     @FXML
@@ -42,7 +48,7 @@ public class ParameterController implements Initializable {
 
 
 
-//SLIDERS DE RECURSO:::::
+//SLIDERS;VALORES Y MEDIDAS DE RECURSO:::::
 
     @FXML
     private Slider sliderTiempoAparicion;
@@ -99,9 +105,13 @@ public class ParameterController implements Initializable {
     private Label ValorFilas;
     protected IntegerProperty medida21 = new SimpleIntegerProperty(0);
     protected IntegerProperty medida22 = new SimpleIntegerProperty(0);
+
+
+
     /**
      * Controlador con modelo de datos en el que trabajar
      **/
+    //MODELS DE CADA PARAMETRO
     private IndividuoParametros model;
 
     private RecursoParametros model2;
@@ -140,7 +150,7 @@ public class ParameterController implements Initializable {
     }
     @FXML
     protected void onBotonGuardarClick3() {
-        modelTablero.commit();
+            modelTablero.commit();
     }
 
     @FXML
@@ -158,8 +168,7 @@ public class ParameterController implements Initializable {
         modelTesoro.rollback();
     }
     @FXML
-    protected void onBotonReiniciarClick3() {
-        modelTablero.rollback();
+    protected void onBotonReiniciarClick3() {modelTablero.rollback();
     }
 
 
@@ -185,6 +194,7 @@ public class ParameterController implements Initializable {
         sliderFilas.valueProperty().bindBidirectional(modelTablero.FilasProperty());
         sliderColumnas.valueProperty().bindBidirectional(modelTablero.ColumnasProperty());
     }
+
 
     /**
      * Este método recibe los datos del modelo y los establece
@@ -461,6 +471,11 @@ public class ParameterController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
+        @FXML
+        protected void ButtonOnClickTablero() {
+            Tablero tab = new Tablero(medida21.get(),medida22.get());
+            TableroController tabC = new TableroController();
+            tabC.InicializarTablero(tab);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.juegodelavida1;
 
+import com.example.juegodelavida1.Tablero;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;

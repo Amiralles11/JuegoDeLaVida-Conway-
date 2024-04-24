@@ -29,24 +29,23 @@ public class HelloController implements Initializable {
     private RecursoParametros.RecursoParametrosPozo modeloParaGUICompartidoPozo = new RecursoParametros.RecursoParametrosPozo(parametrosDataPozo);
     private TableroParametros modeloParaGUICompartidoTablero = new TableroParametros(parametrosTablero);
 
-        @FXML
+    @FXML
         protected void NuevaPartidaButton() {
-            Stage stage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("VentanaNuevaPartida.fxml"));
-            try {
-                Scene scene = new Scene(fxmlLoader.load(), 320*3, 240*3);
-                stage.setTitle("Establezca parámetros: ");
-                stage.setScene(scene);
-                ParameterController p = fxmlLoader.getController();
-                p.loadUserData(this.modeloParaGUICompartido,this.modeloParaGUICompartido2,
-                        this.modeloParaGUICompartidoAgua,this.modeloParaGUICompartidoComida,
-                        this.modeloParaGUICompartidoMontaña,this.modeloParaGUICompartidoTesoro,
-                        this.modeloParaGUICompartidoBiblioteca,this.modeloParaGUICompartidoPozo,this.modeloParaGUICompartidoTablero); //Carga los datos del modelo en el gui, todas las ventanas comparten el mismo en este caso
-                p.setStage(stage);
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("VentanaNuevaPartida.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 320 * 3, 240 * 3);
+            stage.setTitle("Establezca parámetros: ");
+            stage.setScene(scene);
+            ParameterController p = fxmlLoader.getController();
+            p.loadUserData(this.modeloParaGUICompartido, this.modeloParaGUICompartido2, this.modeloParaGUICompartidoAgua,
+                    this.modeloParaGUICompartidoComida, this.modeloParaGUICompartidoMontaña, this.modeloParaGUICompartidoTesoro,
+                    this.modeloParaGUICompartidoBiblioteca, this.modeloParaGUICompartidoPozo, this.modeloParaGUICompartidoTablero); //Carga los datos del modelo en el gui, todas las ventanas comparten el mismo en este caso
+            p.setStage(stage);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     protected void CargarPartidaButton() {
@@ -65,4 +64,5 @@ public class HelloController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.print("Inicialización en ejecución del controlador\n");
     }
+
 }
