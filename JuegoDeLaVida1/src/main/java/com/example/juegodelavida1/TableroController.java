@@ -15,6 +15,16 @@ public class TableroController {
     @FXML
     private GridPane tableroDeJuego;
     protected void InicializarTablero(Tablero tablero) {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Tablero.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 320*3, 240*3);
+            stage.setTitle("Tablero");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         for (int i = 0; i < tablero.getColumnas(); i++) {
             for (int j = 0; j < tablero.getFilas(); j++) {
                 // Aquí podrías instanciar tu LetrasColoresGrid
@@ -28,18 +38,6 @@ public class TableroController {
                 tableroDeJuego.add(placeholder, i, j);
                 }
             }
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Tablero.fxml"));
-        try {
-            Scene scene = new Scene(fxmlLoader.load(), 320*3, 240*3);
-            stage.setTitle("Tablero");
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(tablero.getColumnas());
-        System.out.println(tablero.getFilas());
 
 
         /**
