@@ -3,9 +3,13 @@ package com.example.juegodelavida1;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -15,6 +19,10 @@ public class ParameterController implements Initializable {
     /**
      * Hooks de conexión entre los controles visuales y el código, llevan @FXML para identificarlos
      **/
+
+
+
+    //SLIDEERS VALORES Y MEDIDAS DE INDIVIDUO
     @FXML
     private Slider sliderVidas;
     @FXML
@@ -40,7 +48,7 @@ public class ParameterController implements Initializable {
 
 
 
-//SLIDERS DE RECURSO:::::
+//SLIDERS;VALORES Y MEDIDAS DE RECURSO:::::
 
     @FXML
     private Slider sliderTiempoAparicion;
@@ -97,9 +105,13 @@ public class ParameterController implements Initializable {
     private Label ValorFilas;
     protected IntegerProperty medida21 = new SimpleIntegerProperty(0);
     protected IntegerProperty medida22 = new SimpleIntegerProperty(0);
+
+
+
     /**
      * Controlador con modelo de datos en el que trabajar
      **/
+    //MODELS DE CADA PARAMETRO
     private IndividuoParametros model;
 
     private RecursoParametros model2;
@@ -138,7 +150,7 @@ public class ParameterController implements Initializable {
     }
     @FXML
     protected void onBotonGuardarClick3() {
-        modelTablero.commit();
+            modelTablero.commit();
     }
 
     @FXML
@@ -156,8 +168,7 @@ public class ParameterController implements Initializable {
         modelTesoro.rollback();
     }
     @FXML
-    protected void onBotonReiniciarClick3() {
-        modelTablero.rollback();
+    protected void onBotonReiniciarClick3() {modelTablero.rollback();
     }
 
 
@@ -183,6 +194,7 @@ public class ParameterController implements Initializable {
         sliderFilas.valueProperty().bindBidirectional(modelTablero.FilasProperty());
         sliderColumnas.valueProperty().bindBidirectional(modelTablero.ColumnasProperty());
     }
+
 
     /**
      * Este método recibe los datos del modelo y los establece
@@ -257,5 +269,213 @@ public class ParameterController implements Initializable {
         sliderColumnas.valueProperty().bindBidirectional(medida22);
         ValorColumnas.textProperty().bind(medida22.asString());
 
+    }
+
+    @FXML
+    protected void ButtonGuiaVidas() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaVidas.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Vidas");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    protected void ButtonGuiaReproduccion() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaReproduccion.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Reproducción");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    protected void ButtonGuiaClonacion() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaClonacion.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Clonación");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+        @FXML
+        protected void ButtonGuiaTipo() {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaTipo.fxml"));
+            try {
+                Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+                stage.setTitle("Tipo al reproducirse");
+                stage.setScene(scene);
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+    }
+    @FXML
+    protected void ButtonGuiaTiempoAparicion() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaTiempoAparicion.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Tiempo de aparición");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+    @FXML
+    protected void ButtonGuiaPropabilidadAparicion() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaProbabilidadAparicion.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Probabilidad de aparición");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    protected void ButtonGuiaAgua() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaAgua.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Agua");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    protected void ButtonGuiaComida() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaComida.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Comida");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    protected void ButtonGuiaMontaña() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaMontaña.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Montaña");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    protected void ButtonGuiaTesoro() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaTesoro.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Tesoro");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    protected void ButtonGuiaBiblioteca() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaBiblioteca.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Biblioteca");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    protected void ButtonGuiaPozo() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaPozo.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Pozo");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+    @FXML
+    protected void ButtonGuiaFilas() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaFilas.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Filas");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    protected void ButtonGuiaColumnas() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaColumnas.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Columnas");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+        @FXML
+        protected void ButtonOnClickTablero() {
+            Tablero tab = new Tablero(medida21.get(),medida22.get());
+            TableroController tabC = new TableroController();
+            tabC.InicializarTablero(tab);
     }
 }

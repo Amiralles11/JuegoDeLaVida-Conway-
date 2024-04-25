@@ -10,6 +10,7 @@ module com.example.juegodelavida1 {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires org.apache.logging.log4j;
 
     opens com.example.juegodelavida1 to javafx.fxml;
     exports com.example.juegodelavida1;
