@@ -1,19 +1,64 @@
 package com.example.juegodelavida1;
 
-import javafx.application.Application;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-public class TableroController {
+public class TableroController{
+    private static Tablero tablero;
+    private IndividuoTipoBasico individuoTipoBasico;
+    private IndividuoTipoNormal individuoTipoNormal;
+    private IndividuoTipoAvanzado individuoTipoAvanzado;
+    private RecursoAgua recursoAgua;
+    private RecursoBiblioteca recursoBiblioteca;
+    private RecursoComida recursoComida;
+    private RecursoMontaña recursoMontaña;
+    private RecursoPozo recursoPozo;
+    private RecursoTesoro recursoTesoro;
+
     @FXML
     private GridPane tableroDeJuego;
-    protected void InicializarTablero(Tablero tablero) {
+
+    public TableroController() {
+    }
+    @FXML
+    protected void InicializarTablero() {
+        for (int i = 0; i < tablero.getColumnas(); i++) {
+            for (int j = 0; j < tablero.getFilas(); j++) {
+                // Aquí podrías instanciar tu LetrasColoresGrid
+                // LetrasColoresGrid customComponent = new LetrasColoresGrid();
+                // mainGrid.add(customComponent, i, j);
+
+                // Ejemplo simplificado con un Label
+                Label placeholder = new Label("Celda " + i + "," + j);
+                placeholder.setMinSize(320*3/tablero.getColumnas(), 461/tablero.getFilas()); // Tamaño mínimo para visualización
+                placeholder.setMaxSize(320*3/tablero.getColumnas(), 461/tablero.getFilas()); // Tamaño mínimo para visualización
+                placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center;");
+                tableroDeJuego.add(placeholder, i, j);
+            }
+        }
+    }
+
+    @FXML
+    public void start(Tablero tablero, IndividuoTipoBasico individuoTipoBasico,
+                      IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
+                      RecursoAgua recursoAgua,  RecursoComida recursoComida, RecursoMontaña recursoMontaña,
+                      RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo) {
+        this.tablero = tablero;
+        this.individuoTipoBasico = individuoTipoBasico;
+        this.individuoTipoNormal = individuoTipoNormal;
+        this.individuoTipoAvanzado = individuoTipoAvanzado;
+        this.recursoAgua = recursoAgua;
+        this.recursoBiblioteca = recursoBiblioteca;
+        this.recursoComida = recursoComida;
+        this.recursoMontaña = recursoMontaña;
+        this.recursoPozo = recursoPozo;
+        this.recursoTesoro = recursoTesoro;
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Tablero.fxml"));
         try {
@@ -24,24 +69,5 @@ public class TableroController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < tablero.getColumnas(); i++) {
-            for (int j = 0; j < tablero.getFilas(); j++) {
-                // Aquí podrías instanciar tu LetrasColoresGrid
-                // LetrasColoresGrid customComponent = new LetrasColoresGrid();
-                // mainGrid.add(customComponent, i, j);
-
-                // Ejemplo simplificado con un Label
-                Label placeholder = new Label("Celda " + i + "," + j);
-                placeholder.setMinSize(10, 10); // Tamaño mínimo para visualización
-                placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center;");
-                tableroDeJuego.add(placeholder, i, j);
-                }
-            }
-
-
-        /**
-         En este ejemplo, vamos a crear programáticamente la ventan en la que trabajaremos.
-         */
     }
 }
-

@@ -8,8 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -19,7 +17,6 @@ public class ParameterController implements Initializable {
     /**
      * Hooks de conexión entre los controles visuales y el código, llevan @FXML para identificarlos
      **/
-
 
 
     //SLIDEERS VALORES Y MEDIDAS DE INDIVIDUO
@@ -39,13 +36,10 @@ public class ParameterController implements Initializable {
     private Slider sliderPorcentajeTipoAlReproducirse;
     @FXML
     private Label ValorSliderPTipo;
-    protected IntegerProperty medida1 = new SimpleIntegerProperty(0);
-    protected IntegerProperty medida2 = new SimpleIntegerProperty(0);
-    protected IntegerProperty medida3 = new SimpleIntegerProperty(0);
-    protected IntegerProperty medida4 = new SimpleIntegerProperty(0);
-
-
-
+    protected IntegerProperty medidaVidas = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaReproduccion = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaClonacion = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaTipoAlReproducirse = new SimpleIntegerProperty(0);
 
 
 //SLIDERS;VALORES Y MEDIDAS DE RECURSO:::::
@@ -82,16 +76,14 @@ public class ParameterController implements Initializable {
     private Slider sliderPorcentajeAparicionPozo;
     @FXML
     private Label ValorSliderPorcentajeAparicionPozo;
-    protected IntegerProperty medida11 = new SimpleIntegerProperty(0);
-    protected IntegerProperty medida12 = new SimpleIntegerProperty(0);
-    protected IntegerProperty medida13 = new SimpleIntegerProperty(0);
-    protected IntegerProperty medida14 = new SimpleIntegerProperty(0);
-    protected IntegerProperty medida15 = new SimpleIntegerProperty(0);
-    protected IntegerProperty medida16 = new SimpleIntegerProperty(0);
-    protected IntegerProperty medida17 = new SimpleIntegerProperty(0);
-    protected IntegerProperty medida18 = new SimpleIntegerProperty(0);
-
-
+    protected IntegerProperty medidaTiempoAparicion = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaPorcentajeAparicion = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaPorcentajeAparicionAgua = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaPorcentajeAparicionComida = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaPorcentajeAparicionMontaña = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaPorcentajeAparicionTesoro = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaPorcentajeAparicionBiblioteca = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaPorcentajeAparicionPozo = new SimpleIntegerProperty(0);
 
 
     //TABLERO:::
@@ -103,9 +95,8 @@ public class ParameterController implements Initializable {
     private Slider sliderFilas;
     @FXML
     private Label ValorFilas;
-    protected IntegerProperty medida21 = new SimpleIntegerProperty(0);
-    protected IntegerProperty medida22 = new SimpleIntegerProperty(0);
-
+    protected IntegerProperty medidaFilas = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaColumnas = new SimpleIntegerProperty(0);
 
 
     /**
@@ -138,6 +129,7 @@ public class ParameterController implements Initializable {
     protected void onBotonGuardarClick() {
         model.commit();
     }
+
     @FXML
     protected void onBotonGuardarClick2() {
         model2.commit();
@@ -148,15 +140,17 @@ public class ParameterController implements Initializable {
         modelPozo.commit();
         modelTesoro.commit();
     }
+
     @FXML
     protected void onBotonGuardarClick3() {
-            modelTablero.commit();
+        modelTablero.commit();
     }
 
     @FXML
     protected void onBotonReiniciarClick() {
         model.rollback();
     }
+
     @FXML
     protected void onBotonReiniciarClick2() {
         model2.rollback();
@@ -167,8 +161,10 @@ public class ParameterController implements Initializable {
         modelPozo.rollback();
         modelTesoro.rollback();
     }
+
     @FXML
-    protected void onBotonReiniciarClick3() {modelTablero.rollback();
+    protected void onBotonReiniciarClick3() {
+        modelTablero.rollback();
     }
 
 
@@ -214,60 +210,62 @@ public class ParameterController implements Initializable {
         this.modelTablero = tableroParametros;
         this.updateGUIwithModel();
     }
-    public void setStage(Stage s){
+
+    public void setStage(Stage s) {
         this.scene = s;
     }
+
     /**
      * Métodos de configuración
      **/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.print("Inicialización en ejecución del controlador de parámetros\n");
-
-        if (model != null) {
+        if((model!=null)&&(model2!=null)&&(modelAgua!=null)&&(modelComida!=null)&&(modelMontaña!=null)&&(modelTesoro !=null)
+                &&(modelBiblioteca!=null)&&(modelPozo!=null)&&(modelTablero!=null)){
             this.updateGUIwithModel();
         }
-        sliderVidas.valueProperty().bindBidirectional(medida1);
-        ValorSliderVidas.textProperty().bind(medida1.asString());
+        sliderVidas.valueProperty().bindBidirectional(medidaVidas);
+        ValorSliderVidas.textProperty().bind(medidaVidas.asString());
 
-        sliderPorcentajeReproduccion.valueProperty().bindBidirectional(medida2);
-        ValorSliderPReproduccion.textProperty().bind(medida2.asString());
+        sliderPorcentajeReproduccion.valueProperty().bindBidirectional(medidaReproduccion);
+        ValorSliderPReproduccion.textProperty().bind(medidaReproduccion.asString());
 
-        sliderPorcentajeClonacion.valueProperty().bindBidirectional(medida3);
-        ValorSliderPClonacion.textProperty().bind(medida3.asString());
+        sliderPorcentajeClonacion.valueProperty().bindBidirectional(medidaClonacion);
+        ValorSliderPClonacion.textProperty().bind(medidaClonacion.asString());
 
-        sliderPorcentajeTipoAlReproducirse.valueProperty().bindBidirectional(medida4);
-        ValorSliderPTipo.textProperty().bind(medida4.asString());
+        sliderPorcentajeTipoAlReproducirse.valueProperty().bindBidirectional(medidaTipoAlReproducirse);
+        ValorSliderPTipo.textProperty().bind(medidaTipoAlReproducirse.asString());
 
-        sliderTiempoAparicion.valueProperty().bindBidirectional(medida11);
-        ValorTiempoAparicion.textProperty().bind(medida11.asString());
+        sliderTiempoAparicion.valueProperty().bindBidirectional(medidaTiempoAparicion);
+        ValorTiempoAparicion.textProperty().bind(medidaTiempoAparicion.asString());
 
-        sliderPorcentajeAparicion.valueProperty().bindBidirectional(medida12);
-        ValorSliderPorcentajeAparicion.textProperty().bind(medida12.asString());
+        sliderPorcentajeAparicion.valueProperty().bindBidirectional(medidaPorcentajeAparicion);
+        ValorSliderPorcentajeAparicion.textProperty().bind(medidaPorcentajeAparicion.asString());
 
-        sliderPorcentajeAparicionAgua.valueProperty().bindBidirectional(medida13);
-        ValorSliderPorcentajeAparicionAgua.textProperty().bind(medida13.asString());
+        sliderPorcentajeAparicionAgua.valueProperty().bindBidirectional(medidaPorcentajeAparicionAgua);
+        ValorSliderPorcentajeAparicionAgua.textProperty().bind(medidaPorcentajeAparicionAgua.asString());
 
-        sliderPorcentajeAparicionComida.valueProperty().bindBidirectional(medida14);
-        ValorSliderPorcentajeAparicionComida.textProperty().bind(medida14.asString());
+        sliderPorcentajeAparicionComida.valueProperty().bindBidirectional(medidaPorcentajeAparicionComida);
+        ValorSliderPorcentajeAparicionComida.textProperty().bind(medidaPorcentajeAparicionComida.asString());
 
-        sliderPorcentajeAparicionMontaña.valueProperty().bindBidirectional(medida15);
-        ValorSliderPorcentajeAparicionMontaña.textProperty().bind(medida15.asString());
+        sliderPorcentajeAparicionMontaña.valueProperty().bindBidirectional(medidaPorcentajeAparicionMontaña);
+        ValorSliderPorcentajeAparicionMontaña.textProperty().bind(medidaPorcentajeAparicionMontaña.asString());
 
-        sliderPorcentajeAparicionTesoro.valueProperty().bindBidirectional(medida16);
-        ValorSliderPorcentajeAparicionTesoro.textProperty().bind(medida16.asString());
+        sliderPorcentajeAparicionTesoro.valueProperty().bindBidirectional(medidaPorcentajeAparicionTesoro);
+        ValorSliderPorcentajeAparicionTesoro.textProperty().bind(medidaPorcentajeAparicionTesoro.asString());
 
-        sliderPorcentajeAparicionBiblioteca.valueProperty().bindBidirectional(medida17);
-        ValorSliderPorcentajeAparicionBiblioteca.textProperty().bind(medida17.asString());
+        sliderPorcentajeAparicionBiblioteca.valueProperty().bindBidirectional(medidaPorcentajeAparicionBiblioteca);
+        ValorSliderPorcentajeAparicionBiblioteca.textProperty().bind(medidaPorcentajeAparicionBiblioteca.asString());
 
-        sliderPorcentajeAparicionPozo.valueProperty().bindBidirectional(medida18);
-        ValorSliderPorcentajeAparicionPozo.textProperty().bind(medida18.asString());
+        sliderPorcentajeAparicionPozo.valueProperty().bindBidirectional(medidaPorcentajeAparicionPozo);
+        ValorSliderPorcentajeAparicionPozo.textProperty().bind(medidaPorcentajeAparicionPozo.asString());
 
-        sliderFilas.valueProperty().bindBidirectional(medida21);
-        ValorFilas.textProperty().bind(medida21.asString());
+        sliderFilas.valueProperty().bindBidirectional(medidaFilas);
+        ValorFilas.textProperty().bind(medidaFilas.asString());
 
-        sliderColumnas.valueProperty().bindBidirectional(medida22);
-        ValorColumnas.textProperty().bind(medida22.asString());
+        sliderColumnas.valueProperty().bindBidirectional(medidaColumnas);
+        ValorColumnas.textProperty().bind(medidaColumnas.asString());
 
     }
 
@@ -284,6 +282,7 @@ public class ParameterController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     protected void ButtonGuiaReproduccion() {
         Stage stage = new Stage();
@@ -298,6 +297,7 @@ public class ParameterController implements Initializable {
         }
 
     }
+
     @FXML
     protected void ButtonGuiaClonacion() {
         Stage stage = new Stage();
@@ -312,21 +312,22 @@ public class ParameterController implements Initializable {
         }
     }
 
-        @FXML
-        protected void ButtonGuiaTipo() {
-            Stage stage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaTipo.fxml"));
-            try {
-                Scene scene = new Scene(fxmlLoader.load(), 240, 320);
-                stage.setTitle("Tipo al reproducirse");
-                stage.setScene(scene);
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    @FXML
+    protected void ButtonGuiaTipo() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaTipo.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Tipo al reproducirse");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
+
     @FXML
     protected void ButtonGuiaTiempoAparicion() {
         Stage stage = new Stage();
@@ -343,7 +344,6 @@ public class ParameterController implements Initializable {
     }
 
 
-
     @FXML
     protected void ButtonGuiaPropabilidadAparicion() {
         Stage stage = new Stage();
@@ -358,6 +358,7 @@ public class ParameterController implements Initializable {
         }
 
     }
+
     @FXML
     protected void ButtonGuiaAgua() {
         Stage stage = new Stage();
@@ -372,6 +373,7 @@ public class ParameterController implements Initializable {
         }
 
     }
+
     @FXML
     protected void ButtonGuiaComida() {
         Stage stage = new Stage();
@@ -386,6 +388,7 @@ public class ParameterController implements Initializable {
         }
 
     }
+
     @FXML
     protected void ButtonGuiaMontaña() {
         Stage stage = new Stage();
@@ -400,6 +403,7 @@ public class ParameterController implements Initializable {
         }
 
     }
+
     @FXML
     protected void ButtonGuiaTesoro() {
         Stage stage = new Stage();
@@ -414,6 +418,7 @@ public class ParameterController implements Initializable {
         }
 
     }
+
     @FXML
     protected void ButtonGuiaBiblioteca() {
         Stage stage = new Stage();
@@ -428,6 +433,7 @@ public class ParameterController implements Initializable {
         }
 
     }
+
     @FXML
     protected void ButtonGuiaPozo() {
         Stage stage = new Stage();
@@ -444,7 +450,6 @@ public class ParameterController implements Initializable {
     }
 
 
-
     @FXML
     protected void ButtonGuiaFilas() {
         Stage stage = new Stage();
@@ -459,6 +464,7 @@ public class ParameterController implements Initializable {
         }
 
     }
+
     @FXML
     protected void ButtonGuiaColumnas() {
         Stage stage = new Stage();
@@ -472,10 +478,14 @@ public class ParameterController implements Initializable {
             e.printStackTrace();
         }
     }
-        @FXML
-        protected void ButtonOnClickTablero() {
-            Tablero tab = new Tablero(medida21.get(),medida22.get());
-            TableroController tabC = new TableroController();
-            tabC.InicializarTablero(tab);
+
+    @FXML
+    protected void ButtonOnClickTablero() {
+        TableroController tab = new TableroController();
+        tab.start((new Tablero(medidaFilas.get(), medidaColumnas.get())),(new IndividuoTipoBasico(medidaVidas.get(), medidaReproduccion.get(),medidaClonacion.get(), medidaTipoAlReproducirse.get())),
+                (new IndividuoTipoNormal(medidaVidas.get(), medidaReproduccion.get(),medidaClonacion.get(), medidaTipoAlReproducirse.get())),(new IndividuoTipoAvanzado(medidaVidas.get(), medidaReproduccion.get(),medidaClonacion.get(), medidaTipoAlReproducirse.get())),
+                (new RecursoAgua(medidaTiempoAparicion.get(), medidaPorcentajeAparicion.get(), medidaPorcentajeAparicionAgua.get())),(new RecursoComida(medidaTiempoAparicion.get(), medidaPorcentajeAparicion.get(), medidaPorcentajeAparicionComida.get())),
+                (new RecursoMontaña(medidaTiempoAparicion.get(), medidaPorcentajeAparicion.get(), medidaPorcentajeAparicionMontaña.get())),(new RecursoTesoro(medidaTiempoAparicion.get(), medidaPorcentajeAparicion.get(), medidaPorcentajeAparicionTesoro.get())),
+                (new RecursoBiblioteca(medidaTiempoAparicion.get(), medidaPorcentajeAparicion.get(), medidaPorcentajeAparicionBiblioteca.get())),(new RecursoPozo(medidaTiempoAparicion.get(), medidaPorcentajeAparicion.get(), medidaPorcentajeAparicionPozo.get())));
     }
 }
