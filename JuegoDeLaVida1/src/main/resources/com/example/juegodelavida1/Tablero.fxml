@@ -42,7 +42,7 @@
                   <Font name="Britannic Bold" size="30.0" />
                </font>
             </Button>
-            <Button layoutX="426.0" layoutY="22.0" mnemonicParsing="false" onAction="#InicializarTablero" prefHeight="60.0" prefWidth="65.0" text="&gt;">
+            <Button layoutX="426.0" layoutY="22.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="65.0" text="&gt;">
                <font>
                   <Font name="Britannic Bold" size="30.0" />
                </font>

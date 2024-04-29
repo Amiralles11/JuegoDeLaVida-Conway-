@@ -3,13 +3,17 @@ package com.example.juegodelavida1;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class TableroController{
+
+public class TableroController implements Initializable {
     private static Tablero tablero;
     private IndividuoTipoBasico individuoTipoBasico;
     private IndividuoTipoNormal individuoTipoNormal;
@@ -26,24 +30,6 @@ public class TableroController{
 
     public TableroController() {
     }
-    @FXML
-    protected void InicializarTablero() {
-        for (int i = 0; i < tablero.getColumnas(); i++) {
-            for (int j = 0; j < tablero.getFilas(); j++) {
-                // Aquí podrías instanciar tu LetrasColoresGrid
-                // LetrasColoresGrid customComponent = new LetrasColoresGrid();
-                // mainGrid.add(customComponent, i, j);
-
-                // Ejemplo simplificado con un Label
-                Label placeholder = new Label("Celda " + i + "," + j);
-                placeholder.setMinSize(320*3/tablero.getColumnas(), 461/tablero.getFilas()); // Tamaño mínimo para visualización
-                placeholder.setMaxSize(320*3/tablero.getColumnas(), 461/tablero.getFilas()); // Tamaño mínimo para visualización
-                placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center;");
-                tableroDeJuego.add(placeholder, i, j);
-            }
-        }
-    }
-
     @FXML
     public void start(Tablero tablero, IndividuoTipoBasico individuoTipoBasico,
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
@@ -68,6 +54,26 @@ public class TableroController{
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (tablero != null) {
+            for (int i = 0; i < tablero.getColumnas(); i++) {
+                for (int j = 0; j < tablero.getFilas(); j++) {
+                    // Aquí podrías instanciar tu LetrasColoresGrid
+                    // LetrasColoresGrid customComponent = new LetrasColoresGrid();
+                    // mainGrid.add(customComponent, i, j);
+
+                    // Ejemplo simplificado con un Label
+                    Label placeholder = new Label("Celda " + i + "," + j);
+                    placeholder.setMinSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño mínimo para visualización
+                    placeholder.setMaxSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño mínimo para visualización
+                    placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center;");
+                    tableroDeJuego.add(placeholder, i, j);
+                }
+            }
         }
     }
 }

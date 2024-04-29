@@ -482,10 +482,14 @@ public class ParameterController implements Initializable {
     @FXML
     protected void ButtonOnClickTablero() {
         TableroController tab = new TableroController();
-        tab.start((new Tablero(medidaFilas.get(), medidaColumnas.get())),(new IndividuoTipoBasico(medidaVidas.get(), medidaReproduccion.get(),medidaClonacion.get(), medidaTipoAlReproducirse.get())),
-                (new IndividuoTipoNormal(medidaVidas.get(), medidaReproduccion.get(),medidaClonacion.get(), medidaTipoAlReproducirse.get())),(new IndividuoTipoAvanzado(medidaVidas.get(), medidaReproduccion.get(),medidaClonacion.get(), medidaTipoAlReproducirse.get())),
-                (new RecursoAgua(medidaTiempoAparicion.get(), medidaPorcentajeAparicion.get(), medidaPorcentajeAparicionAgua.get())),(new RecursoComida(medidaTiempoAparicion.get(), medidaPorcentajeAparicion.get(), medidaPorcentajeAparicionComida.get())),
-                (new RecursoMontaña(medidaTiempoAparicion.get(), medidaPorcentajeAparicion.get(), medidaPorcentajeAparicionMontaña.get())),(new RecursoTesoro(medidaTiempoAparicion.get(), medidaPorcentajeAparicion.get(), medidaPorcentajeAparicionTesoro.get())),
-                (new RecursoBiblioteca(medidaTiempoAparicion.get(), medidaPorcentajeAparicion.get(), medidaPorcentajeAparicionBiblioteca.get())),(new RecursoPozo(medidaTiempoAparicion.get(), medidaPorcentajeAparicion.get(), medidaPorcentajeAparicionPozo.get())));
+        tab.start(modelTablero.getOriginal(),(new IndividuoTipoBasico(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
+                (new IndividuoTipoNormal(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
+                (new IndividuoTipoAvanzado(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
+                (new RecursoAgua(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),modelAgua.getOriginal().getPorcentajeAparicion2())),
+                (new RecursoComida(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),modelComida.getOriginal().getPorcentajeAparicion2())),
+                (new RecursoMontaña(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),modelMontaña.getOriginal().getPorcentajeAparicion2())),
+                (new RecursoTesoro(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),modelTesoro.getOriginal().getPorcentajeAparicion2())),
+                (new RecursoBiblioteca(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),modelBiblioteca.getOriginal().getPorcentajeAparicion2())),
+                (new RecursoPozo(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),modelPozo.getOriginal().getPorcentajeAparicion2())));
     }
 }
