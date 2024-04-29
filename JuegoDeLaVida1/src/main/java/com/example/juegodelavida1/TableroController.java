@@ -1,12 +1,16 @@
 package com.example.juegodelavida1;
 
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -56,22 +60,44 @@ public class TableroController implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    protected void ButtonCelda(){
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaVidas.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            stage.setTitle("Vidas");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (tablero != null) {
             for (int i = 0; i < tablero.getColumnas(); i++) {
+                //LDE = new ListaDoblementeEnlazada()...
                 for (int j = 0; j < tablero.getFilas(); j++) {
                     // Aquí podrías instanciar tu LetrasColoresGrid
                     // LetrasColoresGrid customComponent = new LetrasColoresGrid();
                     // mainGrid.add(customComponent, i, j);
 
-                    // Ejemplo simplificado con un Label
-                    Label placeholder = new Label("Celda " + i + "," + j);
+                    // Ejemplo simplificado con un label
+                    Button placeholder = new Button();
+                    placeholder.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            ButtonCelda();
+                        }
+                    });
                     placeholder.setMinSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño mínimo para visualización
                     placeholder.setMaxSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño mínimo para visualización
                     placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center;");
                     tableroDeJuego.add(placeholder, i, j);
+                    Celda celda = new Celda(i,j,placeholder);
+                    //LDE.add(celda)...
                 }
             }
         }
