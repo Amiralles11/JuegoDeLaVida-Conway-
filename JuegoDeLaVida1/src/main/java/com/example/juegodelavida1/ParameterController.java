@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +20,8 @@ public class ParameterController implements Initializable {
      * Hooks de conexión entre los controles visuales y el código, llevan @FXML para identificarlos
      **/
 
-
+    private static int ventanas = 1;
+    private static final Logger log = LogManager.getLogger(ParameterController.class);
     //SLIDEERS VALORES Y MEDIDAS DE INDIVIDUO
     @FXML
     private Slider sliderVidas;
@@ -127,11 +130,14 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void onBotonGuardarClick() {
+        log.info("Guardando datos del individuo");
         model.commit();
+        log.info("Datos del individuo guardados");
     }
 
     @FXML
     protected void onBotonGuardarClick2() {
+        log.info("Guardando datos de Recurso");
         model2.commit();
         modelAgua.commit();
         modelComida.commit();
@@ -139,20 +145,26 @@ public class ParameterController implements Initializable {
         modelBiblioteca.commit();
         modelPozo.commit();
         modelTesoro.commit();
+        log.info("Datos del Recurso guardados");
     }
 
     @FXML
     protected void onBotonGuardarClick3() {
+        log.info("Guardando datos de Tablero");
         modelTablero.commit();
+        log.info("Datos del Tablero guardados");
     }
 
     @FXML
     protected void onBotonReiniciarClick() {
+        log.info("Reiniciando datos de Individuo");
         model.rollback();
+        log.info("Datos del Individuo reiniciados");
     }
 
     @FXML
     protected void onBotonReiniciarClick2() {
+        log.info("Reiniciando datos de Recurso");
         model2.rollback();
         modelAgua.rollback();
         modelComida.rollback();
@@ -160,11 +172,14 @@ public class ParameterController implements Initializable {
         modelBiblioteca.rollback();
         modelPozo.rollback();
         modelTesoro.rollback();
+        log.info("Datos del Recurso reiniciados");
     }
 
     @FXML
     protected void onBotonReiniciarClick3() {
+        log.info("Reiniciando datos de Tablero");
         modelTablero.rollback();
+        log.info("Datos del Tablero reiniciados");
     }
 
 
@@ -172,6 +187,7 @@ public class ParameterController implements Initializable {
      * Este método se encarga de conectar los datos del modelo con el GUI
      **/
     protected void updateGUIwithModel() {
+        log.warn("Generando sliders varios");
         sliderVidas.valueProperty().bindBidirectional(model.VidasProperty());
         sliderPorcentajeReproduccion.valueProperty().bindBidirectional(model.PorcentajeReproduccionProperty());
         sliderPorcentajeClonacion.valueProperty().bindBidirectional(model.PorcentajeClonacionProperty());
@@ -189,6 +205,7 @@ public class ParameterController implements Initializable {
 
         sliderFilas.valueProperty().bindBidirectional(modelTablero.FilasProperty());
         sliderColumnas.valueProperty().bindBidirectional(modelTablero.ColumnasProperty());
+        log.info("sliders generados");
     }
 
 
@@ -220,7 +237,7 @@ public class ParameterController implements Initializable {
      **/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.print("Inicialización en ejecución del controlador de parámetros\n");
+        log.info("Iniciando controlador de parametros, ventana: "+ventanas++);
         if((model!=null)&&(model2!=null)&&(modelAgua!=null)&&(modelComida!=null)&&(modelMontaña!=null)&&(modelTesoro !=null)
                 &&(modelBiblioteca!=null)&&(modelPozo!=null)&&(modelTablero!=null)){
             this.updateGUIwithModel();
@@ -271,6 +288,7 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void ButtonGuiaVidas() {
+        log.info("Inciando zVentanaVidas");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaVidas.fxml"));
         try {
@@ -279,12 +297,14 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaVidas.fxml no encontrada");
             e.printStackTrace();
         }
     }
 
     @FXML
     protected void ButtonGuiaReproduccion() {
+        log.info("Inciando zVentanaReproduccion");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaReproduccion.fxml"));
         try {
@@ -293,6 +313,7 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaReproduccion.fxml no encontrada");
             e.printStackTrace();
         }
 
@@ -300,6 +321,7 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void ButtonGuiaClonacion() {
+        log.info("Inciando zVentanaClonacion");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaClonacion.fxml"));
         try {
@@ -308,12 +330,14 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaClonacion.fxml no encontrada");
             e.printStackTrace();
         }
     }
 
     @FXML
     protected void ButtonGuiaTipo() {
+        log.info("Inciando zVentanaTipo");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaTipo.fxml"));
         try {
@@ -322,6 +346,7 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaTipo.fxml no encontrada");
             e.printStackTrace();
         }
 
@@ -330,6 +355,7 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void ButtonGuiaTiempoAparicion() {
+        log.info("Inciando zVentanaTiempoAparicion");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaTiempoAparicion.fxml"));
         try {
@@ -338,6 +364,7 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaTiempoAparicion.fxml no encontrada");
             e.printStackTrace();
         }
 
@@ -346,6 +373,7 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void ButtonGuiaPropabilidadAparicion() {
+        log.info("Inciando zVentanaProbabilidadAparicion");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaProbabilidadAparicion.fxml"));
         try {
@@ -354,6 +382,7 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaProbabilidadAparicion.fxml no encontrada");
             e.printStackTrace();
         }
 
@@ -361,6 +390,7 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void ButtonGuiaAgua() {
+        log.info("Inciando zVentanaAgua");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaAgua.fxml"));
         try {
@@ -369,6 +399,7 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaAgua.fxml no encontrada");
             e.printStackTrace();
         }
 
@@ -376,6 +407,7 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void ButtonGuiaComida() {
+        log.info("Inciando zVentanaComida");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaComida.fxml"));
         try {
@@ -384,6 +416,7 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaComida.fxml no encontrada");
             e.printStackTrace();
         }
 
@@ -391,6 +424,7 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void ButtonGuiaMontaña() {
+        log.info("Inciando zVentanaMontaña");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaMontaña.fxml"));
         try {
@@ -399,6 +433,7 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaMontaña.fxml no encontrada");
             e.printStackTrace();
         }
 
@@ -406,6 +441,7 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void ButtonGuiaTesoro() {
+        log.info("Inciando zVentanaTesoro");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaTesoro.fxml"));
         try {
@@ -414,6 +450,7 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaTesoro.fxml no encontrada");
             e.printStackTrace();
         }
 
@@ -421,6 +458,7 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void ButtonGuiaBiblioteca() {
+        log.info("Inciando zVentanaBiblioteca");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaBiblioteca.fxml"));
         try {
@@ -429,6 +467,7 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaBiblioteca.fxml no encontrada");
             e.printStackTrace();
         }
 
@@ -436,6 +475,7 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void ButtonGuiaPozo() {
+        log.info("Inciando zVentanaPozo");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaPozo.fxml"));
         try {
@@ -444,6 +484,7 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaPozo.fxml no encontrada");
             e.printStackTrace();
         }
 
@@ -452,6 +493,7 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void ButtonGuiaFilas() {
+        log.info("Inciando zVentanaFilas");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaFilas.fxml"));
         try {
@@ -460,6 +502,7 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaFilas.fxml no encontrada");
             e.printStackTrace();
         }
 
@@ -467,6 +510,7 @@ public class ParameterController implements Initializable {
 
     @FXML
     protected void ButtonGuiaColumnas() {
+        log.info("Inciando zVentanaColumnas");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaColumnas.fxml"));
         try {
@@ -475,13 +519,16 @@ public class ParameterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaColumnas.fxml no encontrada");
             e.printStackTrace();
         }
     }
 
     @FXML
     protected void ButtonOnClickTablero() {
+        log.info("Creando nuevo controlador de tablero (TableroController)");
         TableroController tab = new TableroController();
+        log.debug("Creando clases con los datos de los sliders");
         tab.start(modelTablero.getOriginal(),(new IndividuoTipoBasico(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
                 (new IndividuoTipoNormal(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
                 (new IndividuoTipoAvanzado(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),

@@ -8,16 +8,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
 public class TableroController implements Initializable {
+    private static int ventanas = 1;
+    private static final Logger log = LogManager.getLogger(TableroController.class);
     private static Tablero tablero;
     private IndividuoTipoBasico individuoTipoBasico;
     private IndividuoTipoNormal individuoTipoNormal;
@@ -39,6 +41,7 @@ public class TableroController implements Initializable {
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
                       RecursoAgua recursoAgua,  RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo) {
+        log.info("Iniciando controlador de tablero, ventana: "+ventanas++);
         this.tablero = tablero;
         this.individuoTipoBasico = individuoTipoBasico;
         this.individuoTipoNormal = individuoTipoNormal;
@@ -57,11 +60,13 @@ public class TableroController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("Tablero.fxml no encontrado");
             e.printStackTrace();
         }
     }
     @FXML
     protected void ButtonCelda(){
+        log.info("Iniciando metodo ButtonCelda");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaVidas.fxml"));
         try {
@@ -70,12 +75,15 @@ public class TableroController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            log.error("zVentanaVidas.fxml no encontrado");
             e.printStackTrace();
         }
+        log.info("Finalizando metodo ButtonCelda");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        log.info("Inicializando tablero");
         if (tablero != null) {
             for (int i = 0; i < tablero.getColumnas(); i++) {
                 //LDE = new ListaDoblementeEnlazada()...
@@ -101,5 +109,6 @@ public class TableroController implements Initializable {
                 }
             }
         }
+        log.info("Tablero terminado");
     }
 }
