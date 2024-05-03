@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
@@ -67,17 +68,17 @@ public class TableroController implements Initializable {
         }
     }
     @FXML
-    protected void ButtonCelda(){
+    protected void ButtonCelda(Celda celda,Button button){
         log.info("Iniciando metodo ButtonCelda");
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaVidas.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ButtonCelda.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
-            stage.setTitle("Vidas");
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+            stage.setTitle("Celda"+"("+celda.getFilas()+","+celda.getColumnas()+")");
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-            log.error("zVentanaVidas.fxml no encontrado");
+            log.error("ButtonCelda.fxml no encontrado");
             e.printStackTrace();
         }
         log.info("Finalizando metodo ButtonCelda");
@@ -97,18 +98,18 @@ public class TableroController implements Initializable {
                     // mainGrid.add(customComponent, i, j);
 
                     // Ejemplo simplificado con un label
-                    Button placeholder = new Button();
+                    final Button placeholder = new Button();
+                    Celda celda = new Celda(i+1,j+1);
                     placeholder.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
-                            ButtonCelda();
+                            ButtonCelda(celda,placeholder);
                         }
                     });
                     placeholder.setMinSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño mínimo para visualización
                     placeholder.setMaxSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño mínimo para visualización
-                    placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center;");
+                    placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center");
                     tableroDeJuego.add(placeholder, i, j);
-                    Celda celda = new Celda(i,j,placeholder);
                     listaS.add(celda);
                     //LDE.add(celda)...
                 }
