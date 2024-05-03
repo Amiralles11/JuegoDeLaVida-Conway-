@@ -44,4 +44,14 @@ public abstract class Individuo {
     public void setPorcentajeTipoAlReproducirse(int porcentajeTipoAlReproducirse) {
         this.porcentajeTipoAlReproducirse = porcentajeTipoAlReproducirse;
     }
+
+    @Override
+    public String toString() {
+        return "Individuo{" +
+                "vidas=" + vidas +
+                ", porcentajeReproduccion=" + porcentajeReproduccion +
+                ", porcentajeClonacion=" + porcentajeClonacion +
+                ", porcentajeTipoAlReproducirse=" + porcentajeTipoAlReproducirse +
+                '}';
+    }
 }
