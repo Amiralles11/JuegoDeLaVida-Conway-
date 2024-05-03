@@ -29,4 +29,9 @@ public class Tablero {
     public void setColumnas(int columnas) {
         dimensiones.getElemento(1).setData(columnas);
     }
+    @Override
+    public String toString() {
+        return "Filas: " + dimensiones.getElemento(0).getData() +
+                "Columnas: " + dimensiones.getElemento(1).getData();
+    }
 }
