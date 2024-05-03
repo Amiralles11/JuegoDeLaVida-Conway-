@@ -207,7 +207,7 @@ public class ParameterController implements Initializable {
         sliderColumnas.valueProperty().bindBidirectional(modelTablero.ColumnasProperty());
         log.info("sliders generados");
     }
-
+    // Listener para actualizar la suma total
 
     /**
      * Este método recibe los datos del modelo y los establece
@@ -532,11 +532,24 @@ public class ParameterController implements Initializable {
         tab.start(modelTablero.getOriginal(),(new IndividuoTipoBasico(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
                 (new IndividuoTipoNormal(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
                 (new IndividuoTipoAvanzado(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
-                (new RecursoAgua(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),modelAgua.getOriginal().getPorcentajeAparicion2())),
-                (new RecursoComida(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),modelComida.getOriginal().getPorcentajeAparicion2())),
-                (new RecursoMontaña(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),modelMontaña.getOriginal().getPorcentajeAparicion2())),
-                (new RecursoTesoro(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),modelTesoro.getOriginal().getPorcentajeAparicion2())),
-                (new RecursoBiblioteca(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),modelBiblioteca.getOriginal().getPorcentajeAparicion2())),
-                (new RecursoPozo(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),modelPozo.getOriginal().getPorcentajeAparicion2())));
+                (new RecursoAgua(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelAgua.getOriginal().getPorcentajeAparicion2()))),
+                (new RecursoComida(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelComida.getOriginal().getPorcentajeAparicion2()))),
+                (new RecursoMontaña(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelMontaña.getOriginal().getPorcentajeAparicion2()))),
+                (new RecursoTesoro(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelTesoro.getOriginal().getPorcentajeAparicion2()))),
+                (new RecursoBiblioteca(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelBiblioteca.getOriginal().getPorcentajeAparicion2()))),
+                (new RecursoPozo(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelPozo.getOriginal().getPorcentajeAparicion2()))));
+        log.info("aparicionAgua="+getPorcentajesRecurso(modelAgua.getOriginal().getPorcentajeAparicion2()));
+        log.info("aparicionComida="+getPorcentajesRecurso(modelComida.getOriginal().getPorcentajeAparicion2()));
+        log.info("aparicionMontaña="+getPorcentajesRecurso(modelMontaña.getOriginal().getPorcentajeAparicion2()));
+        log.info("aparicionTesoro="+getPorcentajesRecurso(modelTesoro.getOriginal().getPorcentajeAparicion2()));
+        log.info("aparicionBiblioteca="+getPorcentajesRecurso(modelBiblioteca.getOriginal().getPorcentajeAparicion2()));
+        log.info("aparicionPozo="+getPorcentajesRecurso(modelPozo.getOriginal().getPorcentajeAparicion2()));
     }
-}
+    protected int getPorcentajesRecurso(int dato) {
+        int total = modelAgua.getOriginal().getPorcentajeAparicion2() + modelComida.getOriginal().getPorcentajeAparicion2() + modelMontaña.getOriginal().getPorcentajeAparicion2() +
+                modelTesoro.getOriginal().getPorcentajeAparicion2() + modelBiblioteca.getOriginal().getPorcentajeAparicion2() + modelPozo.getOriginal().getPorcentajeAparicion2();
+
+        return dato* 100 / total ;
+    }
+    }
+
