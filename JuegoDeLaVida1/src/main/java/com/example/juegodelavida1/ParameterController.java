@@ -528,7 +528,7 @@ public class ParameterController implements Initializable {
     protected void ButtonOnClickTablero() {
         log.info("Creando nuevo controlador de tablero (TableroController)");
         TableroController tab = new TableroController();
-        log.debug("Creando clases con los datos de los sliders");
+        log.info("Creando clases con los datos de los sliders");
         tab.start(modelTablero.getOriginal(),(new IndividuoTipoBasico(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
                 (new IndividuoTipoNormal(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
                 (new IndividuoTipoAvanzado(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
@@ -538,12 +538,14 @@ public class ParameterController implements Initializable {
                 (new RecursoTesoro(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelTesoro.getOriginal().getPorcentajeAparicion2()))),
                 (new RecursoBiblioteca(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelBiblioteca.getOriginal().getPorcentajeAparicion2()))),
                 (new RecursoPozo(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelPozo.getOriginal().getPorcentajeAparicion2()))));
-        log.info("aparicionAgua="+getPorcentajesRecurso(modelAgua.getOriginal().getPorcentajeAparicion2()));
-        log.info("aparicionComida="+getPorcentajesRecurso(modelComida.getOriginal().getPorcentajeAparicion2()));
-        log.info("aparicionMontaña="+getPorcentajesRecurso(modelMontaña.getOriginal().getPorcentajeAparicion2()));
-        log.info("aparicionTesoro="+getPorcentajesRecurso(modelTesoro.getOriginal().getPorcentajeAparicion2()));
-        log.info("aparicionBiblioteca="+getPorcentajesRecurso(modelBiblioteca.getOriginal().getPorcentajeAparicion2()));
-        log.info("aparicionPozo="+getPorcentajesRecurso(modelPozo.getOriginal().getPorcentajeAparicion2()));
+        log.debug("aparicionAgua="+getPorcentajesRecurso(modelAgua.getOriginal().getPorcentajeAparicion2()));
+        log.debug("aparicionComida="+getPorcentajesRecurso(modelComida.getOriginal().getPorcentajeAparicion2()));
+        log.debug("aparicionMontaña="+getPorcentajesRecurso(modelMontaña.getOriginal().getPorcentajeAparicion2()));
+        log.debug("aparicionTesoro="+getPorcentajesRecurso(modelTesoro.getOriginal().getPorcentajeAparicion2()));
+        log.debug("aparicionBiblioteca="+getPorcentajesRecurso(modelBiblioteca.getOriginal().getPorcentajeAparicion2()));
+        log.debug("aparicionPozo="+getPorcentajesRecurso(modelPozo.getOriginal().getPorcentajeAparicion2()));
+        log.debug("Tablero="+modelTablero.getOriginal());
+        log.debug("Individuo="+model.getOriginal());
     }
     protected int getPorcentajesRecurso(int dato) {
         int total = modelAgua.getOriginal().getPorcentajeAparicion2() + modelComida.getOriginal().getPorcentajeAparicion2() + modelMontaña.getOriginal().getPorcentajeAparicion2() +
