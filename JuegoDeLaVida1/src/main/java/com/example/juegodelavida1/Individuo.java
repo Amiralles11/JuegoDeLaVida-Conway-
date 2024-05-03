@@ -44,4 +44,7 @@ public abstract class Individuo {
     public void setPorcentajeTipoAlReproducirse(int porcentajeTipoAlReproducirse) {
         this.porcentajeTipoAlReproducirse = porcentajeTipoAlReproducirse;
     }
+
+    public abstract void move();
+
 }

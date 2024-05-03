@@ -1,7 +1,24 @@
 package com.example.juegodelavida1;
 
+import java.util.Random;
+
 public class IndividuoTipoBasico extends Individuo{
     public IndividuoTipoBasico(int vidas, int porcentajeReproduccion, int porcentajeClonacion, int porcentajeTipoAlReproducirse) {
         super(vidas, porcentajeReproduccion, porcentajeClonacion, porcentajeTipoAlReproducirse);
+    }
+
+    @Override
+    public void move() {
+        Random r = new Random();
+        int valor = r.nextInt(1, 4);
+        if (valor == 1) {
+
+        } else if (valor == 2) {
+
+        } else if (valor == 3) {
+
+        } else {
+
+        }
     }
 }
