@@ -27,4 +27,5 @@ public class Tablero {
     public void setColumnas(int columnas) {
         dimensiones[1] = columnas;
     }
+
 }
