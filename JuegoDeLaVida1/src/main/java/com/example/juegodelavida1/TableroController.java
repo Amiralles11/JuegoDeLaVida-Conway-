@@ -1,6 +1,7 @@
 package com.example.juegodelavida1;
 
 
+import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ import java.util.ResourceBundle;
 
 
 public class TableroController implements Initializable {
+    private ListaSimple<ListaSimple<Celda>> listaCeldas;
     private static int ventanas = 1;
     private static final Logger log = LogManager.getLogger(TableroController.class);
     private static Tablero tablero;
@@ -85,7 +87,9 @@ public class TableroController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("Inicializando tablero");
         if (tablero != null) {
+            listaCeldas = new ListaSimple<>(tablero.getColumnas());
             for (int i = 0; i < tablero.getColumnas(); i++) {
+                ListaSimple<Celda> listaS = new ListaSimple<>(tablero.getFilas());
                 //LDE = new ListaDoblementeEnlazada()...
                 for (int j = 0; j < tablero.getFilas(); j++) {
                     // Aquí podrías instanciar tu LetrasColoresGrid
@@ -105,10 +109,13 @@ public class TableroController implements Initializable {
                     placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center;");
                     tableroDeJuego.add(placeholder, i, j);
                     Celda celda = new Celda(i,j,placeholder);
+                    listaS.add(celda);
                     //LDE.add(celda)...
                 }
+                listaCeldas.add(listaS);
             }
         }
         log.info("Tablero terminado");
+        log.debug(listaCeldas);
     }
 }
