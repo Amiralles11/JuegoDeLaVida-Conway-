@@ -1,7 +1,6 @@
 package com.example.juegodelavida1;
 
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
-
 public class Tablero {
     ListaSimple<Integer> dimensiones = new ListaSimple<>(2);
 
