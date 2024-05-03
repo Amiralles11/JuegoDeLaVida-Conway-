@@ -34,4 +34,5 @@ public class Tablero {
         return "Filas: " + dimensiones.getElemento(0).getData() +
                 "Columnas: " + dimensiones.getElemento(1).getData();
     }
+
 }
