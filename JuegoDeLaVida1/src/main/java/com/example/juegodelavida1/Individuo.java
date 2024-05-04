@@ -46,12 +46,5 @@ public abstract class Individuo {
     }
 
     @Override
-    public String toString() {
-        return "Individuo{" +
-                "vidas=" + vidas +
-                ", porcentajeReproduccion=" + porcentajeReproduccion +
-                ", porcentajeClonacion=" + porcentajeClonacion +
-                ", porcentajeTipoAlReproducirse=" + porcentajeTipoAlReproducirse +
-                '}';
-    }
+    public abstract String toString();
 }

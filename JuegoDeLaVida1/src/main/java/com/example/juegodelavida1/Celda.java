@@ -1,16 +1,18 @@
 package com.example.juegodelavida1;
 
+import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
 import javafx.scene.control.Button;
 
 public class Celda {
     private final ListaSimple<Integer> coordenadas = new ListaSimple<>(2);
-    private ListaSimple<Individuo> individuos;
-    private ListaSimple<Recurso> recursos;
+    private ListaEnlazada<Individuo> individuos = new ListaEnlazada<>();
+    private ListaEnlazada<Recurso> recursos = new ListaEnlazada<>();
 
     public Celda(int fila, int columna) {
         this.coordenadas.add(fila);
         this.coordenadas.add(columna);
+
     }
 
     public Integer getFilas() {
@@ -33,6 +35,22 @@ public class Celda {
     }
     protected void add(Recurso recurso){
         recursos.add(recurso);
+    }
+
+    public ListaEnlazada<Individuo> getIndividuos() {
+        return individuos;
+    }
+
+    public void setIndividuos(ListaEnlazada<Individuo> individuos) {
+        this.individuos = individuos;
+    }
+
+    public ListaEnlazada<Recurso> getRecursos() {
+        return recursos;
+    }
+
+    public void setRecursos(ListaEnlazada<Recurso> recursos) {
+        this.recursos = recursos;
     }
 }
 

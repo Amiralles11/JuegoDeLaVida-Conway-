@@ -19,8 +19,8 @@ public class PrincipalController {
     private RecursoMontaña recursoMontaña;
     private RecursoPozo recursoPozo;
     private RecursoTesoro recursoTesoro;
-    @FXML
-    public void start(IndividuoTipoBasico individuoTipoBasico,
+
+    public PrincipalController(IndividuoTipoBasico individuoTipoBasico,
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
                       RecursoAgua recursoAgua, RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,

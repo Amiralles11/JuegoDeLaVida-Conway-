@@ -14,19 +14,20 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CeldaController implements Initializable {
+    private static int individuos = 0;
     private static final Logger log = LogManager.getLogger(CeldaController.class);
-    private PrincipalController pC;
-    private Celda celda;
-    private Button button;
-    private IndividuoTipoBasico individuoTipoBasico;
-    private IndividuoTipoNormal individuoTipoNormal;
-    private IndividuoTipoAvanzado individuoTipoAvanzado;
-    private RecursoAgua recursoAgua;
-    private RecursoBiblioteca recursoBiblioteca;
-    private RecursoComida recursoComida;
-    private RecursoMontaña recursoMontaña;
-    private RecursoPozo recursoPozo;
-    private RecursoTesoro recursoTesoro;
+    private static PrincipalController pC;
+    private static Celda celda;
+    private static Button button;
+    private static IndividuoTipoBasico individuoTipoBasico;
+    private static IndividuoTipoNormal individuoTipoNormal;
+    private static IndividuoTipoAvanzado individuoTipoAvanzado;
+    private static RecursoAgua recursoAgua;
+    private static RecursoBiblioteca recursoBiblioteca;
+    private static RecursoComida recursoComida;
+    private static RecursoMontaña recursoMontaña;
+    private static RecursoPozo recursoPozo;
+    private static RecursoTesoro recursoTesoro;
     @FXML
     Label titulo;
     @FXML
@@ -52,117 +53,126 @@ public class CeldaController implements Initializable {
     @FXML
     MenuItem AñadirRecursoPozo;
 
-    protected void ButtonCelda(Celda celda, Button button,PrincipalController pC, IndividuoTipoBasico individuoTipoBasico,
-                               IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
-                               RecursoAgua recursoAgua,  RecursoComida recursoComida, RecursoMontaña recursoMontaña,
-                               RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo){
+    protected void ButtonCelda(Celda celda,Button button,PrincipalController pC){
         this.celda = celda;
         this.button = button;
         this.pC = pC;
-        this.individuoTipoBasico = individuoTipoBasico;
-        this.individuoTipoNormal = individuoTipoNormal;
-        this.individuoTipoAvanzado = individuoTipoAvanzado;
-        this.recursoAgua = recursoAgua;
-        this.recursoBiblioteca = recursoBiblioteca;
-        this.recursoComida = recursoComida;
-        this.recursoMontaña = recursoMontaña;
-        this.recursoPozo = recursoPozo;
-        this.recursoTesoro = recursoTesoro;
+        this.individuoTipoBasico = pC.getIndividuoTipoBasico();
+        this.individuoTipoNormal = pC.getIndividuoTipoNormal();
+        this.individuoTipoAvanzado = pC.getIndividuoTipoAvanzado();
+        this.recursoAgua = pC.getRecursoAgua();
+        this.recursoBiblioteca = pC.getRecursoBiblioteca();
+        this.recursoComida = pC.getRecursoComida();
+        this.recursoMontaña = pC.getRecursoMontaña();
+        this.recursoPozo = pC.getRecursoPozo();
+        this.recursoTesoro = pC.getRecursoTesoro();
     }
     @FXML
-    protected void AñadirIndividuoBasico(Celda celda,Button button){
+    protected void AñadirIndividuoBasico(){
         log.info("Iniciando metodo AñadirIndividuoBasico");
+        log.debug(celda);
+        celda.add(new IndividuoTipoBasico(individuos++,individuoTipoBasico));
+        log.debug(celda);
+        log.info("Finalizando metodo AñadirIndividuoBasico");
     }
     @FXML
-    protected void AñadirIndividuoNormal(Celda celda,Button button){
+    protected void AñadirIndividuoNormal(){
+        log.info("Iniciando metodo AñadirIndividuoNormal");
+        log.debug(celda);
+        celda.add(new IndividuoTipoNormal(individuos++,individuoTipoNormal));
+        log.debug(celda);
+        log.info("Finalizando metodo AñadirIndividuoNormal");
 
     }
     @FXML
-    protected void AñadirIndividuoAvanzado(Celda celda,Button button){
+    protected void AñadirIndividuoAvanzado(){
+        log.info("Iniciando metodo AñadirIndividuoAvanzado");
+        log.debug(celda);
+        celda.add(new IndividuoTipoNormal(individuos++,individuoTipoAvanzado));
+        log.debug(celda);
+        log.info("Finalizando metodo AñadirIndividuoAvanzado");
+    }
+    @FXML
+    protected void AñadirRecursoAgua(){
 
     }
     @FXML
-    protected void AñadirRecursoAgua(Celda celda,Button button){
+    protected void AñadirRecursoComida(){
 
     }
     @FXML
-    protected void AñadirRecursoComida(Celda celda,Button button){
+    protected void AñadirRecursoMontaña(){
 
     }
     @FXML
-    protected void AñadirRecursoMontaña(Celda celda,Button button){
+    protected void AñadirRecursoTesoro(){
 
     }
     @FXML
-    protected void AñadirRecursoTesoro(Celda celda,Button button){
+    protected void AñadirRecursoBiblioteca(){
 
     }
     @FXML
-    protected void AñadirRecursoBiblioteca(Celda celda,Button button){
-
-    }
-    @FXML
-    protected void AñadirRecursoPozo(Celda celda,Button button){
+    protected void AñadirRecursoPozo(){
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        log.info("Inicializando controlador de celda");
-        AñadirIndividuoBasico.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                AñadirIndividuoBasico(celda,button);
-            }
-        });
-        AñadirIndividuoNormal.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                AñadirIndividuoNormal(celda,button);
-            }
-        });
-        AñadirIndividuoAvanzado.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                AñadirIndividuoAvanzado(celda,button);
-            }
-        });
-        AñadirRecursoAgua.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                AñadirRecursoAgua(celda,button);
-            }
-        });
-        AñadirRecursoComida.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                AñadirRecursoComida(celda,button);
-            }
-        });
-        AñadirRecursoMontaña.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                AñadirRecursoMontaña(celda,button);
-            }
-        });
-        AñadirRecursoTesoro.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                AñadirRecursoTesoro(celda,button);
-            }
-        });
-        AñadirRecursoBiblioteca.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                AñadirRecursoBiblioteca(celda,button);
-            }
-        });
-        AñadirRecursoPozo.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                AñadirRecursoPozo(celda,button);
-            }
-        });
-
-    }
+            log.info("Inicializando controlador de celda");
+            AñadirIndividuoBasico.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    AñadirIndividuoBasico();
+                }
+            });
+            AñadirIndividuoNormal.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    AñadirIndividuoNormal();
+                }
+            });
+            AñadirIndividuoAvanzado.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    AñadirIndividuoAvanzado();
+                }
+            });
+            AñadirRecursoAgua.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    AñadirRecursoAgua();
+                }
+            });
+            AñadirRecursoComida.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    AñadirRecursoComida();
+                }
+            });
+            AñadirRecursoMontaña.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    AñadirRecursoMontaña();
+                }
+            });
+            AñadirRecursoTesoro.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    AñadirRecursoTesoro();
+                }
+            });
+            AñadirRecursoBiblioteca.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    AñadirRecursoBiblioteca();
+                }
+            });
+            AñadirRecursoPozo.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    AñadirRecursoPozo();
+                }
+            });
+        }
 }

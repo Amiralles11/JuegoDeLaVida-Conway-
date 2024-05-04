@@ -110,4 +110,19 @@ public class ListaSimple<T> {
         return num;
     }
     public ElementoLS<T> getUltimo() {return datos[getNumeroElementos() - 1];}
+
+    @Override
+    public String toString() {
+        String s = "";
+        for(int i =0;i<getNumeroElementos();i++) {
+            if(i<getNumeroElementos()-1){
+                s +=getElemento(i).getData() + ", ";
+            }
+            else if(i==getNumeroElementos()-1){
+                s +=getElemento(i).getData();
+            }
+        }
+        return s;
+
+    }
 }
