@@ -5,8 +5,8 @@ import javafx.scene.control.Button;
 
 public class Celda {
     private final ListaSimple<Integer> coordenadas = new ListaSimple<>(2);
-    private ListaSimple<Integer> individuos;
-    private ListaSimple<Integer> recursos;
+    private ListaSimple<Individuo> individuos;
+    private ListaSimple<Recurso> recursos;
 
     public Celda(int fila, int columna) {
         this.coordenadas.add(fila);
@@ -27,6 +27,12 @@ public class Celda {
                 ", individuos=" + individuos +
                 ", recursos=" + recursos +
                 '}';
+    }
+    protected void add(Individuo individuo){
+        individuos.add(individuo);
+    }
+    protected void add(Recurso recurso){
+        recursos.add(recurso);
     }
 }
 

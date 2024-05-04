@@ -1,5 +1,7 @@
 package com.example.juegodelavida1.EstructurasDatos.ListaSimple;
 
+import java.util.Arrays;
+
 public class ListaSimple<T> {
     private ElementoLS<T>[] datos;
     private final int maximo;
@@ -9,42 +11,45 @@ public class ListaSimple<T> {
         this.datos = new ElementoLS[maximo];
     }
 
-    public boolean isVacia(){
-        for (int i = 0; i<maximo; i++){
+    public boolean isVacia() {
+        for (int i = 0; i < maximo; i++) {
             if (datos[i] != null) {
                 return false;
             }
         }
         return true;
     }
-    public void vaciar(){
-        for(int i=0;i<maximo; i++){
-            this.datos[i]=null;
+
+    public void vaciar() {
+        for (int i = 0; i < maximo; i++) {
+            this.datos[i] = null;
         }
     }
-    protected int add(ElementoLS<T> el){
-        int i=0;
-        while (datos[i] != null){
+
+    protected int add(ElementoLS<T> el) {
+        int i = 0;
+        while (datos[i] != null) {
             i++;
         }
-        if (i<maximo){
+        if (i < maximo) {
             datos[i] = el;
         }
         return getNumeroElementos();
     }
 
-    public void add(T o){
+    public void add(T o) {
         ElementoLS<T> ele = new ElementoLS<>(o);
         add(ele);
     }
-    public void insert(T s, int posicion){
+
+    public void insert(T s, int posicion) {
         ElementoLS<T> e = new ElementoLS<>(s);
         Integer i = 0;
-        if (datos[posicion] == null){
+        if (datos[posicion] == null) {
             datos[posicion] = e;
-        }else{
-            if(datos[maximo-1] == null){
-                for (int j=0;j<getNumeroElementos();j++) {
+        } else {
+            if (datos[maximo - 1] == null) {
+                for (int j = 0; j < getNumeroElementos(); j++) {
                     datos[getPosicion(getUltimo().getData()) - j] = datos[getPosicion(getUltimo().getData()) + 1 + j];
                 }
             }
@@ -52,12 +57,12 @@ public class ListaSimple<T> {
         }
     }
 
-    public int del(int posicion){
+    public int del(int posicion) {
         ElementoLS<T> e = new ElementoLS<>();
-        for(int i=0; posicion + i + 1 < maximo; i++){
-            if (datos[posicion]!=null){
-                datos[posicion+i] = datos[posicion + i + 1];
-            }else{
+        for (int i = 0; posicion + i + 1 < maximo; i++) {
+            if (datos[posicion] != null) {
+                datos[posicion + i] = datos[posicion + i + 1];
+            } else {
                 return 0;
             }
         }
@@ -65,43 +70,44 @@ public class ListaSimple<T> {
     }
 
     public Integer getPosicion(T el) {
-        for (int i=0; i < maximo; i++){
-            if (datos[i].getData() == el){
+        for (int i = 0; i < maximo; i++) {
+            if (datos[i].getData() == el) {
                 return i;
             }
         }
         return null;
     }
-    public ElementoLS<T> getPrimero(){
+
+    public ElementoLS<T> getPrimero() {
         return datos[0];
     }
-    public ElementoLS<T> getSiguiente(T el){
+
+    public ElementoLS<T> getSiguiente(T el) {
         ElementoLS<T> e = new ElementoLS<>(el);
         int i = 0;
-        while (i < maximo-1) {
-            if (datos[i].getData()==e.getData()) {
-                return datos[i+1];
+        while (i < maximo - 1) {
+            if (datos[i].getData() == e.getData()) {
+                return datos[i + 1];
             }
             i++;
         }
         return null;
     }
-    public ElementoLS<T> getElemento(int posicion){
-        if (datos[posicion]!=null){
+
+    public ElementoLS<T> getElemento(int posicion) {
+        if (datos[posicion] != null) {
             return datos[posicion];
         }
         return null;
     }
-    public int getNumeroElementos(){
+    public int getNumeroElementos() {
         int num = 0;
-        for (int i=0;i<maximo;i++){
-            if (datos[i]!=null){
+        for (int i = 0; i < maximo; i++) {
+            if (datos[i] != null) {
                 num++;
             }
         }
         return num;
     }
-    public ElementoLS<T> getUltimo(){
-        return datos[getNumeroElementos()-1];
-    }
+    public ElementoLS<T> getUltimo() {return datos[getNumeroElementos() - 1];}
 }
