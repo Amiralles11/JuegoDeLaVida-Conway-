@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 
 
 public class TableroController implements Initializable {
+    private PrincipalController pC =new PrincipalController();
     private ListaSimple<ListaSimple<Celda>> listaCeldas;
     private static int ventanas = 1;
     private static final Logger log = LogManager.getLogger(TableroController.class);
@@ -56,7 +57,7 @@ public class TableroController implements Initializable {
         this.recursoPozo = recursoPozo;
         this.recursoTesoro = recursoTesoro;
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Tablero.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(TableroController.class.getResource("Tablero.fxml"));
         try {
             Scene scene = new Scene(fxmlLoader.load(), 320*3, 240*3);
             stage.setTitle("Tablero");
@@ -74,13 +75,17 @@ public class TableroController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ButtonCelda.fxml"));
         try {
             Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-            stage.setTitle("Celda"+"("+celda.getFilas()+","+celda.getColumnas()+")");
+            stage.setTitle("Celda" + "(" + celda.getFilas() + "," + celda.getColumnas() + ")");
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
             log.error("ButtonCelda.fxml no encontrado");
             e.printStackTrace();
         }
+        CeldaController cD = new CeldaController();
+        cD.ButtonCelda(celda,button,pC, pC.getIndividuoTipoBasico(), pC.getIndividuoTipoNormal(), pC.getIndividuoTipoAvanzado(),
+                pC.getRecursoAgua(), pC.getRecursoComida(), pC.getRecursoMontaña(), pC.getRecursoTesoro(), pC.getRecursoBiblioteca(),
+                pC.getRecursoPozo());
         log.info("Finalizando metodo ButtonCelda");
     }
 
@@ -118,5 +123,7 @@ public class TableroController implements Initializable {
         }
         log.info("Tablero terminado");
         log.debug(listaCeldas);
-    }
+        pC.start(individuoTipoBasico,individuoTipoNormal,individuoTipoAvanzado,recursoAgua,recursoComida,recursoMontaña,
+                recursoTesoro,recursoBiblioteca,recursoPozo,listaCeldas);
+     }
 }
