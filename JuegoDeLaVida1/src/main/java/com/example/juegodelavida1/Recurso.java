@@ -26,4 +26,5 @@ public abstract class Recurso {
     }
     public abstract int getPorcentajeAparicion2();
     public abstract void setPorcentajeAparicion2(int porcentajeAparicion2);
+    public abstract String toString();
 }

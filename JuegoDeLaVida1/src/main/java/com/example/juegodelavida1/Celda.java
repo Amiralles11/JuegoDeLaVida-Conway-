@@ -24,7 +24,7 @@ public class Celda {
 
     @Override
     public String toString() {
-        return "Celda{" +
+        return "Celda("+(getFilas()+1)+","+(getColumnas()+1)+"){" +
                 "coordenadas=" + coordenadas +
                 ", individuos=" + individuos +
                 ", recursos=" + recursos +
