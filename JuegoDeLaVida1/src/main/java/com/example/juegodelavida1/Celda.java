@@ -53,4 +53,3 @@ public class Celda {
         this.recursos = recursos;
     }
 }
-

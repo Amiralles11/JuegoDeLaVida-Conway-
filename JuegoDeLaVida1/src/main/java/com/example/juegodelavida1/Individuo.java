@@ -47,4 +47,6 @@ public abstract class Individuo {
 
     @Override
     public abstract String toString();
+    public abstract void move();
+
 }
