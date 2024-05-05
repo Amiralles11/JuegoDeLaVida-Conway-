@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
@@ -19,19 +20,20 @@ import java.util.ResourceBundle;
 
 
 public class TableroController implements Initializable {
-    private ListaSimple<ListaSimple<Celda>> listaCeldas;
+    private PrincipalController pC;
+    private static ListaSimple<ListaSimple<Celda>> listaCeldas;
     private static int ventanas = 1;
     private static final Logger log = LogManager.getLogger(TableroController.class);
     private static Tablero tablero;
-    private IndividuoTipoBasico individuoTipoBasico;
-    private IndividuoTipoNormal individuoTipoNormal;
-    private IndividuoTipoAvanzado individuoTipoAvanzado;
-    private RecursoAgua recursoAgua;
-    private RecursoBiblioteca recursoBiblioteca;
-    private RecursoComida recursoComida;
-    private RecursoMontaña recursoMontaña;
-    private RecursoPozo recursoPozo;
-    private RecursoTesoro recursoTesoro;
+    private static IndividuoTipoBasico individuoTipoBasico;
+    private static IndividuoTipoNormal individuoTipoNormal;
+    private static IndividuoTipoAvanzado individuoTipoAvanzado;
+    private static RecursoAgua recursoAgua;
+    private static RecursoBiblioteca recursoBiblioteca;
+    private static RecursoComida recursoComida;
+    private static RecursoMontaña recursoMontaña;
+    private static RecursoPozo recursoPozo;
+    private static RecursoTesoro recursoTesoro;
 
     @FXML
     private GridPane tableroDeJuego;
@@ -55,7 +57,7 @@ public class TableroController implements Initializable {
         this.recursoPozo = recursoPozo;
         this.recursoTesoro = recursoTesoro;
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Tablero.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(TableroController.class.getResource("Tablero.fxml"));
         try {
             Scene scene = new Scene(fxmlLoader.load(), 320*3, 240*3);
             stage.setTitle("Tablero");
@@ -67,26 +69,27 @@ public class TableroController implements Initializable {
         }
     }
     @FXML
-    protected void ButtonCelda(){
+    protected void ButtonCelda(Celda celda,Button button){
         log.info("Iniciando metodo ButtonCelda");
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaVidas.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ButtonCelda.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
-            stage.setTitle("Vidas");
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+            stage.setTitle("Celda" + "(" + (celda.getFilas()+1) + "," + (celda.getColumnas()+1) + ")");
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-            log.error("zVentanaVidas.fxml no encontrado");
+            log.error("ButtonCelda.fxml no encontrado");
             e.printStackTrace();
         }
+        CeldaController cD = new CeldaController();
+        cD.ButtonCelda(celda,button,pC);
         log.info("Finalizando metodo ButtonCelda");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("Inicializando tablero");
-        if (tablero != null) {
             listaCeldas = new ListaSimple<>(tablero.getColumnas());
             for (int i = 0; i < tablero.getColumnas(); i++) {
                 ListaSimple<Celda> listaS = new ListaSimple<>(tablero.getFilas());
@@ -97,25 +100,26 @@ public class TableroController implements Initializable {
                     // mainGrid.add(customComponent, i, j);
 
                     // Ejemplo simplificado con un label
-                    Button placeholder = new Button();
+                    final Button placeholder = new Button();
+                    Celda celda = new Celda(j,i);
                     placeholder.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
-                            ButtonCelda();
+                            ButtonCelda(celda,placeholder);
                         }
                     });
                     placeholder.setMinSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño mínimo para visualización
                     placeholder.setMaxSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño mínimo para visualización
-                    placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center;");
+                    placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center");
                     tableroDeJuego.add(placeholder, i, j);
-                    Celda celda = new Celda(i,j,placeholder);
                     listaS.add(celda);
                     //LDE.add(celda)...
                 }
                 listaCeldas.add(listaS);
             }
-        }
         log.info("Tablero terminado");
         log.debug(listaCeldas);
-    }
+        pC = new PrincipalController(individuoTipoBasico,individuoTipoNormal,individuoTipoAvanzado,recursoAgua,recursoComida,recursoMontaña,
+                recursoTesoro,recursoBiblioteca,recursoPozo,listaCeldas);
+     }
 }

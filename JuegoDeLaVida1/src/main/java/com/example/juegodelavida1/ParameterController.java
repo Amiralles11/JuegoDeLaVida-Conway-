@@ -525,7 +525,7 @@ public class ParameterController implements Initializable {
     }
 
     @FXML
-    protected void ButtonOnClickTablero() {
+    protected void ButtonOnClickTablero() throws Exception {
         log.info("Creando nuevo controlador de tablero (TableroController)");
         TableroController tab = new TableroController();
         log.info("Creando clases con los datos de los sliders");

@@ -1,21 +1,55 @@
 package com.example.juegodelavida1;
 
+import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
 import javafx.scene.control.Button;
 
 public class Celda {
-    private final Button button;
     private final ListaSimple<Integer> coordenadas = new ListaSimple<>(2);
-    private ListaSimple<Integer> individuos;
-    private ListaSimple<Integer> recursos;
+    private ListaEnlazada<Individuo> individuos = new ListaEnlazada<>();
+    private ListaEnlazada<Recurso> recursos = new ListaEnlazada<>();
 
-    public Celda(int fila, int columna, Button button) {
+    public Celda(int fila, int columna) {
         this.coordenadas.add(fila);
         this.coordenadas.add(columna);
-        this.button = button;
+
     }
 
-    public Button getButton() {
-        return button;
+    public Integer getFilas() {
+        return coordenadas.getElemento(0).getData();
+    }
+    public Integer getColumnas() {
+        return coordenadas.getElemento(1).getData();
+    }
+
+    @Override
+    public String toString() {
+        return "Celda{" +
+                "coordenadas=" + coordenadas +
+                ", individuos=" + individuos +
+                ", recursos=" + recursos +
+                '}';
+    }
+    protected void add(Individuo individuo){
+        individuos.add(individuo);
+    }
+    protected void add(Recurso recurso){
+        recursos.add(recurso);
+    }
+
+    public ListaEnlazada<Individuo> getIndividuos() {
+        return individuos;
+    }
+
+    public void setIndividuos(ListaEnlazada<Individuo> individuos) {
+        this.individuos = individuos;
+    }
+
+    public ListaEnlazada<Recurso> getRecursos() {
+        return recursos;
+    }
+
+    public void setRecursos(ListaEnlazada<Recurso> recursos) {
+        this.recursos = recursos;
     }
 }

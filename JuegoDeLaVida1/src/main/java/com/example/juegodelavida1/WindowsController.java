@@ -11,8 +11,8 @@ import org.apache.logging.log4j.Logger;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HelloController implements Initializable {
-    private static final Logger log = LogManager.getLogger(HelloController.class);
+public class WindowsController implements Initializable {
+    private static final Logger log = LogManager.getLogger(WindowsController.class);
     private Individuo parametrosData = new IndividuoTipoBasico(20, 50,20,80 );
     private Recurso parametrosData2 = new RecursoAgua(20, 50,-1 );
     private RecursoAgua parametrosDataAgua = new RecursoAgua(-1, -1,50);
