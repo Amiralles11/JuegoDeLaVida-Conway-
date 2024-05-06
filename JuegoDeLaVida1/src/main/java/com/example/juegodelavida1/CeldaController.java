@@ -94,27 +94,54 @@ public class CeldaController implements Initializable {
     }
     @FXML
     protected void AñadirRecursoAgua(){
+        log.info("Iniciando metodo AñadirRecursoAgua");
+        log.debug(celda);
+        celda.add(recursoAgua);
+        log.debug(celda);
+        log.info("Finalizando metodo AñadirRecursoAgua");
 
     }
     @FXML
     protected void AñadirRecursoComida(){
+        log.info("Iniciando metodo AñadirRecursoComida");
+        log.debug(celda);
+        celda.add(recursoComida);
+        log.debug(celda);
+        log.info("Finalizando metodo AñadirRecursoComida");
 
     }
     @FXML
     protected void AñadirRecursoMontaña(){
-
+        log.info("Iniciando metodo AñadirRecursoMontaña");
+        log.debug(celda);
+        celda.add(recursoMontaña);
+        log.debug(celda);
+        log.info("Finalizando metodo AñadirRecursoMontaña");
     }
     @FXML
     protected void AñadirRecursoTesoro(){
+        log.info("Iniciando metodo AñadirRecursoTesoro");
+        log.debug(celda);
+        celda.add(recursoTesoro);
+        log.debug(celda);
+        log.info("Finalizando metodo AñadirRecursoTesoro");
 
     }
     @FXML
     protected void AñadirRecursoBiblioteca(){
-
+        log.info("Iniciando metodo AñadirRecursoBiblioteca");
+        log.debug(celda);
+        celda.add(recursoBiblioteca);
+        log.debug(celda);
+        log.info("Finalizando metodo AñadirRecursoBiblioteca");
     }
     @FXML
     protected void AñadirRecursoPozo(){
-
+        log.info("Iniciando metodo AñadirRecursoPozo");
+        log.debug(celda);
+        celda.add(recursoPozo);
+        log.debug(celda);
+        log.info("Finalizando metodo AñadirRecursoPozo");
     }
 
     @Override

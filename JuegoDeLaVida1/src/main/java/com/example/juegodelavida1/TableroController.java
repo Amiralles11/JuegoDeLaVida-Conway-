@@ -118,7 +118,6 @@ public class TableroController implements Initializable {
                 listaCeldas.add(listaS);
             }
         log.info("Tablero terminado");
-        log.debug(listaCeldas);
         pC = new PrincipalController(individuoTipoBasico,individuoTipoNormal,individuoTipoAvanzado,recursoAgua,recursoComida,recursoMontaña,
                 recursoTesoro,recursoBiblioteca,recursoPozo,listaCeldas);
      }
