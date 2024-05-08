@@ -216,6 +216,7 @@ public class ParameterController implements Initializable {
                              RecursoParametros.RecursoParametrosMontaña parametrosMontaña, RecursoParametros.RecursoParametrosTesoro parametrosTesoro,
                              RecursoParametros.RecursoParametrosBiblioteca parametrosBiblioteca, RecursoParametros.RecursoParametrosPozo parametrosPozo,
                              TableroParametros tableroParametros) {
+        log.info("Cargando datos genéricos");
         this.model = parametrosData;
         this.model2 = parametrosData2;
         this.modelAgua = parametrosAgua;
@@ -538,6 +539,9 @@ public class ParameterController implements Initializable {
                 (new RecursoTesoro(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelTesoro.getOriginal().getPorcentajeAparicion2()))),
                 (new RecursoBiblioteca(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelBiblioteca.getOriginal().getPorcentajeAparicion2()))),
                 (new RecursoPozo(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelPozo.getOriginal().getPorcentajeAparicion2()))));
+        log.debug(model.getOriginal().toString());
+        log.debug("Porcentaje Aparicion recurso"+model2.getOriginal().getPorcentajeAparicion());
+        log.debug("Tiempo Aparicion recurso"+model2.getOriginal().getTiempoAparicion());
         log.debug("aparicionAgua="+getPorcentajesRecurso(modelAgua.getOriginal().getPorcentajeAparicion2()));
         log.debug("aparicionComida="+getPorcentajesRecurso(modelComida.getOriginal().getPorcentajeAparicion2()));
         log.debug("aparicionMontaña="+getPorcentajesRecurso(modelMontaña.getOriginal().getPorcentajeAparicion2()));
@@ -546,6 +550,8 @@ public class ParameterController implements Initializable {
         log.debug("aparicionPozo="+getPorcentajesRecurso(modelPozo.getOriginal().getPorcentajeAparicion2()));
         log.debug("Tablero="+modelTablero.getOriginal());
         log.debug("Individuo="+model.getOriginal());
+        log.debug(modelTablero.getOriginal().toString());
+        log.info("Finalizando metodo ButtonClcikTablero");
     }
     protected int getPorcentajesRecurso(int dato) {
         int total = modelAgua.getOriginal().getPorcentajeAparicion2() + modelComida.getOriginal().getPorcentajeAparicion2() + modelMontaña.getOriginal().getPorcentajeAparicion2() +
