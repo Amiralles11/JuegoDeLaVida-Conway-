@@ -93,88 +93,106 @@ public class CeldaController implements Initializable {
     }
     @FXML
     protected void AñadirIndividuoBasico(){
-        log.info("Iniciando metodo AñadirIndividuoBasico");
-        log.debug(celda);
-        celda.add(new IndividuoTipoBasico(individuos++,individuoTipoBasico));
-        log.debug(celda);
-        log.info("Finalizando metodo AñadirIndividuoBasico");
-        updateGUIwithModel();
+        if(celda.getIndividuos().getNumeroElementos()<3) {
+            log.info("Iniciando metodo AñadirIndividuoBasico");
+            log.debug(celda);
+            celda.add(new IndividuoTipoBasico(individuos++, individuoTipoBasico));
+            log.debug(celda);
+            log.info("Finalizando metodo AñadirIndividuoBasico");
+            updateGUIwithModel();
+        }
     }
     @FXML
     protected void AñadirIndividuoNormal(){
-        log.info("Iniciando metodo AñadirIndividuoNormal");
-        log.debug(celda);
-        celda.add(new IndividuoTipoNormal(individuos++,individuoTipoNormal));
-        log.debug(celda);
-        log.info("Finalizando metodo AñadirIndividuoNormal");
-        updateGUIwithModel();
+        if(celda.getIndividuos().getNumeroElementos()<3) {
+            log.info("Iniciando metodo AñadirIndividuoNormal");
+            log.debug(celda);
+            celda.add(new IndividuoTipoNormal(individuos++, individuoTipoNormal));
+            log.debug(celda);
+            log.info("Finalizando metodo AñadirIndividuoNormal");
+            updateGUIwithModel();
+        }
 
     }
     @FXML
     protected void AñadirIndividuoAvanzado(){
-        log.info("Iniciando metodo AñadirIndividuoAvanzado");
-        log.debug(celda);
-        celda.add(new IndividuoTipoNormal(individuos++,individuoTipoAvanzado));
-        log.debug(celda);
-        log.info("Finalizando metodo AñadirIndividuoAvanzado");
-        updateGUIwithModel();
+            if(celda.getIndividuos().getNumeroElementos()<3) {
+                log.info("Iniciando metodo AñadirIndividuoAvanzado");
+                log.debug(celda);
+                celda.add(new IndividuoTipoNormal(individuos++, individuoTipoAvanzado));
+                log.debug(celda);
+                log.info("Finalizando metodo AñadirIndividuoAvanzado");
+                updateGUIwithModel();
+            }
     }
     @FXML
     protected void AñadirRecursoAgua(){
-        log.info("Iniciando metodo AñadirRecursoAgua");
-        log.debug(celda);
-        celda.add(recursoAgua);
-        log.debug(celda);
-        log.info("Finalizando metodo AñadirRecursoAgua");
-        updateGUIwithModel();
+        if(celda.getRecursos().getNumeroElementos()<3) {
+            log.info("Iniciando metodo AñadirRecursoAgua");
+            log.debug(celda);
+            celda.add(recursoAgua);
+            log.debug(celda);
+            log.info("Finalizando metodo AñadirRecursoAgua");
+            updateGUIwithModel();
+        }
 
     }
     @FXML
     protected void AñadirRecursoComida(){
-        log.info("Iniciando metodo AñadirRecursoComida");
-        log.debug(celda);
-        celda.add(recursoComida);
-        log.debug(celda);
-        log.info("Finalizando metodo AñadirRecursoComida");
-        updateGUIwithModel();
+        if(celda.getRecursos().getNumeroElementos()<3) {
+            log.info("Iniciando metodo AñadirRecursoComida");
+            log.debug(celda);
+            celda.add(recursoComida);
+            log.debug(celda);
+            log.info("Finalizando metodo AñadirRecursoComida");
+            updateGUIwithModel();
+        }
 
     }
     @FXML
     protected void AñadirRecursoMontaña(){
-        log.info("Iniciando metodo AñadirRecursoMontaña");
-        log.debug(celda);
-        celda.add(recursoMontaña);
-        log.debug(celda);
-        log.info("Finalizando metodo AñadirRecursoMontaña");
-        updateGUIwithModel();
+        if(celda.getRecursos().getNumeroElementos()<3) {
+            log.info("Iniciando metodo AñadirRecursoMontaña");
+            log.debug(celda);
+            celda.add(recursoMontaña);
+            log.debug(celda);
+            log.info("Finalizando metodo AñadirRecursoMontaña");
+            updateGUIwithModel();
+        }
     }
     @FXML
     protected void AñadirRecursoTesoro(){
-        log.info("Iniciando metodo AñadirRecursoTesoro");
-        log.debug(celda);
-        celda.add(recursoTesoro);
-        log.debug(celda);
-        log.info("Finalizando metodo AñadirRecursoTesoro");
-        updateGUIwithModel();
+        if(celda.getRecursos().getNumeroElementos()<3) {
+            log.info("Iniciando metodo AñadirRecursoTesoro");
+            log.debug(celda);
+            celda.add(recursoTesoro);
+            log.debug(celda);
+            log.info("Finalizando metodo AñadirRecursoTesoro");
+            updateGUIwithModel();
+        }
 
     }
     @FXML
     protected void AñadirRecursoBiblioteca(){
-        log.info("Iniciando metodo AñadirRecursoBiblioteca");
-        log.debug(celda);
-        celda.add(recursoBiblioteca);
-        log.debug(celda);
-        log.info("Finalizando metodo AñadirRecursoBiblioteca");
-        updateGUIwithModel();
+        if(celda.getRecursos().getNumeroElementos()<3) {
+            log.info("Iniciando metodo AñadirRecursoBiblioteca");
+            log.debug(celda);
+            celda.add(recursoBiblioteca);
+            log.debug(celda);
+            log.info("Finalizando metodo AñadirRecursoBiblioteca");
+            updateGUIwithModel();
+        }
     }
     @FXML
     protected void AñadirRecursoPozo(){
-        log.info("Iniciando metodo AñadirRecursoPozo");
-        log.debug(celda);
-        celda.add(recursoPozo);
-        log.debug(celda);
-        log.info("Finalizando metodo AñadirRecursoPozo");
-        updateGUIwithModel();    }
+        if(celda.getRecursos().getNumeroElementos()<3) {
+            log.info("Iniciando metodo AñadirRecursoPozo");
+            log.debug(celda);
+            celda.add(recursoPozo);
+            log.debug(celda);
+            log.info("Finalizando metodo AñadirRecursoPozo");
+            updateGUIwithModel();
+        }}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
