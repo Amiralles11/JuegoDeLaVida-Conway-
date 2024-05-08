@@ -11,12 +11,7 @@ public class IndividuoTipoBasico extends Individuo{
     @Override
     public String toString() {
         {
-            return "Individuo"+" "+iD+" "+"{" +
-                    "vidas=" + super.getVidas() +
-                    ", porcentajeReproduccion=" + super.getPorcentajeReproduccion() +
-                    ", porcentajeClonacion=" + super.getPorcentajeClonacion() +
-                    ", porcentajeTipoAlReproducirse=" + super.getPorcentajeTipoAlReproducirse() +
-                    '}';
+            return "IndividuoBasico"+" "+iD+", vidas= "+super.getVidas();
         }
     }
 

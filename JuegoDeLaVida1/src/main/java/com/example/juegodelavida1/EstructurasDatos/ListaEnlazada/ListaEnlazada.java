@@ -158,4 +158,15 @@ public class ListaEnlazada<TipoDato> {
         }
         return ret;
     }
+    public String toString2() {
+        String s = "";
+        for (int i = 0; i < getNumeroElementos(); i++) {
+            if (i < getNumeroElementos() - 1) {
+                s += getElemento(i).getData() + "\n";
+            } else if (i == getNumeroElementos() - 1) {
+                s += getElemento(i).getData();
+            }
+        }
+        return s;
+    }
 }

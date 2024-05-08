@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -69,7 +71,26 @@ public class TableroController implements Initializable {
         }
     }
     @FXML
-    protected void ButtonCelda(Celda celda,Button button){
+    protected void RectangleOnDragEntered(Rectangle rectange, Celda celda){
+        rectange.setFill(Color.DARKGREY);
+    }
+    @FXML
+    protected void RectangleOnDragExited(Rectangle rectange, Celda celda){
+        if(celda.getIndividuos().getNumeroElementos()==0){
+            rectange.setFill(Color.WHITE);
+        }
+        else if(celda.getIndividuos().getNumeroElementos()==1){
+            rectange.setFill(Color.LIGHTYELLOW);
+        }
+        else if(celda.getIndividuos().getNumeroElementos()==2){
+            rectange.setFill(Color.YELLOW);
+        }
+        else if(celda.getIndividuos().getNumeroElementos()==3){
+            rectange.setFill(Color.YELLOWGREEN);
+        }
+    }
+    @FXML
+    protected void ButtonCelda(Celda celda,Rectangle rectangle){
         log.info("Iniciando metodo ButtonCelda");
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ButtonCelda.fxml"));
@@ -83,7 +104,7 @@ public class TableroController implements Initializable {
             e.printStackTrace();
         }
         CeldaController cD = new CeldaController();
-        cD.ButtonCelda(celda,button,pC);
+        cD.ButtonCelda(celda,rectangle,pC);
         log.info("Finalizando metodo ButtonCelda");
     }
 
@@ -100,17 +121,25 @@ public class TableroController implements Initializable {
                     // mainGrid.add(customComponent, i, j);
 
                     // Ejemplo simplificado con un label
+                    Rectangle rectangle = new Rectangle(310 * 3 / tablero.getColumnas(), 450 / tablero.getFilas(),Color.WHITE);
                     final Button placeholder = new Button();
                     Celda celda = new Celda(j,i);
                     placeholder.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
-                            ButtonCelda(celda,placeholder);
+                            ButtonCelda(celda,rectangle);
                         }
+                    });
+                    placeholder.setOnMouseEntered(mouseEvent -> {
+                                RectangleOnDragEntered(rectangle,celda);
+                            });
+                    placeholder.setOnMouseExited(mouseEvent -> {
+                        RectangleOnDragExited(rectangle,celda);
                     });
                     placeholder.setMinSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño mínimo para visualización
                     placeholder.setMaxSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño mínimo para visualización
                     placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center");
+                    placeholder.setGraphic(rectangle);
                     tableroDeJuego.add(placeholder, i, j);
                     listaS.add(celda);
                     //LDE.add(celda)...

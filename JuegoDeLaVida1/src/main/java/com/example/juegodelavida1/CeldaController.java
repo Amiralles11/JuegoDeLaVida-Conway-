@@ -1,5 +1,7 @@
 package com.example.juegodelavida1;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -7,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +22,7 @@ public class CeldaController implements Initializable {
     private static final Logger log = LogManager.getLogger(CeldaController.class);
     private static PrincipalController pC;
     private static Celda celda;
-    private static Button button;
+    private static Rectangle rectangle;
     private static IndividuoTipoBasico individuoTipoBasico;
     private static IndividuoTipoNormal individuoTipoNormal;
     private static IndividuoTipoAvanzado individuoTipoAvanzado;
@@ -28,12 +32,12 @@ public class CeldaController implements Initializable {
     private static RecursoMontaña recursoMontaña;
     private static RecursoPozo recursoPozo;
     private static RecursoTesoro recursoTesoro;
+    StringProperty s1;
+    StringProperty s2;
     @FXML
-    Label titulo;
+    Label individuo1;
     @FXML
-    Label Individuos;
-    @FXML
-    Label Recursos;
+    Label recurso1;
     @FXML
     MenuItem AñadirIndividuoBasico;
     @FXML
@@ -53,9 +57,9 @@ public class CeldaController implements Initializable {
     @FXML
     MenuItem AñadirRecursoPozo;
 
-    protected void ButtonCelda(Celda celda,Button button,PrincipalController pC){
+    protected void ButtonCelda(Celda celda, Rectangle rectangle, PrincipalController pC){
         this.celda = celda;
-        this.button = button;
+        this.rectangle = rectangle;
         this.pC = pC;
         this.individuoTipoBasico = pC.getIndividuoTipoBasico();
         this.individuoTipoNormal = pC.getIndividuoTipoNormal();
@@ -66,6 +70,26 @@ public class CeldaController implements Initializable {
         this.recursoMontaña = pC.getRecursoMontaña();
         this.recursoPozo = pC.getRecursoPozo();
         this.recursoTesoro = pC.getRecursoTesoro();
+        StringProperty s1 = new SimpleStringProperty(celda.getIndividuos().toString2());
+        StringProperty s2 = new SimpleStringProperty(celda.getRecursos().toString2());
+    }
+    protected void updateGUIwithModel() {
+        StringProperty s1 = new SimpleStringProperty(celda.getIndividuos().toString2());
+        StringProperty s2 = new SimpleStringProperty(celda.getRecursos().toString2());
+        individuo1.textProperty().bindBidirectional(s1);
+        recurso1.textProperty().bindBidirectional(s2);
+        if(celda.getIndividuos().getNumeroElementos()==0){
+            rectangle.setFill(Color.WHITE);
+        }
+        else if(celda.getIndividuos().getNumeroElementos()==1){
+            rectangle.setFill(Color.LIGHTYELLOW);
+        }
+        else if(celda.getIndividuos().getNumeroElementos()==2){
+            rectangle.setFill(Color.YELLOW);
+        }
+        else if(celda.getIndividuos().getNumeroElementos()==3){
+            rectangle.setFill(Color.YELLOWGREEN);
+        }
     }
     @FXML
     protected void AñadirIndividuoBasico(){
@@ -74,6 +98,7 @@ public class CeldaController implements Initializable {
         celda.add(new IndividuoTipoBasico(individuos++,individuoTipoBasico));
         log.debug(celda);
         log.info("Finalizando metodo AñadirIndividuoBasico");
+        updateGUIwithModel();
     }
     @FXML
     protected void AñadirIndividuoNormal(){
@@ -82,6 +107,7 @@ public class CeldaController implements Initializable {
         celda.add(new IndividuoTipoNormal(individuos++,individuoTipoNormal));
         log.debug(celda);
         log.info("Finalizando metodo AñadirIndividuoNormal");
+        updateGUIwithModel();
 
     }
     @FXML
@@ -91,6 +117,7 @@ public class CeldaController implements Initializable {
         celda.add(new IndividuoTipoNormal(individuos++,individuoTipoAvanzado));
         log.debug(celda);
         log.info("Finalizando metodo AñadirIndividuoAvanzado");
+        updateGUIwithModel();
     }
     @FXML
     protected void AñadirRecursoAgua(){
@@ -99,6 +126,7 @@ public class CeldaController implements Initializable {
         celda.add(recursoAgua);
         log.debug(celda);
         log.info("Finalizando metodo AñadirRecursoAgua");
+        updateGUIwithModel();
 
     }
     @FXML
@@ -108,6 +136,7 @@ public class CeldaController implements Initializable {
         celda.add(recursoComida);
         log.debug(celda);
         log.info("Finalizando metodo AñadirRecursoComida");
+        updateGUIwithModel();
 
     }
     @FXML
@@ -117,6 +146,7 @@ public class CeldaController implements Initializable {
         celda.add(recursoMontaña);
         log.debug(celda);
         log.info("Finalizando metodo AñadirRecursoMontaña");
+        updateGUIwithModel();
     }
     @FXML
     protected void AñadirRecursoTesoro(){
@@ -125,6 +155,7 @@ public class CeldaController implements Initializable {
         celda.add(recursoTesoro);
         log.debug(celda);
         log.info("Finalizando metodo AñadirRecursoTesoro");
+        updateGUIwithModel();
 
     }
     @FXML
@@ -134,6 +165,7 @@ public class CeldaController implements Initializable {
         celda.add(recursoBiblioteca);
         log.debug(celda);
         log.info("Finalizando metodo AñadirRecursoBiblioteca");
+        updateGUIwithModel();
     }
     @FXML
     protected void AñadirRecursoPozo(){
@@ -142,7 +174,7 @@ public class CeldaController implements Initializable {
         celda.add(recursoPozo);
         log.debug(celda);
         log.info("Finalizando metodo AñadirRecursoPozo");
-    }
+        updateGUIwithModel();    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -201,5 +233,9 @@ public class CeldaController implements Initializable {
                     AñadirRecursoPozo();
                 }
             });
+            if(celda!=null) {
+                this.updateGUIwithModel();
+            }
+
         }
 }
