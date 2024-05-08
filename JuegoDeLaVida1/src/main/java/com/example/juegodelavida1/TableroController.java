@@ -92,8 +92,10 @@ public class TableroController implements Initializable {
     @FXML
     protected void ButtonCelda(Celda celda,Rectangle rectangle){
         log.info("Iniciando metodo ButtonCelda");
+        CeldaController cD = new CeldaController();
+        cD.ButtonCelda(celda,rectangle,pC);
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ButtonCelda.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(cD.getClass().getResource("ButtonCelda.fxml"));
         try {
             Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Celda" + "(" + (celda.getFilas()+1) + "," + (celda.getColumnas()+1) + ")");
@@ -103,8 +105,6 @@ public class TableroController implements Initializable {
             log.error("ButtonCelda.fxml no encontrado");
             e.printStackTrace();
         }
-        CeldaController cD = new CeldaController();
-        cD.ButtonCelda(celda,rectangle,pC);
         log.info("Finalizando metodo ButtonCelda");
     }
 
