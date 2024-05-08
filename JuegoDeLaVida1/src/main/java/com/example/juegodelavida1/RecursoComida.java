@@ -21,9 +21,12 @@ public class RecursoComida extends Recurso{
         this.porcentajeAparicion2=porcentajeAparicion2;
 
     }
-    @Override
-    public String toString() {
+    public String toString2() {
         return "RecursoComida{TiempoAparicion = "+super.getTiempoAparicion()+"," +
                 " PorcentajeAparicionAgua = "+porcentajeAparicion2+"}";
+    }
+    @Override
+    public String toString() {
+        return "RecursoComida, turnosRestantes = "+super.getTiempoAparicion();
     }
 }

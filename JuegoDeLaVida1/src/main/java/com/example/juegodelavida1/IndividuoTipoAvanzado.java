@@ -8,12 +8,7 @@ public class IndividuoTipoAvanzado extends Individuo{
     @Override
     public String toString() {
         {
-            return "Individuo"+" "+iD+" "+"{" +
-                    "vidas=" + super.getVidas() +
-                    ", porcentajeReproduccion=" + super.getPorcentajeReproduccion() +
-                    ", porcentajeClonacion=" + super.getPorcentajeClonacion() +
-                    ", porcentajeTipoAlReproducirse=" + super.getPorcentajeTipoAlReproducirse() +
-                    '}';
+            return "IndividuoAvanzado"+" "+iD+", vidas= "+super.getVidas()+"";
         }
     }
 

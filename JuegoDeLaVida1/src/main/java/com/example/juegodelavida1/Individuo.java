@@ -45,7 +45,6 @@ public abstract class Individuo {
         this.porcentajeTipoAlReproducirse = porcentajeTipoAlReproducirse;
     }
 
-    @Override
     public abstract String toString();
     public abstract void move();
 

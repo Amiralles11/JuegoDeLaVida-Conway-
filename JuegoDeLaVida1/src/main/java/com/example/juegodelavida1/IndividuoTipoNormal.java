@@ -9,12 +9,7 @@ public class IndividuoTipoNormal extends Individuo{
     @Override
     public String toString() {
         {
-            return "Individuo"+" "+iD+" "+"{" +
-                    "vidas=" + super.getVidas() +
-                    ", porcentajeReproduccion=" + super.getPorcentajeReproduccion() +
-                    ", porcentajeClonacion=" + super.getPorcentajeClonacion() +
-                    ", porcentajeTipoAlReproducirse=" + super.getPorcentajeTipoAlReproducirse() +
-                    '}';
+            return "IndividuoNormal"+" "+iD+", vidas= "+super.getVidas();
         }
     }
 
@@ -27,4 +22,5 @@ public class IndividuoTipoNormal extends Individuo{
     public void move() {
 
     }
+
 }

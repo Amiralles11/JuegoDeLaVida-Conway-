@@ -21,9 +21,12 @@ public class RecursoTesoro extends Recurso{
         this.porcentajeAparicion2=porcentajeAparicion2;
 
     }
-    @Override
-    public String toString() {
+    public String toString2() {
         return "RecursoTesoro{TiempoAparicion = "+super.getTiempoAparicion()+"," +
                 " PorcentajeAparicionAgua = "+porcentajeAparicion2+"}";
+    }
+    @Override
+    public String toString() {
+        return "RecursoAgua, turnosRestantes = "+super.getTiempoAparicion();
     }
 }

@@ -113,6 +113,9 @@ public class ListaSimple<T> {
 
     @Override
     public String toString() {
+        if(isVacia()){
+            return "";
+        }
         String s = "";
         for(int i =0;i<getNumeroElementos();i++) {
             if(i<getNumeroElementos()-1){

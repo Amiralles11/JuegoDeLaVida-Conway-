@@ -21,9 +21,12 @@ public class RecursoBiblioteca extends Recurso{
         this.porcentajeAparicion2=porcentajeAparicion2;
 
     }
-    @Override
-    public String toString() {
+    public String toString2() {
         return "RecursoBiblioteca{TiempoAparicion = "+super.getTiempoAparicion()+"," +
                 " PorcentajeAparicionAgua = "+porcentajeAparicion2+"}";
+    }
+    @Override
+    public String toString() {
+        return "RecursoBiblioteca, turnosRestantes = "+super.getTiempoAparicion();
     }
 }
