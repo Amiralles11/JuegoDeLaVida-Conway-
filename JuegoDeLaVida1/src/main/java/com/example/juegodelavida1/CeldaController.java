@@ -1,5 +1,7 @@
 package com.example.juegodelavida1;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -32,8 +34,6 @@ public class CeldaController implements Initializable {
     private static RecursoMontaña recursoMontaña;
     private static RecursoPozo recursoPozo;
     private static RecursoTesoro recursoTesoro;
-    StringProperty s1;
-    StringProperty s2;
     @FXML
     Label individuo1;
     @FXML
@@ -70,14 +70,11 @@ public class CeldaController implements Initializable {
         this.recursoMontaña = pC.getRecursoMontaña();
         this.recursoPozo = pC.getRecursoPozo();
         this.recursoTesoro = pC.getRecursoTesoro();
-        StringProperty s1 = new SimpleStringProperty(celda.getIndividuos().toString2());
-        StringProperty s2 = new SimpleStringProperty(celda.getRecursos().toString2());
     }
+
     protected void updateGUIwithModel() {
-        StringProperty s1 = new SimpleStringProperty(celda.getIndividuos().toString2());
-        StringProperty s2 = new SimpleStringProperty(celda.getRecursos().toString2());
-        individuo1.textProperty().bindBidirectional(s1);
-        recurso1.textProperty().bindBidirectional(s2);
+        individuo1.setText(celda.getIndividuos().toString2());
+        recurso1.setText(celda.getRecursos().toString2());
         if(celda.getIndividuos().getNumeroElementos()==0){
             rectangle.setFill(Color.WHITE);
         }
@@ -196,64 +193,62 @@ public class CeldaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-            log.info("Inicializando controlador de celda");
-            AñadirIndividuoBasico.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    AñadirIndividuoBasico();
-                }
-            });
-            AñadirIndividuoNormal.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    AñadirIndividuoNormal();
-                }
-            });
-            AñadirIndividuoAvanzado.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    AñadirIndividuoAvanzado();
-                }
-            });
-            AñadirRecursoAgua.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    AñadirRecursoAgua();
-                }
-            });
-            AñadirRecursoComida.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    AñadirRecursoComida();
-                }
-            });
-            AñadirRecursoMontaña.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    AñadirRecursoMontaña();
-                }
-            });
-            AñadirRecursoTesoro.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    AñadirRecursoTesoro();
-                }
-            });
-            AñadirRecursoBiblioteca.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    AñadirRecursoBiblioteca();
-                }
-            });
-            AñadirRecursoPozo.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    AñadirRecursoPozo();
-                }
-            });
-            if(celda!=null) {
-                this.updateGUIwithModel();
+        updateGUIwithModel();
+        log.info("Inicializando controlador de celda");
+        AñadirIndividuoBasico.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                AñadirIndividuoBasico();
             }
+        });
+        AñadirIndividuoNormal.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                AñadirIndividuoNormal();
+            }
+        });
+        AñadirIndividuoAvanzado.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                AñadirIndividuoAvanzado();
+            }
+        });
+        AñadirRecursoAgua.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                AñadirRecursoAgua();
+            }
+        });
+        AñadirRecursoComida.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                AñadirRecursoComida();
+            }
+        });
+        AñadirRecursoMontaña.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                AñadirRecursoMontaña();
+            }
+        });
+        AñadirRecursoTesoro.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                AñadirRecursoTesoro();
+            }
+        });
+        AñadirRecursoBiblioteca.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                AñadirRecursoBiblioteca();
+            }
+        });
+        AñadirRecursoPozo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                AñadirRecursoPozo();
+            }
+        });
 
-        }
+    }
 }
