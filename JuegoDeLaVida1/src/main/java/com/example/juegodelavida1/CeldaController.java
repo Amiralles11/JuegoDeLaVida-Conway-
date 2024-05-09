@@ -1,14 +1,9 @@
 package com.example.juegodelavida1;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
@@ -20,6 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CeldaController implements Initializable {
+    private static int ventanas = 0;
     private static int individuos = 0;
     private static final Logger log = LogManager.getLogger(CeldaController.class);
     private static PrincipalController pC;
@@ -58,6 +54,7 @@ public class CeldaController implements Initializable {
     MenuItem AñadirRecursoPozo;
 
     protected void ButtonCelda(Celda celda, Rectangle rectangle, PrincipalController pC){
+        log.info("Inicalizando controlador de Celdas"+ventanas++);
         this.celda = celda;
         this.rectangle = rectangle;
         this.pC = pC;
@@ -73,6 +70,7 @@ public class CeldaController implements Initializable {
     }
 
     protected void updateGUIwithModel() {
+        log.info("Actualizando Labels y color de la celda");
         individuo1.setText(celda.getIndividuos().toString2());
         recurso1.setText(celda.getRecursos().toString2());
         if(celda.getIndividuos().getNumeroElementos()==0){
@@ -87,114 +85,160 @@ public class CeldaController implements Initializable {
         else if(celda.getIndividuos().getNumeroElementos()==3){
             rectangle.setFill(Color.YELLOWGREEN);
         }
+        log.info("Labels y color de la celda actualizados");
     }
     @FXML
     protected void AñadirIndividuoBasico(){
+        log.info("Iniciando metodo AñadirIndividuoBasico");
         if(celda.getIndividuos().getNumeroElementos()<3) {
-            log.info("Iniciando metodo AñadirIndividuoBasico");
+            log.info("Añadiendo IndividuoBasico");
             log.debug(celda);
             celda.add(new IndividuoTipoBasico(individuos++, individuoTipoBasico));
             log.debug(celda);
-            log.info("Finalizando metodo AñadirIndividuoBasico");
             updateGUIwithModel();
+            log.info("IndividuoBasico Añadido");
         }
+        else{
+            log.warn("IndividuoBasico no añadido");
+        }
+        log.info("Finalizando metodo AñadirIndividuoBasico");
     }
     @FXML
     protected void AñadirIndividuoNormal(){
+        log.info("Iniciando metodo AñadirIndividuoNormal");
         if(celda.getIndividuos().getNumeroElementos()<3) {
-            log.info("Iniciando metodo AñadirIndividuoNormal");
+            log.info("Añadiendo IndividuoNormal");
             log.debug(celda);
             celda.add(new IndividuoTipoNormal(individuos++, individuoTipoNormal));
             log.debug(celda);
-            log.info("Finalizando metodo AñadirIndividuoNormal");
             updateGUIwithModel();
+            log.info("IndividuoNormal Añadido");
         }
-
+        else{
+            log.warn("IndividuoNormal no añadido");
+        }
+        log.info("Finalizando metodo AñadirIndividuoNormal");
     }
     @FXML
     protected void AñadirIndividuoAvanzado(){
+        log.info("Iniciando metodo AñadirIndividuoAvanzado");
             if(celda.getIndividuos().getNumeroElementos()<3) {
-                log.info("Iniciando metodo AñadirIndividuoAvanzado");
+                log.info("Añadiendo IndividuoAvanzado");
                 log.debug(celda);
                 celda.add(new IndividuoTipoNormal(individuos++, individuoTipoAvanzado));
                 log.debug(celda);
-                log.info("Finalizando metodo AñadirIndividuoAvanzado");
                 updateGUIwithModel();
+                log.info("IndividuoAvanzado Añadido");
             }
+            else{
+                log.warn("IndividuoAvanzado no añadido");
+            }
+        log.info("Finalizando metodo AñadirIndividuoAvanzado");
     }
     @FXML
     protected void AñadirRecursoAgua(){
+        log.info("Iniciando metodo AñadirRecursoAgua");
         if(celda.getRecursos().getNumeroElementos()<3) {
-            log.info("Iniciando metodo AñadirRecursoAgua");
+            log.info("Añadiendo RecursoAgua");
             log.debug(celda);
             celda.add(recursoAgua);
             log.debug(celda);
-            log.info("Finalizando metodo AñadirRecursoAgua");
             updateGUIwithModel();
+            log.info("RecursoAgua Añadido");
         }
+        else{
+            log.warn("RecursoAgua no añadido");
+        }
+        log.info("Finalizando metodo AñadirRecursoAgua");
 
     }
     @FXML
     protected void AñadirRecursoComida(){
+        log.info("Iniciando metodo AñadirRecursoComida");
         if(celda.getRecursos().getNumeroElementos()<3) {
-            log.info("Iniciando metodo AñadirRecursoComida");
+            log.info("Añadiendo RecursoComida");
             log.debug(celda);
             celda.add(recursoComida);
             log.debug(celda);
-            log.info("Finalizando metodo AñadirRecursoComida");
             updateGUIwithModel();
+            log.info("RecursoComida Añadido");
         }
+        else{
+            log.warn("RecursoComida no añadido");
+        }
+        log.info("Finalizando metodo AñadirRecursoComida");
 
     }
     @FXML
     protected void AñadirRecursoMontaña(){
+        log.info("Iniciando metodo AñadirRecursoMontaña");
         if(celda.getRecursos().getNumeroElementos()<3) {
-            log.info("Iniciando metodo AñadirRecursoMontaña");
+            log.info("Añadiendo RecursoMontaña");
             log.debug(celda);
             celda.add(recursoMontaña);
             log.debug(celda);
-            log.info("Finalizando metodo AñadirRecursoMontaña");
             updateGUIwithModel();
+            log.info("RecursoMontaña Añadido");
         }
+        else{
+            log.warn("RecursoMontaña no añadido");
+        }
+        log.info("Finalizando metodo AñadirRecursoMontaña");
     }
     @FXML
     protected void AñadirRecursoTesoro(){
+        log.info("Iniciando metodo AñadirRecursoTesoro");
         if(celda.getRecursos().getNumeroElementos()<3) {
-            log.info("Iniciando metodo AñadirRecursoTesoro");
+            log.info("Añadiendo RecursoTesoro");
             log.debug(celda);
             celda.add(recursoTesoro);
             log.debug(celda);
-            log.info("Finalizando metodo AñadirRecursoTesoro");
             updateGUIwithModel();
+            log.info("RecursoTesoro Añadido");
         }
+        else{
+            log.warn("RecursoTesoro no añadido");
+        }
+        log.info("Finalizando metodo AñadirRecursoTesoro");
 
     }
     @FXML
     protected void AñadirRecursoBiblioteca(){
+        log.info("Iniciando metodo AñadirRecursoBiblioteca");
         if(celda.getRecursos().getNumeroElementos()<3) {
-            log.info("Iniciando metodo AñadirRecursoBiblioteca");
+            log.info("Añadiendo RecursoBiblioteca");
             log.debug(celda);
             celda.add(recursoBiblioteca);
             log.debug(celda);
-            log.info("Finalizando metodo AñadirRecursoBiblioteca");
             updateGUIwithModel();
+            log.info("RecursoBiblioteca Añadido");
         }
+        else{
+            log.warn("RecursoBiblioteca no añadido");
+        }
+        log.info("Finalizando metodo AñadirRecursoBiblioteca");
     }
     @FXML
     protected void AñadirRecursoPozo(){
+        log.info("Iniciando metodo AñadirRecursoPozo");
         if(celda.getRecursos().getNumeroElementos()<3) {
-            log.info("Iniciando metodo AñadirRecursoPozo");
+            log.info("Añadiendo RecursoPozo");
             log.debug(celda);
             celda.add(recursoPozo);
             log.debug(celda);
-            log.info("Finalizando metodo AñadirRecursoPozo");
             updateGUIwithModel();
-        }}
+            log.info("RecursoPozo Añadido");
+        }
+        else{
+            log.warn("RecursoPozo no añadido");
+        }
+        log.info("Finalizando metodo AñadirRecursoPozo");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        updateGUIwithModel();
         log.info("Inicializando controlador de celda");
+        updateGUIwithModel();
         AñadirIndividuoBasico.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
