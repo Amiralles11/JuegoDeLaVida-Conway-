@@ -182,6 +182,15 @@ public class PrincipalController {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
                             actual.setPorcentajeClonacion(actual.getPorcentajeClonacion() + 50);
+                            if (actual instanceof IndividuoTipoBasico) {
+                                IndividuoTipoNormal nuevo = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
+                                celdaActual.getIndividuos().insert(nuevo, celdaActual.getIndividuos().getPosicion(actual));
+                                celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
+                            } else if (actual instanceof IndividuoTipoNormal){
+                                IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
+                                celdaActual.getIndividuos().insert(nuevo, celdaActual.getIndividuos().getPosicion(actual));
+                                celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
+                            }
                         }
                     } else if (recursoActual instanceof RecursoMontaña) {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
