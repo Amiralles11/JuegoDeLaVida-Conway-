@@ -197,7 +197,8 @@ public class PrincipalController {
                     if (actual instanceof IndividuoTipoBasico) {
                         moverBasico(actual, celdaActual.getFilas(), celdaActual.getColumnas());
                     } else if (actual instanceof IndividuoTipoNormal) {
-
+                        Celda celdaMover = celdaMover(celdaActual);
+                        moverNormal(actual, celdaActual.getFilas(), celdaActual.getColumnas(), celdaMover);
                     } else {
 
                     }
@@ -231,6 +232,31 @@ public class PrincipalController {
         }
     }
 
+    private Celda celdaMover(Celda salida) {
+        ListaEnlazada<Celda> celdasRecursos = new ListaEnlazada<>();
+        for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
+            for (int j = 0; this.getListaCeldas().getElemento(i).getData().getNumeroElementos() != j; j++) {
+                boolean insert = false;
+                Celda celdaActual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
+                for (int k = 0; celdaActual.getRecursos().getNumeroElementos() != k; k ++) {
+                    if ((celdaActual.getRecursos().getElemento(k).getData() instanceof RecursoAgua || celdaActual.getRecursos().getElemento(k).getData() instanceof RecursoComida) && celdaActual != salida) {
+                        insert = true;
+                    }
+                }
+                if (insert) {
+                    celdasRecursos.add(celdaActual);
+                }
+            }
+        }
+        Random r = new Random();
+        int celdaAleatoria = r.nextInt(0, celdasRecursos.getNumeroElementos() - 1);
+        return celdasRecursos.getElemento(celdaAleatoria).getData();
+    }
+
+    private void moverNormal(Individuo actual, int filas, int columnas, Celda celdaMover) {
+
+    }
+
     private void interaccionRecursos() {
         for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
             for (int j = 0; this.getListaCeldas().getElemento(i).getData().getNumeroElementos() != j; j++) {
@@ -242,17 +268,17 @@ public class PrincipalController {
                     } else if (recursoActual instanceof RecursoAgua) {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
-                            actual.setVidas(actual.getVidas() + 2);
+                            actual.setVidas(actual.getVidas() + recursoAgua.getTurnosVida());
                         }
                     } else if (recursoActual instanceof RecursoComida) {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
-                            actual.setVidas(actual.getVidas() + 10);
+                            actual.setVidas(actual.getVidas() + recursoComida.getTurnosVida());
                         }
                     } else if (recursoActual instanceof RecursoBiblioteca) {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
-                            actual.setPorcentajeClonacion(actual.getPorcentajeClonacion() + 50);
+                            actual.setPorcentajeClonacion(actual.getPorcentajeClonacion() + recursoBiblioteca.getPorcentajeClonacion());
                             if (actual instanceof IndividuoTipoBasico) {
                                 IndividuoTipoNormal nuevo = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                                 celdaActual.getIndividuos().insert(nuevo, celdaActual.getIndividuos().getPosicion(actual));
@@ -266,7 +292,7 @@ public class PrincipalController {
                     } else if (recursoActual instanceof RecursoMontaña) {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
-                            actual.setVidas(actual.getVidas() - 2);
+                            actual.setVidas(actual.getVidas() - recursoMontaña.getTurnosVida());
                             if (actual.getVidas() <= 0) {
                                 celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
                             }
@@ -274,7 +300,7 @@ public class PrincipalController {
                     } else if (recursoActual instanceof RecursoTesoro) {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
-                            actual.setPorcentajeReproduccion(actual.getPorcentajeReproduccion() + 50);
+                            actual.setPorcentajeReproduccion(actual.getPorcentajeReproduccion() + recursoTesoro.getPorcentajeReproduccion());
                         }
                     }
                 }
@@ -398,27 +424,27 @@ public class PrincipalController {
                 while (celdaActual.getRecursos().getNumeroElementos() < 3) {
                     Random r = new Random();
                     int prob = r.nextInt(0, 100);
-                    RecursoAgua nuevo = new RecursoAgua(recursoAgua.getTiempoAparicion(), recursoAgua.getPorcentajeAparicion(), recursoAgua.getPorcentajeAparicion2());
+                    RecursoAgua nuevo = new RecursoAgua(recursoAgua.getTiempoAparicion(), recursoAgua.getPorcentajeAparicion(), recursoAgua.getPorcentajeAparicion2(), recursoAgua.getTurnosVida());
                     if (prob <= nuevo.getPorcentajeAparicion()) {
                         Random s = new Random();
                         int prob2 = s.nextInt(0, recursoAgua.getPorcentajeAparicion2() + recursoBiblioteca.getPorcentajeAparicion2() + recursoTesoro.getPorcentajeAparicion2() + recursoMontaña.getPorcentajeAparicion2() + recursoPozo.getPorcentajeAparicion2() + recursoComida.getPorcentajeAparicion2());
                         if (prob2 <= recursoAgua.getPorcentajeAparicion2()) {
-                            RecursoAgua nuevoAgua = new RecursoAgua(recursoAgua.getTiempoAparicion(), recursoAgua.getPorcentajeAparicion(), recursoAgua.getPorcentajeAparicion2());
+                            RecursoAgua nuevoAgua = new RecursoAgua(recursoAgua.getTiempoAparicion(), recursoAgua.getPorcentajeAparicion(), recursoAgua.getPorcentajeAparicion2(), recursoAgua.getTurnosVida());
                             celdaActual.getRecursos().add(nuevoAgua);
                         } else {
                             prob2 -= recursoAgua.getPorcentajeAparicion2();
                             if (prob2 <= recursoBiblioteca.getPorcentajeAparicion2()) {
-                                RecursoBiblioteca nuevaBiblioteca = new RecursoBiblioteca(recursoBiblioteca.getTiempoAparicion(), recursoBiblioteca.getPorcentajeAparicion(), recursoBiblioteca.getPorcentajeAparicion2());
+                                RecursoBiblioteca nuevaBiblioteca = new RecursoBiblioteca(recursoBiblioteca.getTiempoAparicion(), recursoBiblioteca.getPorcentajeAparicion(), recursoBiblioteca.getPorcentajeAparicion2(), recursoBiblioteca.getPorcentajeClonacion());
                                 celdaActual.getRecursos().add(nuevaBiblioteca);
                             } else {
                                 prob2 -= recursoBiblioteca.getPorcentajeAparicion2();
                                 if (prob2 <= recursoTesoro.getPorcentajeAparicion2()) {
-                                    RecursoTesoro nuevoTesoro = new RecursoTesoro(recursoTesoro.getTiempoAparicion(), recursoTesoro.getPorcentajeAparicion(), recursoTesoro.getPorcentajeAparicion2());
+                                    RecursoTesoro nuevoTesoro = new RecursoTesoro(recursoTesoro.getTiempoAparicion(), recursoTesoro.getPorcentajeAparicion(), recursoTesoro.getPorcentajeAparicion2(), recursoTesoro.getPorcentajeReproduccion());
                                     celdaActual.getRecursos().add(nuevoTesoro);
                                 } else {
                                     prob2 -= recursoTesoro.getPorcentajeAparicion2();
                                     if (prob2 <= recursoMontaña.getPorcentajeAparicion2()) {
-                                        RecursoMontaña nuevaMontaña = new RecursoMontaña(recursoMontaña.getTiempoAparicion(), recursoMontaña.getPorcentajeAparicion(), recursoMontaña.getPorcentajeAparicion2());
+                                        RecursoMontaña nuevaMontaña = new RecursoMontaña(recursoMontaña.getTiempoAparicion(), recursoMontaña.getPorcentajeAparicion(), recursoMontaña.getPorcentajeAparicion2(), recursoMontaña.getTurnosVida());
                                         celdaActual.getRecursos().add(nuevaMontaña);
                                     } else {
                                         prob2 -= recursoMontaña.getPorcentajeAparicion2();
@@ -426,7 +452,7 @@ public class PrincipalController {
                                             RecursoPozo nuevoPozo = new RecursoPozo(recursoPozo.getTiempoAparicion(), recursoPozo.getPorcentajeAparicion(), recursoPozo.getPorcentajeAparicion2());
                                             celdaActual.getRecursos().add(nuevoPozo);
                                         } else {
-                                            RecursoComida nuevaComida = new RecursoComida(recursoComida.getTiempoAparicion(), recursoComida.getPorcentajeAparicion(), recursoComida.getPorcentajeAparicion2());
+                                            RecursoComida nuevaComida = new RecursoComida(recursoComida.getTiempoAparicion(), recursoComida.getPorcentajeAparicion(), recursoComida.getPorcentajeAparicion2(), recursoComida.getTurnosVida());
                                             celdaActual.getRecursos().add(nuevaComida);
                                         }
                                     }
