@@ -2,13 +2,11 @@ package com.example.juegodelavida1;
 
 public class RecursoMontaña extends Recurso{
     private int porcentajeAparicion2;
-    public RecursoMontaña(int tiempoAparicion, int porcentajeAparicion, int porcentajeAparicion2) {
+    private int turnosVida;
+    public RecursoMontaña(int tiempoAparicion, int porcentajeAparicion, int porcentajeAparicion2, int turnosVida) {
         super(tiempoAparicion, porcentajeAparicion);
         this.porcentajeAparicion2 = porcentajeAparicion2;
-    }
-    public RecursoMontaña(Recurso recurso){
-        super(recurso.getTiempoAparicion(), recurso.getPorcentajeAparicion());
-        this.porcentajeAparicion2 = recurso.getPorcentajeAparicion2();
+        this.turnosVida = turnosVida;
     }
 
     @Override
@@ -21,6 +19,15 @@ public class RecursoMontaña extends Recurso{
         this.porcentajeAparicion2=porcentajeAparicion2;
 
     }
+
+    public int getTurnosVida() {
+        return turnosVida;
+    }
+
+    public void setTurnosVida(int turnosVida) {
+        this.turnosVida = turnosVida;
+    }
+
     @Override
     public String toString() {
         return "RecursoMontaña, turnosRestantes = "+super.getTiempoAparicion();

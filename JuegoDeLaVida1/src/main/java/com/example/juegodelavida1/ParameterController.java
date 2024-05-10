@@ -89,6 +89,42 @@ public class ParameterController implements Initializable {
     protected IntegerProperty medidaPorcentajeAparicionPozo = new SimpleIntegerProperty(0);
 
 
+
+
+
+
+    @FXML
+    private Slider sliderTurnosVidaAgua;
+    @FXML
+    private Label valorTurnosVidaAgua;
+    @FXML
+    private Slider sliderTurnosVidaComida;
+    @FXML
+    private Label valorTurnosVidaComida;
+    @FXML
+    private Slider sliderTurnosVidaMontaña;
+    @FXML
+    private Label valorTurnosVidaMontaña;
+    @FXML
+    private Slider sliderPorcentajeClonacionBiblioteca;
+    @FXML
+    private Label valorPorcentajeClonacionBiblioteca;
+    @FXML
+    private Slider sliderPorcentajeReproduccionTesoro;
+    @FXML
+    private Label valorPorcentajeReproduccionTesoro;
+
+    protected IntegerProperty medidaTurnosVidaAgua = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaTurnosVidaComida = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaTurnosVidaMontaña = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaPorcentajeClonacionBiblioteca = new SimpleIntegerProperty(0);
+    protected IntegerProperty medidaPorcentajeReproduccionTesoro = new SimpleIntegerProperty(0);
+
+
+
+
+
+
     //TABLERO:::
     @FXML
     private Slider sliderColumnas;
@@ -205,6 +241,12 @@ public class ParameterController implements Initializable {
 
         sliderFilas.valueProperty().bindBidirectional(modelTablero.FilasProperty());
         sliderColumnas.valueProperty().bindBidirectional(modelTablero.ColumnasProperty());
+
+        sliderTurnosVidaAgua.valueProperty().bindBidirectional(modelAgua.TurnosVidasProperty());
+        sliderTurnosVidaComida.valueProperty().bindBidirectional(modelComida.TurnosVidaProperty());
+        sliderTurnosVidaMontaña.valueProperty().bindBidirectional(modelMontaña.TurnosVidaProperty());
+        sliderPorcentajeReproduccionTesoro.valueProperty().bindBidirectional(modelTesoro.PorcentajeReproduccionProperty());
+        sliderPorcentajeClonacionBiblioteca.valueProperty().bindBidirectional(modelBiblioteca.PorcentajeClonacionProperty());
         log.info("sliders generados");
     }
     // Listener para actualizar la suma total
@@ -282,9 +324,20 @@ public class ParameterController implements Initializable {
         sliderFilas.valueProperty().bindBidirectional(medidaFilas);
         ValorFilas.textProperty().bind(medidaFilas.asString());
 
-        sliderColumnas.valueProperty().bindBidirectional(medidaColumnas);
-        ValorColumnas.textProperty().bind(medidaColumnas.asString());
+        sliderTurnosVidaAgua.valueProperty().bindBidirectional(medidaTurnosVidaAgua);
+        valorTurnosVidaAgua.textProperty().bind(medidaTurnosVidaAgua.asString());
 
+        sliderTurnosVidaComida.valueProperty().bindBidirectional(medidaTurnosVidaComida);
+        valorTurnosVidaComida.textProperty().bind(medidaTurnosVidaComida.asString());
+
+        sliderTurnosVidaMontaña.valueProperty().bindBidirectional(medidaTurnosVidaMontaña);
+        valorTurnosVidaMontaña.textProperty().bind(medidaTurnosVidaMontaña.asString());
+
+        sliderPorcentajeClonacionBiblioteca.valueProperty().bindBidirectional(medidaPorcentajeClonacionBiblioteca);
+        valorPorcentajeClonacionBiblioteca.textProperty().bind(medidaPorcentajeClonacionBiblioteca.asString());
+
+        sliderPorcentajeReproduccionTesoro.valueProperty().bindBidirectional(medidaPorcentajeReproduccionTesoro);
+        valorPorcentajeReproduccionTesoro.textProperty().bind(medidaPorcentajeReproduccionTesoro.asString());
     }
 
     @FXML
@@ -533,11 +586,11 @@ public class ParameterController implements Initializable {
         tab.start(modelTablero.getOriginal(),(new IndividuoTipoBasico(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
                 (new IndividuoTipoNormal(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
                 (new IndividuoTipoAvanzado(model.getOriginal().getVidas(),model.getOriginal().getPorcentajeReproduccion(),model.getOriginal().getPorcentajeClonacion(),model.getOriginal().getPorcentajeTipoAlReproducirse())),
-                (new RecursoAgua(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelAgua.getOriginal().getPorcentajeAparicion2()))),
-                (new RecursoComida(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelComida.getOriginal().getPorcentajeAparicion2()))),
-                (new RecursoMontaña(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelMontaña.getOriginal().getPorcentajeAparicion2()))),
-                (new RecursoTesoro(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelTesoro.getOriginal().getPorcentajeAparicion2()))),
-                (new RecursoBiblioteca(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelBiblioteca.getOriginal().getPorcentajeAparicion2()))),
+                (new RecursoAgua(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelAgua.getOriginal().getPorcentajeAparicion2()),modelAgua.getOriginal().getTurnosVida())),
+                (new RecursoComida(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelComida.getOriginal().getPorcentajeAparicion2()),modelComida.getOriginal().getTurnosVida())),
+                (new RecursoMontaña(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelMontaña.getOriginal().getPorcentajeAparicion2()),modelComida.getOriginal().getTurnosVida())),
+                (new RecursoTesoro(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelTesoro.getOriginal().getPorcentajeAparicion2()),modelTesoro.getOriginal().getPorcentajeReproduccion())),
+                (new RecursoBiblioteca(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelBiblioteca.getOriginal().getPorcentajeAparicion2()),modelBiblioteca.getOriginal().getPorcentajeClonacion())),
                 (new RecursoPozo(model2.getOriginal().getTiempoAparicion(),model2.getOriginal().getPorcentajeAparicion(),getPorcentajesRecurso(modelPozo.getOriginal().getPorcentajeAparicion2()))));
         log.debug(model.getOriginal().toString());
         log.debug("Porcentaje Aparicion recurso"+model2.getOriginal().getPorcentajeAparicion());
