@@ -1,5 +1,6 @@
 package com.example.juegodelavida1;
 
+import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -120,7 +121,34 @@ public class PrincipalController {
     }
 
     public void bucleControl() {
+        while (numeroIndividuos()) {
+            pasarTurno();
+        }
+    }
 
+    private boolean numeroIndividuos() {
+        int cont = 0;
+        for (int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
+            for (int j = 0; listaCeldas.getElemento(i).getData().getNumeroElementos() != j; j++) {
+                Celda actual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
+                cont += actual.getIndividuos().getNumeroElementos();
+            }
+        }
+        if (cont > 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void pasarTurno() {
+        vidaActualicer();
+        tiempoRecursoActualicer();
+        mover();
+        interaccionRecursos();
+        reproduccionClonacion();
+        hacerEspacio1();
+        hacerEspacio2();
     }
 
     private void vidaActualicer() {
@@ -160,6 +188,49 @@ public class PrincipalController {
         }
     }
 
+    private void mover() {
+        for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
+            for (int j = 0; this.getListaCeldas().getElemento(i).getData().getNumeroElementos() != j; j++) {
+                for (int k = 0; this.getListaCeldas().getElemento(i).getData().getElemento(j).getData().getIndividuos().getNumeroElementos() != k; k++) {
+                    Celda celdaActual = this.getListaCeldas().getElemento(i).getData().getElemento(j).getData();
+                    Individuo actual = celdaActual.getIndividuos().getElemento(k).getData();
+                    if (actual instanceof IndividuoTipoBasico) {
+                        moverBasico(actual, celdaActual.getFilas(), celdaActual.getColumnas());
+                    } else if (actual instanceof IndividuoTipoNormal) {
+
+                    } else {
+
+                    }
+
+                }
+            }
+        }
+    }
+
+    private void moverBasico(Individuo actual, int fila, int columna) {
+        Random r = new Random();
+        int mov = r.nextInt(0, 3);
+        if (mov == 0 && fila != 0) {
+            listaCeldas.getElemento(fila - 1).getData().getElemento(columna).getData().getIndividuos().add(actual);
+            Celda antigua = listaCeldas.getElemento(fila).getData().getElemento(columna).getData();
+            antigua.getIndividuos().del(antigua.getIndividuos().getPosicion(actual));
+        } else if (mov == 1 && fila != listaCeldas.getNumeroElementos() - 1) {
+            listaCeldas.getElemento(fila + 1).getData().getElemento(columna).getData().getIndividuos().add(actual);
+            Celda antigua = listaCeldas.getElemento(fila).getData().getElemento(columna).getData();
+            antigua.getIndividuos().del(antigua.getIndividuos().getPosicion(actual));
+        } else if (mov == 2 && columna != 0) {
+            listaCeldas.getElemento(fila).getData().getElemento(columna - 1).getData().getIndividuos().add(actual);
+            Celda antigua = listaCeldas.getElemento(fila).getData().getElemento(columna).getData();
+            antigua.getIndividuos().del(antigua.getIndividuos().getPosicion(actual));
+        } else if (mov == 3 && columna != listaCeldas.getPrimero().getData().getNumeroElementos() - 1) {
+            listaCeldas.getElemento(fila).getData().getElemento(columna + 1).getData().getIndividuos().add(actual);
+            Celda antigua = listaCeldas.getElemento(fila).getData().getElemento(columna).getData();
+            antigua.getIndividuos().del(antigua.getIndividuos().getPosicion(actual));
+        } else {
+            moverBasico(actual, fila, columna);
+        }
+    }
+
     private void interaccionRecursos() {
         for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
             for (int j = 0; this.getListaCeldas().getElemento(i).getData().getNumeroElementos() != j; j++) {
@@ -182,6 +253,15 @@ public class PrincipalController {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
                             actual.setPorcentajeClonacion(actual.getPorcentajeClonacion() + 50);
+                            if (actual instanceof IndividuoTipoBasico) {
+                                IndividuoTipoNormal nuevo = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
+                                celdaActual.getIndividuos().insert(nuevo, celdaActual.getIndividuos().getPosicion(actual));
+                                celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
+                            } else if (actual instanceof IndividuoTipoNormal){
+                                IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
+                                celdaActual.getIndividuos().insert(nuevo, celdaActual.getIndividuos().getPosicion(actual));
+                                celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
+                            }
                         }
                     } else if (recursoActual instanceof RecursoMontaña) {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
@@ -209,7 +289,10 @@ public class PrincipalController {
                 if (celdaActual.getIndividuos().getNumeroElementos() > 1) {
                     reproducir(celdaActual);
                 }
-
+                for (int k = 0; celdaActual.getIndividuos().getNumeroElementos() != k; k++) {
+                    Individuo actual = celdaActual.getIndividuos().getElemento(k).getData();
+                    clonar(actual, celdaActual);
+                }
             }
         }
     }
@@ -274,7 +357,85 @@ public class PrincipalController {
         }
     }
 
-    private void hacerEspacio() {
+    private void clonar(Individuo actual, Celda celdaActual) {
+        Random r = new Random();
+        int prob = r.nextInt(1, 100);
+        if (actual.getPorcentajeClonacion() >= prob) {
+            if (actual instanceof IndividuoTipoBasico) {
+                IndividuoTipoBasico nuevo = new IndividuoTipoBasico(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
+                celdaActual.getIndividuos().add(nuevo);
+            } else if (actual instanceof IndividuoTipoNormal) {
+                IndividuoTipoNormal nuevo = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
+                celdaActual.getIndividuos().add(nuevo);
+            } else {
+                IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
+                celdaActual.getIndividuos().add(nuevo);
+            }
+        }
+    }
 
+    private void hacerEspacio1() {
+        for(int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
+            for(int j = 0; listaCeldas.getElemento(j).getData().getNumeroElementos() != j; j++) {
+                Celda celdaActual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
+                while (celdaActual.getIndividuos().getNumeroElementos() > 3) {
+                    Individuo SanPedro = celdaActual.getIndividuos().getPrimero().getData();
+                    for (int k = 0; celdaActual.getIndividuos().getNumeroElementos() != k; k++) {
+                        if (celdaActual.getIndividuos().getElemento(k).getData().getVidas() < SanPedro.getVidas()) {
+                            SanPedro = celdaActual.getIndividuos().getElemento(k).getData();
+                        }
+                    }
+                    celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(SanPedro));
+                }
+            }
+        }
+    }
+
+    private void hacerEspacio2 () {
+        for(int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
+            for(int j = 0; listaCeldas.getElemento(j).getData().getNumeroElementos() != j; j++) {
+                Celda celdaActual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
+                while (celdaActual.getRecursos().getNumeroElementos() < 3) {
+                    Random r = new Random();
+                    int prob = r.nextInt(0, 100);
+                    RecursoAgua nuevo = new RecursoAgua(recursoAgua.getTiempoAparicion(), recursoAgua.getPorcentajeAparicion(), recursoAgua.getPorcentajeAparicion2());
+                    if (prob <= nuevo.getPorcentajeAparicion()) {
+                        Random s = new Random();
+                        int prob2 = s.nextInt(0, recursoAgua.getPorcentajeAparicion2() + recursoBiblioteca.getPorcentajeAparicion2() + recursoTesoro.getPorcentajeAparicion2() + recursoMontaña.getPorcentajeAparicion2() + recursoPozo.getPorcentajeAparicion2() + recursoComida.getPorcentajeAparicion2());
+                        if (prob2 <= recursoAgua.getPorcentajeAparicion2()) {
+                            RecursoAgua nuevoAgua = new RecursoAgua(recursoAgua.getTiempoAparicion(), recursoAgua.getPorcentajeAparicion(), recursoAgua.getPorcentajeAparicion2());
+                            celdaActual.getRecursos().add(nuevoAgua);
+                        } else {
+                            prob2 -= recursoAgua.getPorcentajeAparicion2();
+                            if (prob2 <= recursoBiblioteca.getPorcentajeAparicion2()) {
+                                RecursoBiblioteca nuevaBiblioteca = new RecursoBiblioteca(recursoBiblioteca.getTiempoAparicion(), recursoBiblioteca.getPorcentajeAparicion(), recursoBiblioteca.getPorcentajeAparicion2());
+                                celdaActual.getRecursos().add(nuevaBiblioteca);
+                            } else {
+                                prob2 -= recursoBiblioteca.getPorcentajeAparicion2();
+                                if (prob2 <= recursoTesoro.getPorcentajeAparicion2()) {
+                                    RecursoTesoro nuevoTesoro = new RecursoTesoro(recursoTesoro.getTiempoAparicion(), recursoTesoro.getPorcentajeAparicion(), recursoTesoro.getPorcentajeAparicion2());
+                                    celdaActual.getRecursos().add(nuevoTesoro);
+                                } else {
+                                    prob2 -= recursoTesoro.getPorcentajeAparicion2();
+                                    if (prob2 <= recursoMontaña.getPorcentajeAparicion2()) {
+                                        RecursoMontaña nuevaMontaña = new RecursoMontaña(recursoMontaña.getTiempoAparicion(), recursoMontaña.getPorcentajeAparicion(), recursoMontaña.getPorcentajeAparicion2());
+                                        celdaActual.getRecursos().add(nuevaMontaña);
+                                    } else {
+                                        prob2 -= recursoMontaña.getPorcentajeAparicion2();
+                                        if (prob2 <= recursoPozo.getPorcentajeAparicion2()) {
+                                            RecursoPozo nuevoPozo = new RecursoPozo(recursoPozo.getTiempoAparicion(), recursoPozo.getPorcentajeAparicion(), recursoPozo.getPorcentajeAparicion2());
+                                            celdaActual.getRecursos().add(nuevoPozo);
+                                        } else {
+                                            RecursoComida nuevaComida = new RecursoComida(recursoComida.getTiempoAparicion(), recursoComida.getPorcentajeAparicion(), recursoComida.getPorcentajeAparicion2());
+                                            celdaActual.getRecursos().add(nuevaComida);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
