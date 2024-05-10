@@ -137,7 +137,7 @@ public class TableroController implements Initializable {
                         RectangleOnDragExited(rectangle,celda);
                     });
                     placeholder.setMinSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño mínimo para visualización
-                    placeholder.setMaxSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño mínimo para visualización
+                    placeholder.setMaxSize(320 * 3 / tablero.getColumnas(), 461 / tablero.getFilas()); // Tamaño máximo para visualización
                     placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center");
                     placeholder.setGraphic(rectangle);
                     tableroDeJuego.add(placeholder, i, j);
