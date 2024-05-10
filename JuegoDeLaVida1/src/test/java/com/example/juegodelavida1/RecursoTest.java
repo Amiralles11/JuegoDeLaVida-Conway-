@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RecursoTest {
-    Recurso recurso = new RecursoBiblioteca(1,5,3);
+    Recurso recurso = new RecursoPozo(1,5,3);
 
     @Test
     void getTiempoAparicion() {

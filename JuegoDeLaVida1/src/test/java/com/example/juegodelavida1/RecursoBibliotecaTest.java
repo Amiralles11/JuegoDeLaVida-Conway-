@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RecursoBibliotecaTest {
-    RecursoBiblioteca recursoAgua = new RecursoBiblioteca(1,5,3);
-    RecursoBiblioteca recursoAgua2 = new RecursoBiblioteca(recursoAgua);
+    RecursoBiblioteca recursoAgua = new RecursoBiblioteca(1,5,3,10);
 
     @Test
     void getPorcentajeAparicion2() {
@@ -20,6 +19,6 @@ class RecursoBibliotecaTest {
 
     @Test
     void testToString() {
-        assertEquals(recursoAgua2.toString(),"RecursoBiblioteca, turnosRestantes = 1");
+        assertEquals(recursoAgua.toString(),"RecursoBiblioteca, turnosRestantes = 1");
     }
 }

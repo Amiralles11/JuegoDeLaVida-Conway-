@@ -14,12 +14,12 @@ import java.util.ResourceBundle;
 public class WindowsController implements Initializable {
     private static final Logger log = LogManager.getLogger(WindowsController.class);
     private Individuo parametrosData = new IndividuoTipoBasico(20, 50,20,80 );
-    private Recurso parametrosData2 = new RecursoAgua(20, 50,-1 );
-    private RecursoAgua parametrosDataAgua = new RecursoAgua(-1, -1,50);
-    private RecursoComida parametrosDataComida = new RecursoComida(-1, -1,50 );
-    private RecursoMontaña parametrosDataMontaña = new RecursoMontaña(-1, -1,50 );
-    private RecursoTesoro parametrosDataTesoro = new RecursoTesoro(-1, -1,50 );
-    private RecursoBiblioteca parametrosDataBiblioteca = new RecursoBiblioteca(-1, -1,50 );
+    private Recurso parametrosData2 = new RecursoPozo(20, 50,-1 );
+    private RecursoAgua parametrosDataAgua = new RecursoAgua(-1, -1,50,5);
+    private RecursoComida parametrosDataComida = new RecursoComida(-1, -1,50,10);
+    private RecursoMontaña parametrosDataMontaña = new RecursoMontaña(-1, -1,50,5);
+    private RecursoTesoro parametrosDataTesoro = new RecursoTesoro(-1, -1,50,50);
+    private RecursoBiblioteca parametrosDataBiblioteca = new RecursoBiblioteca(-1, -1,50,50);
     private RecursoPozo parametrosDataPozo = new RecursoPozo(-1, -1,50 );
     private Tablero parametrosTablero = new Tablero(10, 20);
     private IndividuoParametros modeloParaGUICompartido = new IndividuoParametros(parametrosData);
@@ -36,7 +36,7 @@ public class WindowsController implements Initializable {
         protected void NuevaPartidaButton() {
         log.info("Inicializando ventana NuevaPartida");
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("VentanaNuevaPartida.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ParameterController.class.getResource("VentanaNuevaPartida.fxml"));
         try {
             Scene scene = new Scene(fxmlLoader.load(), 320 * 3, 240 * 3);
             stage.setTitle("Establezca parámetros: ");

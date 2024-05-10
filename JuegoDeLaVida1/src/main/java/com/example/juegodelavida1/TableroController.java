@@ -95,7 +95,7 @@ public class TableroController implements Initializable {
         CeldaController cD = new CeldaController();
         cD.ButtonCelda(celda,rectangle,pC);
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(cD.getClass().getResource("ButtonCelda.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(CeldaController.class.getResource("ButtonCelda.fxml"));
         try {
             Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Celda" + "(" + (celda.getFilas()+1) + "," + (celda.getColumnas()+1) + ")");
