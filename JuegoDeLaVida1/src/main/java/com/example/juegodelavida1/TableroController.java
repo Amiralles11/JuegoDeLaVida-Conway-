@@ -131,6 +131,7 @@ public class TableroController implements Initializable {
     @FXML
     protected void ButtonContinuar(){
         pC.setPausa(false);
+        pC.bucleControl();
     }
     @FXML
     protected void ButtonConfiguracion(){
