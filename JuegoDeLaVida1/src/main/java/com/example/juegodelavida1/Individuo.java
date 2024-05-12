@@ -6,11 +6,14 @@ public abstract class Individuo {
     private int porcentajeClonacion;
     private int porcentajeTipoAlReproducirse;
 
+    private boolean movido;
+
     public Individuo(int vidas, int porcentajeReproduccion, int porcentajeClonacion, int porcentajeTipoAlReproducirse) {
         this.vidas = vidas;
         this.porcentajeReproduccion = porcentajeReproduccion;
         this.porcentajeClonacion = porcentajeClonacion;
         this.porcentajeTipoAlReproducirse = porcentajeTipoAlReproducirse;
+        this.movido = false;
     }
 
     public int getVidas() {
@@ -29,6 +32,10 @@ public abstract class Individuo {
         return porcentajeTipoAlReproducirse;
     }
 
+    public boolean isMovido() {
+        return movido;
+    }
+
     public void setVidas(int vidas) {
         this.vidas = vidas;
     }
@@ -43,6 +50,10 @@ public abstract class Individuo {
 
     public void setPorcentajeTipoAlReproducirse(int porcentajeTipoAlReproducirse) {
         this.porcentajeTipoAlReproducirse = porcentajeTipoAlReproducirse;
+    }
+
+    public void setMovido(boolean movido) {
+        this.movido = movido;
     }
 
     public abstract String toString();
