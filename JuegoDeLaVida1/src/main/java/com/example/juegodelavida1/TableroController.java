@@ -41,7 +41,7 @@ public class TableroController implements Initializable {
     @FXML
     private GridPane tableroDeJuego;
 
-    public TableroController() {
+    public TableroController(){
     }
     public void update(IndividuoTipoBasico individuoTipoBasico,
                        IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
