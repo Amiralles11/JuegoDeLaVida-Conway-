@@ -142,6 +142,12 @@ public class PrincipalController {
         if (numeroIndividuos() && !pausa) {
             pasarTurno();
             esperar(2000);
+            for (int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
+                for (int j = 0; listaCeldas.getElemento(i).getData().getNumeroElementos() != j; j++) {
+                    Celda actual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
+                    actual.updateGUIwithModel();
+                }
+            }
         }
     }
 
@@ -173,19 +179,25 @@ public class PrincipalController {
     private void vidaActualicer() {
         for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
             for (int j = 0; this.getListaCeldas().getElemento(i).getData().getNumeroElementos() != j; j++) {
-                for (int k = 0; this.getListaCeldas().getElemento(i).getData().getElemento(j).getData().getIndividuos().getNumeroElementos() != k; k++) {
-                    Individuo actual = listaCeldas.getElemento(i).getData().getElemento(j).getData().getIndividuos().getElemento(k).getData();
-                    actual.setVidas(actual.getVidas() - 1);
-                    actual.setPorcentajeReproduccion(actual.getPorcentajeReproduccion() - 10);
-                    actual.setPorcentajeClonacion(actual.getPorcentajeClonacion() - 10);
-                    if (actual.getVidas() == 0) {
-                        Celda celdaActual = this.getListaCeldas().getElemento(i).getData().getElemento(j).getData();
-                        celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
-                    } else if (actual.getPorcentajeClonacion() <= 0) {
-                        actual.setPorcentajeClonacion(0);
+                Celda celdaActual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
+                if (!celdaActual.getIndividuos().isVacia()) {
+                    ListaEnlazada<Individuo> listaIndividuos = celdaActual.getIndividuos();
+                    for (int k = 0; this.getListaCeldas().getElemento(i).getData().getElemento(j).getData().getIndividuos().getNumeroElementos() != k; k++) {
+                        Individuo actual = celdaActual.getIndividuos().getElemento(k).getData();
+                        actual.setVidas(actual.getVidas() - 1);
+                        actual.setPorcentajeReproduccion(actual.getPorcentajeReproduccion() - 10);
+                        actual.setPorcentajeClonacion(actual.getPorcentajeClonacion() - 10);
+                        if (actual.getPorcentajeClonacion() <= 0) {
+                            actual.setPorcentajeClonacion(0);
+                        }
+                        if (actual.getPorcentajeReproduccion() <= 0) {
+                            actual.setPorcentajeReproduccion(0);
+                        }
                     }
-                    if (actual.getPorcentajeReproduccion() <= 0) {
-                        actual.setPorcentajeReproduccion(0);
+                    for (int h = 0; listaIndividuos.getNumeroElementos() != h; h++) {
+                        if (listaIndividuos.getElemento(h).getData().getVidas() <= 0) {
+                            celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(listaIndividuos.getElemento(h).getData()));
+                        }
                     }
                 }
             }
