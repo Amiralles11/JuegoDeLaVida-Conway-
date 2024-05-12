@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -30,6 +31,8 @@ public class CeldaController implements Initializable {
     private static RecursoMontaña recursoMontaña;
     private static RecursoPozo recursoPozo;
     private static RecursoTesoro recursoTesoro;
+    @FXML
+    MenuButton botonPrincipal;
     @FXML
     Label individuo1;
     @FXML
@@ -70,6 +73,9 @@ public class CeldaController implements Initializable {
     }
 
     protected void updateGUIwithModel() {
+        if(!pC.isPausa()){
+            botonPrincipal.setDisable(true);
+        }
         log.info("Actualizando Labels y color de la celda");
         individuo1.setText(celda.getIndividuos().toString2());
         recurso1.setText(celda.getRecursos().toString2());

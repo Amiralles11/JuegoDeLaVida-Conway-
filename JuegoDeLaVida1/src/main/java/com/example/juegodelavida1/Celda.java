@@ -9,7 +9,7 @@ public class Celda {
     private ListaEnlazada<Individuo> individuos = new ListaEnlazada<>();
     private ListaEnlazada<Recurso> recursos = new ListaEnlazada<>();
 
-    public Celda(int fila, int columna) {
+    public Celda(int fila, int columna){
         this.coordenadas.add(fila);
         this.coordenadas.add(columna);
 
