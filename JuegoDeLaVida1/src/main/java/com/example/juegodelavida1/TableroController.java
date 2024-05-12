@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 
 
 public class TableroController implements Initializable {
+    private static Stage stageTablero;
     private PrincipalController pC;
     private static ListaSimple<ListaSimple<Celda>> listaCeldas;
     private static int ventanas = 1;
@@ -41,6 +42,21 @@ public class TableroController implements Initializable {
     private GridPane tableroDeJuego;
 
     public TableroController() {
+    }
+    public void update(IndividuoTipoBasico individuoTipoBasico,
+                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
+                       RecursoAgua recursoAgua,  RecursoComida recursoComida, RecursoMontaña recursoMontaña,
+                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo){
+        this.individuoTipoBasico = individuoTipoBasico;
+        this.individuoTipoNormal = individuoTipoNormal;
+        this.individuoTipoAvanzado = individuoTipoAvanzado;
+        this.recursoAgua = recursoAgua;
+        this.recursoBiblioteca = recursoBiblioteca;
+        this.recursoComida = recursoComida;
+        this.recursoMontaña = recursoMontaña;
+        this.recursoPozo = recursoPozo;
+        this.recursoTesoro = recursoTesoro;
+        stageTablero.show();
     }
     @FXML
     public void start(Tablero tablero, IndividuoTipoBasico individuoTipoBasico,
@@ -69,6 +85,7 @@ public class TableroController implements Initializable {
             log.error("Tablero.fxml no encontrado");
             e.printStackTrace();
         }
+        this.stageTablero = stage;
     }
     @FXML
     protected void RectangleOnDragEntered(Rectangle rectange, Celda celda){
@@ -106,6 +123,57 @@ public class TableroController implements Initializable {
             e.printStackTrace();
         }
         log.info("Finalizando metodo ButtonCelda");
+    }
+    @FXML
+    protected void ButtonPausar(){
+        pC.setPausa(true);
+    }
+    @FXML
+    protected void ButtonContinuar(){
+        pC.setPausa(false);
+    }
+    @FXML
+    protected void ButtonConfiguracion(){
+        if(pC.isPausa()) {
+            log.info("Iniciando metodo ButtonConfiguracion");
+            IndividuoParametros modeloParaGUICompartido = new IndividuoParametros(individuoTipoBasico);
+            RecursoParametros modeloParaGUICompartido2 = new RecursoParametros(recursoPozo);
+            RecursoParametros.RecursoParametrosAgua modeloParaGUICompartidoAgua = new RecursoParametros.RecursoParametrosAgua(recursoAgua);
+            RecursoParametros.RecursoParametrosComida modeloParaGUICompartidoComida = new RecursoParametros.RecursoParametrosComida(recursoComida);
+            RecursoParametros.RecursoParametrosMontaña modeloParaGUICompartidoMontaña = new RecursoParametros.RecursoParametrosMontaña(recursoMontaña);
+            RecursoParametros.RecursoParametrosTesoro modeloParaGUICompartidoTesoro = new RecursoParametros.RecursoParametrosTesoro(recursoTesoro);
+            RecursoParametros.RecursoParametrosBiblioteca modeloParaGUICompartidoBiblioteca = new RecursoParametros.RecursoParametrosBiblioteca(recursoBiblioteca);
+            RecursoParametros.RecursoParametrosPozo modeloParaGUICompartidoPozo = new RecursoParametros.RecursoParametrosPozo(recursoPozo);
+            log.debug(individuoTipoBasico);
+            log.debug(recursoPozo);
+            log.debug(recursoAgua);
+            log.debug(recursoComida);
+            log.debug(recursoMontaña);
+            log.debug(recursoTesoro);
+            log.debug(recursoBiblioteca);
+            log.debug(recursoPozo);
+            log.info("parametros guardados");
+            log.info("Inicializando ventana Configuracion");
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(ConfiguracionController.class.getResource("VentanaConfiguracion.fxml"));
+            try {
+                Scene scene = new Scene(fxmlLoader.load(), 320 * 3, 240 * 3);
+                stage.setTitle("Establezca parámetros: ");
+                stage.setScene(scene);
+                ConfiguracionController p = fxmlLoader.getController();
+                log.debug("Guardando valores predeterminados (loadUserData)");
+                p.loadUserData(this, modeloParaGUICompartido, modeloParaGUICompartido2, modeloParaGUICompartidoAgua,
+                        modeloParaGUICompartidoComida, modeloParaGUICompartidoMontaña, modeloParaGUICompartidoTesoro,
+                        modeloParaGUICompartidoBiblioteca, modeloParaGUICompartidoPozo, stage); //Carga los datos del modelo en el gui, todas las ventanas comparten el mismo en este caso
+                p.setStage(stage);
+                stage.show();
+            } catch (Exception e) {
+                log.error("VentanaNuevaPartida.fxml no encontrada");
+                e.printStackTrace();
+            }
+            log.info("Finalizando metodo ButtonConfiguracion");
+            stageTablero.close();
+        }
     }
 
     @Override
@@ -147,7 +215,11 @@ public class TableroController implements Initializable {
                 listaCeldas.add(listaS);
             }
         log.info("Tablero terminado");
-        pC = new PrincipalController(individuoTipoBasico,individuoTipoNormal,individuoTipoAvanzado,recursoAgua,recursoComida,recursoMontaña,
+        pC = new PrincipalController(true,individuoTipoBasico,individuoTipoNormal,individuoTipoAvanzado,recursoAgua,recursoComida,recursoMontaña,
                 recursoTesoro,recursoBiblioteca,recursoPozo,listaCeldas);
      }
+
+    public PrincipalController getpC() {
+        return pC;
+    }
 }

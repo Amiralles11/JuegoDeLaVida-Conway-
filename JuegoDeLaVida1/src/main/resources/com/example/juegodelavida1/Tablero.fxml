@@ -32,7 +32,7 @@
          </children></AnchorPane>
       <AnchorPane prefHeight="104.0" prefWidth="960.0">
          <children>
-            <Button layoutX="37.0" layoutY="22.0" mnemonicParsing="false" text="Configuración">
+            <Button layoutX="37.0" layoutY="22.0" mnemonicParsing="false" onAction="#ButtonConfiguracion" text="Configuración">
                <font>
                   <Font name="Britannic Bold" size="35.0" />
                </font>
@@ -42,12 +42,12 @@
                   <Font name="Britannic Bold" size="30.0" />
                </font>
             </Button>
-            <Button layoutX="426.0" layoutY="22.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="65.0" text="&gt;">
+            <Button layoutX="426.0" layoutY="22.0" mnemonicParsing="false" onAction="#ButtonContinuar" prefHeight="60.0" prefWidth="65.0" text="&gt;">
                <font>
                   <Font name="Britannic Bold" size="30.0" />
                </font>
             </Button>
-            <Button layoutX="521.0" layoutY="22.0" mnemonicParsing="false" prefHeight="60.0" text="I I">
+            <Button layoutX="521.0" layoutY="22.0" mnemonicParsing="false" onAction="#ButtonPausar" prefHeight="60.0" text="I I">
                <font>
                   <Font name="Britannic Bold" size="30.0" />
                </font>

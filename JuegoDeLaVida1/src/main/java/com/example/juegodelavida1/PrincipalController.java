@@ -12,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import java.util.Random;
 
 public class PrincipalController {
+    private boolean pausa;
     private ListaSimple<ListaSimple<Celda>> listaCeldas;
     private IndividuoTipoBasico individuoTipoBasico;
     private IndividuoTipoNormal individuoTipoNormal;
@@ -23,11 +24,12 @@ public class PrincipalController {
     private RecursoPozo recursoPozo;
     private RecursoTesoro recursoTesoro;
 
-    public PrincipalController(IndividuoTipoBasico individuoTipoBasico,
+    public PrincipalController(Boolean pausa,IndividuoTipoBasico individuoTipoBasico,
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
                       RecursoAgua recursoAgua, RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,
                       ListaSimple<ListaSimple<Celda>> lista){
+        this.pausa = pausa;
         this.individuoTipoBasico = individuoTipoBasico;
         this.individuoTipoNormal = individuoTipoNormal;
         this.individuoTipoAvanzado = individuoTipoAvanzado;
@@ -118,6 +120,14 @@ public class PrincipalController {
 
     public void setRecursoTesoro(RecursoTesoro recursoTesoro) {
         this.recursoTesoro = recursoTesoro;
+    }
+
+    public boolean isPausa() {
+        return pausa;
+    }
+
+    public void setPausa(boolean pausa) {
+        this.pausa = pausa;
     }
 
     public void bucleControl() {
