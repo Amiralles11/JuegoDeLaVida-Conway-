@@ -21,7 +21,6 @@ public class CeldaController implements Initializable {
     private static final Logger log = LogManager.getLogger(CeldaController.class);
     private static PrincipalController pC;
     private static Celda celda;
-    private static Rectangle rectangle;
     private static IndividuoTipoBasico individuoTipoBasico;
     private static IndividuoTipoNormal individuoTipoNormal;
     private static IndividuoTipoAvanzado individuoTipoAvanzado;
@@ -56,10 +55,9 @@ public class CeldaController implements Initializable {
     @FXML
     MenuItem AñadirRecursoPozo;
 
-    protected void ButtonCelda(Celda celda, Rectangle rectangle, PrincipalController pC){
+    protected void ButtonCelda(Celda celda, PrincipalController pC){
         log.info("Inicalizando controlador de Celdas"+ventanas++);
         this.celda = celda;
-        this.rectangle = rectangle;
         this.pC = pC;
         this.individuoTipoBasico = pC.getIndividuoTipoBasico();
         this.individuoTipoNormal = pC.getIndividuoTipoNormal();
@@ -79,18 +77,7 @@ public class CeldaController implements Initializable {
         log.info("Actualizando Labels y color de la celda");
         individuo1.setText(celda.getIndividuos().toString2());
         recurso1.setText(celda.getRecursos().toString2());
-        if(celda.getIndividuos().getNumeroElementos()==0){
-            rectangle.setFill(Color.WHITE);
-        }
-        else if(celda.getIndividuos().getNumeroElementos()==1){
-            rectangle.setFill(Color.LIGHTYELLOW);
-        }
-        else if(celda.getIndividuos().getNumeroElementos()==2){
-            rectangle.setFill(Color.YELLOW);
-        }
-        else if(celda.getIndividuos().getNumeroElementos()==3){
-            rectangle.setFill(Color.YELLOWGREEN);
-        }
+        celda.updateGUIwithModel();
         log.info("Labels y color de la celda actualizados");
     }
     @FXML

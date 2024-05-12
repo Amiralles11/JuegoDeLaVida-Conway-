@@ -107,10 +107,10 @@ public class TableroController implements Initializable {
         }
     }
     @FXML
-    protected void ButtonCelda(Celda celda,Rectangle rectangle){
+    protected void ButtonCelda(Celda celda){
         log.info("Iniciando metodo ButtonCelda");
         CeldaController cD = new CeldaController();
-        cD.ButtonCelda(celda,rectangle,pC);
+        cD.ButtonCelda(celda,pC);
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(CeldaController.class.getResource("ButtonCelda.fxml"));
         try {
@@ -192,11 +192,11 @@ public class TableroController implements Initializable {
                     // Ejemplo simplificado con un label
                     Rectangle rectangle = new Rectangle(310 * 3 / tablero.getColumnas(), 450 / tablero.getFilas(),Color.WHITE);
                     final Button placeholder = new Button();
-                    Celda celda = new Celda(j,i);
+                    Celda celda = new Celda(j,i,rectangle);
                     placeholder.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
-                            ButtonCelda(celda,rectangle);
+                            ButtonCelda(celda);
                         }
                     });
                     placeholder.setOnMouseEntered(mouseEvent -> {
