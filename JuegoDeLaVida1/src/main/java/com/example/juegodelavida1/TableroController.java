@@ -191,7 +191,7 @@ public class TableroController implements Initializable {
                     // Ejemplo simplificado con un label
                     Rectangle rectangle = new Rectangle(310 * 3 / tablero.getColumnas(), 450 / tablero.getFilas(),Color.WHITE);
                     final Button placeholder = new Button();
-                    Celda celda = new Celda(j,i);
+                    Celda celda = new Celda(j,i,rectangle);
                     placeholder.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
