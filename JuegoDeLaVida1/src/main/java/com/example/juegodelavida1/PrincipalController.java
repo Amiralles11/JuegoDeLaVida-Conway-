@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PrincipalController {
+    private static int idIndividuos;
     private boolean pausa;
     private ListaSimple<ListaSimple<Celda>> listaCeldas;
     private IndividuoTipoBasico individuoTipoBasico;
@@ -37,7 +38,9 @@ public class PrincipalController {
         this.recursoTesoro = recursoTesoro;
         this.listaCeldas = lista;
     }
-
+    public int identificadorIndividuos(){
+        return idIndividuos++;
+    }
     public ListaSimple<ListaSimple<Celda>> getListaCeldas() {
         return listaCeldas;
     }
