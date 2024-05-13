@@ -17,7 +17,6 @@ import java.util.ResourceBundle;
 
 public class CeldaController implements Initializable {
     private static int ventanas = 0;
-    private static int individuos = 0;
     private static final Logger log = LogManager.getLogger(CeldaController.class);
     private static PrincipalController pC;
     private static Celda celda;
@@ -86,7 +85,7 @@ public class CeldaController implements Initializable {
         if(celda.getIndividuos().getNumeroElementos()<3) {
             log.info("Añadiendo IndividuoBasico");
             log.debug(celda);
-            celda.add(new IndividuoTipoBasico(individuos++, individuoTipoBasico));
+            celda.add(new IndividuoTipoBasico(pC.identificadorIndividuos(), individuoTipoBasico));
             log.debug(celda);
             updateGUIwithModel();
             log.info("IndividuoBasico Añadido");
@@ -102,7 +101,7 @@ public class CeldaController implements Initializable {
         if(celda.getIndividuos().getNumeroElementos()<3) {
             log.info("Añadiendo IndividuoNormal");
             log.debug(celda);
-            celda.add(new IndividuoTipoNormal(individuos++, individuoTipoNormal));
+            celda.add(new IndividuoTipoNormal(pC.identificadorIndividuos(), individuoTipoNormal));
             log.debug(celda);
             updateGUIwithModel();
             log.info("IndividuoNormal Añadido");
@@ -118,7 +117,7 @@ public class CeldaController implements Initializable {
             if(celda.getIndividuos().getNumeroElementos()<3) {
                 log.info("Añadiendo IndividuoAvanzado");
                 log.debug(celda);
-                celda.add(new IndividuoTipoNormal(individuos++, individuoTipoAvanzado));
+                celda.add(new IndividuoTipoNormal(pC.identificadorIndividuos(), individuoTipoAvanzado));
                 log.debug(celda);
                 updateGUIwithModel();
                 log.info("IndividuoAvanzado Añadido");
