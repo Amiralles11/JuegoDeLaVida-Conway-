@@ -2,14 +2,10 @@ package com.example.juegodelavida1;
 
 import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
+import javafx.application.Platform;
 
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PrincipalController {
     private boolean pausa;
@@ -139,18 +135,25 @@ public class PrincipalController {
     }
 
     public void bucleControl() {
-        boolean conprovacionFinal = finPartida();
-        while (conprovacionFinal) {
-            pasarTurno();
-            esperar(1000);
-            for (int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
-                for (int j = 0; listaCeldas.getElemento(i).getData().getNumeroElementos() != j; j++) {
-                    Celda actual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
-                    actual.updateGUIwithModel();
+        AtomicBoolean comprobacionFinal = new AtomicBoolean(true);
+        Thread juegoThread = new Thread(() -> {
+            while (comprobacionFinal.get()) {
+                pasarTurno();
+                Platform.runLater(() -> {
+                    for (int i = 0; i < listaCeldas.getNumeroElementos(); i++) {
+                        for (int j = 0; j < listaCeldas.getElemento(i).getData().getNumeroElementos(); j++) {
+                            Celda actual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
+                            actual.updateGUIwithModel();
+                        }
+                    }
+                });
+                esperar(1000);
+                if (!finPartida()) {
+                    comprobacionFinal.set(false);
                 }
             }
-            conprovacionFinal = finPartida();
-        }
+        });
+        juegoThread.start();
     }
 
     private boolean finPartida() {
