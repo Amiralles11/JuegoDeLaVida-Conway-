@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PrincipalController {
-    private static int idIndividuos;
+    private static int idIndividuos = 0;
     private boolean pausa;
     private ListaSimple<ListaSimple<Celda>> listaCeldas;
     private IndividuoTipoBasico individuoTipoBasico;
