@@ -227,7 +227,7 @@ public class PrincipalController {
                 for (int k = 0; celdaActual.getRecursos().getNumeroElementos() != k; k++) {
                     Recurso actual = celdaActual.getRecursos().getElemento(k).getData();
                     actual.setTiempoAparicion(actual.getTiempoAparicion() - 1);
-                    if (actual.getTiempoAparicion() == 0) {
+                    if (actual.getTiempoAparicion() <= 0) {
                         listaRecursosDesaparecer.add(actual);
                     }
                 }
