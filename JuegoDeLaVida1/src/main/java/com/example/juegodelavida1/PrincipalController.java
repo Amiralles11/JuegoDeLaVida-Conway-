@@ -139,15 +139,25 @@ public class PrincipalController {
     }
 
     public void bucleControl() {
-        if (numeroIndividuos() && !pausa) {
+        boolean conprovacionFinal = finPartida();
+        while (conprovacionFinal) {
             pasarTurno();
-            esperar(2000);
+            esperar(1000);
             for (int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
                 for (int j = 0; listaCeldas.getElemento(i).getData().getNumeroElementos() != j; j++) {
                     Celda actual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
                     actual.updateGUIwithModel();
                 }
             }
+            conprovacionFinal = finPartida();
+        }
+    }
+
+    private boolean finPartida() {
+        if (!pausa && numeroIndividuos()) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -181,8 +191,8 @@ public class PrincipalController {
             for (int j = 0; this.getListaCeldas().getElemento(i).getData().getNumeroElementos() != j; j++) {
                 Celda celdaActual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
                 if (!celdaActual.getIndividuos().isVacia()) {
-                    ListaEnlazada<Individuo> listaIndividuos = celdaActual.getIndividuos();
-                    for (int k = 0; this.getListaCeldas().getElemento(i).getData().getElemento(j).getData().getIndividuos().getNumeroElementos() != k; k++) {
+                    ListaEnlazada<Individuo> listaIndividuos = new ListaEnlazada<>();
+                    for (int k = 0; celdaActual.getIndividuos().getNumeroElementos() != k; k++) {
                         Individuo actual = celdaActual.getIndividuos().getElemento(k).getData();
                         actual.setVidas(actual.getVidas() - 1);
                         actual.setPorcentajeReproduccion(actual.getPorcentajeReproduccion() - 10);
@@ -193,11 +203,13 @@ public class PrincipalController {
                         if (actual.getPorcentajeReproduccion() <= 0) {
                             actual.setPorcentajeReproduccion(0);
                         }
-                    }
-                    for (int h = 0; listaIndividuos.getNumeroElementos() != h; h++) {
-                        if (listaIndividuos.getElemento(h).getData().getVidas() <= 0) {
-                            celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(listaIndividuos.getElemento(h).getData()));
+                        if (actual.getVidas() == 0) {
+                            listaIndividuos.add(actual);
                         }
+                    }
+                    while (!listaIndividuos.isVacia()) {
+                        celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(listaIndividuos.getPrimero()));
+                        listaIndividuos.del(0);
                     }
                 }
             }
@@ -207,13 +219,18 @@ public class PrincipalController {
     private void tiempoRecursoActualicer() {
         for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
             for (int j = 0; this.getListaCeldas().getElemento(i).getData().getNumeroElementos() != j; j++) {
-                for (int k = 0; this.getListaCeldas().getElemento(i).getData().getElemento(j).getData().getRecursos().getNumeroElementos() != k; k++) {
-                    Recurso actual = listaCeldas.getElemento(i).getData().getElemento(j).getData().getRecursos().getElemento(k).getData();
+                Celda celdaActual = this.getListaCeldas().getElemento(i).getData().getElemento(j).getData();
+                ListaEnlazada<Recurso> listaRecursosDesaparecer = new ListaEnlazada<>();
+                for (int k = 0; celdaActual.getRecursos().getNumeroElementos() != k; k++) {
+                    Recurso actual = celdaActual.getRecursos().getElemento(k).getData();
                     actual.setTiempoAparicion(actual.getTiempoAparicion() - 1);
                     if (actual.getTiempoAparicion() == 0) {
-                        Celda celdaActual = this.getListaCeldas().getElemento(i).getData().getElemento(j).getData();
-                        celdaActual.getIndividuos().del(celdaActual.getRecursos().getPosicion(actual));
+                        listaRecursosDesaparecer.add(actual);
                     }
+                }
+                while (!listaRecursosDesaparecer.isVacia()) {
+                    celdaActual.getRecursos().del(celdaActual.getRecursos().getPosicion(listaRecursosDesaparecer.getPrimero()));
+                    listaRecursosDesaparecer.del(0);
                 }
             }
         }
