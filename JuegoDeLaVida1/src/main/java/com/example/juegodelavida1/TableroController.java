@@ -218,6 +218,7 @@ public class TableroController implements Initializable {
         log.info("Tablero terminado");
         pC = new PrincipalController(true,individuoTipoBasico,individuoTipoNormal,individuoTipoAvanzado,recursoAgua,recursoComida,recursoMontaña,
                 recursoTesoro,recursoBiblioteca,recursoPozo,listaCeldas);
+        this.pC.reiniciarIdentificadores();
      }
 
     public PrincipalController getpC() {

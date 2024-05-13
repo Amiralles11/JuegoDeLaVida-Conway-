@@ -5,7 +5,6 @@ public abstract class Individuo {
     private int porcentajeReproduccion;
     private int porcentajeClonacion;
     private int porcentajeTipoAlReproducirse;
-
     private boolean movido;
 
     public Individuo(int vidas, int porcentajeReproduccion, int porcentajeClonacion, int porcentajeTipoAlReproducirse) {
