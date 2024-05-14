@@ -1,5 +1,7 @@
 package com.example.juegodelavida1;
 
+import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
+
 public class IndividuoTipoNormal extends Individuo{
     private int iD;
     public IndividuoTipoNormal(int vidas, int porcentajeReproduccion, int porcentajeClonacion, int porcentajeTipoAlReproducirse) {
@@ -22,5 +24,4 @@ public class IndividuoTipoNormal extends Individuo{
     public void move() {
 
     }
-
 }

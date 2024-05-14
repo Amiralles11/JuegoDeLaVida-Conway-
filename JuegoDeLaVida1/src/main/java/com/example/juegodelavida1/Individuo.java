@@ -1,18 +1,25 @@
 package com.example.juegodelavida1;
 
+import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
+
 public abstract class Individuo {
     private int vidas;
     private int porcentajeReproduccion;
     private int porcentajeClonacion;
     private int porcentajeTipoAlReproducirse;
     private boolean movido;
+    private ListaSimple<Integer> ruta = new ListaSimple<>(2);
 
     public Individuo(int vidas, int porcentajeReproduccion, int porcentajeClonacion, int porcentajeTipoAlReproducirse) {
+        ListaSimple<Integer> nuevaRuta = new ListaSimple<>(2);
+        nuevaRuta.add(0);
+        nuevaRuta.add(0);
         this.vidas = vidas;
         this.porcentajeReproduccion = porcentajeReproduccion;
         this.porcentajeClonacion = porcentajeClonacion;
         this.porcentajeTipoAlReproducirse = porcentajeTipoAlReproducirse;
         this.movido = false;
+        this.ruta = nuevaRuta;
     }
 
     public int getVidas() {
@@ -57,5 +64,14 @@ public abstract class Individuo {
 
     public abstract String toString();
     public abstract void move();
+
+
+    public ListaSimple<Integer> getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(ListaSimple<Integer> ruta) {
+        this.ruta = ruta;
+    }
 
 }

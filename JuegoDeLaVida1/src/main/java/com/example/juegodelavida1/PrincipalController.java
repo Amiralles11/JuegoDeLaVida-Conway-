@@ -264,8 +264,7 @@ public class PrincipalController {
                         if (actual instanceof IndividuoTipoBasico && !actual.isMovido()) {
                             moverBasico(actual, celdaActual.getFilas(), celdaActual.getColumnas(), celdaActual);
                         } else if (actual instanceof IndividuoTipoNormal && !actual.isMovido()) {
-                            Celda celdaMover = celdaMover(celdaActual);
-                            moverNormal(actual, celdaActual.getFilas(), celdaActual.getColumnas(), celdaMover);
+                            moverNormal(actual, celdaActual.getFilas(), celdaActual.getColumnas(), celdaActual);
                         } else if (!actual.isMovido()){
 
                         }
@@ -293,19 +292,19 @@ public class PrincipalController {
     private void moverBasico(Individuo actual, int fila, int columna, Celda antigua) {
         Random r = new Random();
         int mov = r.nextInt(4);
-        if (mov == 0 && fila != 0) {
+        if (mov == 0 && fila != 0) {   //Arriba
             listaCeldas.getElemento(columna).getData().getElemento(fila - 1).getData().getIndividuos().add(actual);
             actual.setMovido(true);
             antigua.getIndividuos().del(antigua.getIndividuos().getPosicion(actual));
-        } else if (mov == 1 && fila != listaCeldas.getElemento(columna).getData().getNumeroElementos() - 1) {
+        } else if (mov == 1 && fila != listaCeldas.getElemento(columna).getData().getNumeroElementos() - 1) {    //Abajo
             listaCeldas.getElemento(columna).getData().getElemento(fila + 1).getData().getIndividuos().add(actual);
             actual.setMovido(true);
             antigua.getIndividuos().del(antigua.getIndividuos().getPosicion(actual));
-        } else if (mov == 2 && columna != 0) {
+        } else if (mov == 2 && columna != 0) {   //Izquierda
             listaCeldas.getElemento(columna - 1).getData().getElemento(fila).getData().getIndividuos().add(actual);
             actual.setMovido(true);
             antigua.getIndividuos().del(antigua.getIndividuos().getPosicion(actual));
-        } else if (mov == 3 && columna != listaCeldas.getNumeroElementos() - 1) {
+        } else if (mov == 3 && columna != listaCeldas.getNumeroElementos() - 1) {   //Derecha
             listaCeldas.getElemento(columna + 1).getData().getElemento(fila).getData().getIndividuos().add(actual);
             actual.setMovido(true);
             antigua.getIndividuos().del(antigua.getIndividuos().getPosicion(actual));
@@ -316,12 +315,13 @@ public class PrincipalController {
 
     private Celda celdaMover(Celda salida) {
         ListaEnlazada<Celda> celdasRecursos = new ListaEnlazada<>();
-        for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
+        for (int i = 0; this.getListaCeldas().getNumeroElementos() != i; i++) {
             for (int j = 0; this.getListaCeldas().getElemento(i).getData().getNumeroElementos() != j; j++) {
                 boolean insert = false;
                 Celda celdaActual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
                 for (int k = 0; celdaActual.getRecursos().getNumeroElementos() != k; k ++) {
-                    if ((celdaActual.getRecursos().getElemento(k).getData() instanceof RecursoAgua || celdaActual.getRecursos().getElemento(k).getData() instanceof RecursoComida) && celdaActual != salida) {
+                    Recurso recursoActual = celdaActual.getRecursos().getElemento(k).getData();
+                    if ((recursoActual instanceof RecursoAgua || recursoActual instanceof RecursoComida) && celdaActual != salida) {
                         insert = true;
                     }
                 }
@@ -330,13 +330,60 @@ public class PrincipalController {
                 }
             }
         }
-        Random r = new Random();
-        int celdaAleatoria = r.nextInt(0, celdasRecursos.getNumeroElementos() - 1);
-        return celdasRecursos.getElemento(celdaAleatoria).getData();
+        if (!celdasRecursos.isVacia()) {
+            if (celdasRecursos.getNumeroElementos() == 1) {
+                return celdasRecursos.getElemento(0).getData();
+            }
+            Random r = new Random();
+            int celdaAleatoria = r.nextInt(0, celdasRecursos.getNumeroElementos() - 1);
+            return celdasRecursos.getElemento(celdaAleatoria).getData();
+        }
+        return salida;
     }
 
-    private void moverNormal(Individuo actual, int filas, int columnas, Celda celdaMover) {
-
+    private void moverNormal(Individuo actual, int fila, int columna, Celda celdaActual) {
+        if (actual.getRuta().getElemento(0).getData() == 0 && actual.getRuta().getElemento(1).getData() == 0) {
+            Celda celdaMover = celdaMover(celdaActual);
+            ListaSimple<Integer> nuevaRuta = new ListaSimple<>(2);
+            nuevaRuta.insert(celdaMover.getFilas() - fila, 0);
+            nuevaRuta.insert(celdaMover.getColumnas() - columna, 1);
+            actual.setRuta(nuevaRuta);
+        }
+        if (actual.getRuta().getElemento(0).getData() > 0) {   //Abajo
+            listaCeldas.getElemento(columna).getData().getElemento(fila + 1).getData().getIndividuos().add(actual);
+            actual.setMovido(true);
+            ListaSimple<Integer> nuevaRuta = new ListaSimple<>(2);
+            nuevaRuta.add(actual.getRuta().getElemento(0).getData() - 1);
+            nuevaRuta.add(actual.getRuta().getElemento(1).getData());
+            actual.setRuta(nuevaRuta);
+            celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
+        } else if (actual.getRuta().getElemento(0).getData() < 0) { //Arriba
+            listaCeldas.getElemento(columna).getData().getElemento(fila - 1).getData().getIndividuos().add(actual);
+            actual.setMovido(true);
+            ListaSimple<Integer> nuevaRuta = new ListaSimple<>(2);
+            nuevaRuta.add(actual.getRuta().getElemento(0).getData() + 1);
+            nuevaRuta.add(actual.getRuta().getElemento(1).getData());
+            actual.setRuta(nuevaRuta);
+            celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
+        } else {
+            if (actual.getRuta().getElemento(1).getData() > 0) {   //Derecha
+                listaCeldas.getElemento(columna + 1).getData().getElemento(fila).getData().getIndividuos().add(actual);
+                actual.setMovido(true);
+                ListaSimple<Integer> nuevaRuta = new ListaSimple<>(2);
+                nuevaRuta.add(actual.getRuta().getElemento(0).getData());
+                nuevaRuta.add(actual.getRuta().getElemento(1).getData() - 1);
+                actual.setRuta(nuevaRuta);
+                celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
+            } else if (actual.getRuta().getElemento(1).getData() < 0) {   //Izquierda
+                listaCeldas.getElemento(columna - 1).getData().getElemento(fila).getData().getIndividuos().add(actual);
+                actual.setMovido(true);
+                ListaSimple<Integer> nuevaRuta = new ListaSimple<>(2);
+                nuevaRuta.add(actual.getRuta().getElemento(0).getData());
+                nuevaRuta.add(actual.getRuta().getElemento(1).getData() + 1);
+                actual.setRuta(nuevaRuta);
+                celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
+            }
+        }
     }
 
     private void interaccionRecursos() {
