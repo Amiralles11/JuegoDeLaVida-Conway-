@@ -36,10 +36,27 @@ public class CargarPartidaController implements Initializable {
     @FXML
     private Button anterior;
     @FXML
-    protected void ButtonReferencia(Button button){
-        log.debug(button.getText());
-        PrincipalController pC = cargarObjetoDesdeArchivo(button.getText(),PrincipalController.class);
-        TableroController tab = new TableroController();
+    protected void ButtonReferencia(int columna) {
+        if ((elementosPosibles - 8 + columna) < partidas.getNumeroElementos()) {
+            log.debug(partidas.getElemento(elementosPosibles - 8 + columna).getData() + ".json");
+            PrincipalController pC = cargarObjetoDesdeArchivoPrincipalController(partidas.getElemento(elementosPosibles - 8 + columna).getData() + ".json",PrincipalController.class);
+            TableroController tab = new TableroController();
+            tab.start(new Tablero(pC.getListaCeldas().getElemento(0).getData().getNumeroElementos(),pC.getListaCeldas().getNumeroElementos()),pC.getIndividuoTipoBasico(),pC.getIndividuoTipoNormal(),
+                    pC.getIndividuoTipoAvanzado(),pC.getRecursoAgua(),pC.getRecursoComida(),pC.getRecursoMontaña(),pC.getRecursoTesoro(),
+                    pC.getRecursoBiblioteca(),pC.getRecursoPozo());
+            for(int i=0;i<pC.getListaCeldas().getNumeroElementos();i++){
+                for(int j=0;j< pC.getListaCeldas().getElemento(0).getData().getNumeroElementos();j++){
+                    tab.getpC().getListaCeldas().getElemento(i).getData().getElemento(j).getData().setIndividuos(pC.getListaCeldas().getElemento(i).getData().getElemento(j).getData().getIndividuos());
+                    tab.getpC().getListaCeldas().getElemento(i).getData().getElemento(j).getData().setRecursos(pC.getListaCeldas().getElemento(i).getData().getElemento(j).getData().getRecursos());
+                }
+            }
+            for (int i = 0; i < tab.getpC().getListaCeldas().getNumeroElementos(); i++) {
+                for (int j = 0; j < tab.getpC().getListaCeldas().getElemento(i).getData().getNumeroElementos(); j++) {
+                    Celda actual = tab.getpC().getListaCeldas().getElemento(i).getData().getElemento(j).getData();
+                    actual.updateGUIwithModel();
+                }
+            }
+        }
     }
     @FXML
     protected void ButtonSiguiente(){
@@ -99,11 +116,12 @@ public class CargarPartidaController implements Initializable {
         partidas = cargarObjetoDesdeArchivo("Partidas.json",ListaEnlazada.class);
         log.info("Inicializando GridPane");
         for (int i = 0; i < 8; i++) {
+            final int j =i;
             final Button placeholder = new Button();
             placeholder.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    ButtonReferencia(placeholder);
+                    ButtonReferencia(j);
                 }
             });
             placeholder.setMinSize(320 * 3, 444 / 8); // Tamaño mínimo para visualización
@@ -142,6 +160,15 @@ public class CargarPartidaController implements Initializable {
     // Método para cargar un objeto desde un archivo JSON
     public static <T> T cargarObjetoDesdeArchivo(String rutaArchivo, Class<T> clase) {
         com.google.gson.Gson gson = new com.google.gson.Gson();
+        try (FileReader reader = new FileReader(rutaArchivo)) {
+            return gson.fromJson(reader, clase);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static <T> T cargarObjetoDesdeArchivoPrincipalController(String rutaArchivo, Class<T> clase) {
+        com.google.gson.Gson gson = new com.google.gson.GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         try (FileReader reader = new FileReader(rutaArchivo)) {
             return gson.fromJson(reader, clase);
         } catch (IOException e) {
