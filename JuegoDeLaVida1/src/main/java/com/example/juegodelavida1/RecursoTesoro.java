@@ -1,7 +1,11 @@
 package com.example.juegodelavida1;
 
+import com.google.gson.annotations.Expose;
+
 public class RecursoTesoro extends Recurso{
+    @Expose
     private int porcentajeAparicion2;
+    @Expose
     private int porcentajeReproduccion;
     public RecursoTesoro(int tiempoAparicion, int porcentajeAparicion, int porcentajeAparicion2,int porcentajeReproduccion) {
         super(tiempoAparicion, porcentajeAparicion);

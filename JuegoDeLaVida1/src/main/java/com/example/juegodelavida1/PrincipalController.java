@@ -2,6 +2,7 @@ package com.example.juegodelavida1;
 
 import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
+import com.google.gson.annotations.Expose;
 import javafx.application.Platform;
 
 import java.util.HashMap;
@@ -10,17 +11,28 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PrincipalController {
     private HashMap<Individuo, ListaEnlazada<Celda>> rutaAvanzada;
+    @Expose
     private static int idIndividuos = 0;
     private boolean pausa;
+    @Expose
     private ListaSimple<ListaSimple<Celda>> listaCeldas;
+    @Expose
     private IndividuoTipoBasico individuoTipoBasico;
+    @Expose
     private IndividuoTipoNormal individuoTipoNormal;
+    @Expose
     private IndividuoTipoAvanzado individuoTipoAvanzado;
+    @Expose
     private RecursoAgua recursoAgua;
+    @Expose
     private RecursoBiblioteca recursoBiblioteca;
+    @Expose
     private RecursoComida recursoComida;
+    @Expose
     private RecursoMontaña recursoMontaña;
+    @Expose
     private RecursoPozo recursoPozo;
+    @Expose
     private RecursoTesoro recursoTesoro;
 
     public PrincipalController(Boolean pausa,IndividuoTipoBasico individuoTipoBasico,
@@ -130,6 +142,7 @@ public class PrincipalController {
     public void setRecursoTesoro(RecursoTesoro recursoTesoro) {
         this.recursoTesoro = recursoTesoro;
     }
+
 
     private void esperar(int milisegundos) {
         try {
@@ -274,7 +287,7 @@ public class PrincipalController {
                         } else if (actual instanceof IndividuoTipoNormal && !actual.isMovido()) {
                             moverNormal(actual, celdaActual.getFilas(), celdaActual.getColumnas(), celdaActual);
                         } else if (!actual.isMovido()){
-                            moverAvanzado();
+
                         }
                     }
                 }
@@ -286,9 +299,6 @@ public class PrincipalController {
     private void moverAvanzado() {
 
     }
-
-
-
 
     private void setMovFalse() {
         for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {

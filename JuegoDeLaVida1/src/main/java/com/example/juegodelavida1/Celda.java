@@ -2,14 +2,17 @@ package com.example.juegodelavida1;
 
 import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
-import javafx.scene.control.Button;
+import com.google.gson.annotations.Expose;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Celda {
     private Rectangle rectangle;
+    @Expose
     private final ListaSimple<Integer> coordenadas = new ListaSimple<>(2);
+    @Expose
     private ListaEnlazada<Individuo> individuos = new ListaEnlazada<>();
+    @Expose
     private ListaEnlazada<Recurso> recursos = new ListaEnlazada<>();
 
     public Celda(int fila, int columna){

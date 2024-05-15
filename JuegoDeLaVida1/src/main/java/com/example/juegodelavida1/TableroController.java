@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -176,7 +175,28 @@ public class TableroController implements Initializable {
             stageTablero.close();
         }
     }
-
+    @FXML
+    protected void ButtonTerminarPartida(){
+    }
+    @FXML
+    protected void ButtonGuardar(){
+        if(pC.isPausa()){
+            log.info("Iniciando metodo ButtonGuardar");
+            GuardarPartidaController partida = new GuardarPartidaController();
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(partida.getClass().getResource("VentanaGuardarPartida.fxml"));
+            try {
+                Scene scene = new Scene(fxmlLoader.load(), 480, 360);
+                stage.setTitle("Guardar Partida");
+                stage.setScene(scene);
+                stage.show();
+            } catch (Exception e) {
+                log.error("VentanaGuardarPartida.fxml no encontrado");
+                e.printStackTrace();
+            }
+            partida.loadUserData(pC,stage);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("Inicializando tablero");

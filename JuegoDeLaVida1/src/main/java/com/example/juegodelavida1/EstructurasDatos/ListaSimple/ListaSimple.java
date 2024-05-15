@@ -1,9 +1,11 @@
 package com.example.juegodelavida1.EstructurasDatos.ListaSimple;
 
-import java.util.Arrays;
+import com.google.gson.annotations.Expose;
 
 public class ListaSimple<T> {
+    @Expose
     private ElementoLS<T>[] datos;
+    @Expose
     private final int maximo;
 
     public ListaSimple(int maximo) {

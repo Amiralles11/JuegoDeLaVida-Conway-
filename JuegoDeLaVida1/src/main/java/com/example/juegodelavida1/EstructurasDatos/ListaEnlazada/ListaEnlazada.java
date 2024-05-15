@@ -1,6 +1,9 @@
 package com.example.juegodelavida1.EstructurasDatos.ListaEnlazada;
 
+import com.google.gson.annotations.Expose;
+
 public class ListaEnlazada<TipoDato> {
+    @Expose
     private ElementoLE<TipoDato> primero;
     public ListaEnlazada() {
         this.primero = null;
@@ -79,6 +82,9 @@ public class ListaEnlazada<TipoDato> {
         }
     }
     public Integer getPosicion(ElementoLE<TipoDato> el) {
+        if(isVacia()){
+            return null;
+        }
         int pos = 0;
         ElementoLE<TipoDato> first = this.primero;
         for (int i = 0; (pos < getNumeroElementos()) && (first.getData() != el.getData()); i++) {

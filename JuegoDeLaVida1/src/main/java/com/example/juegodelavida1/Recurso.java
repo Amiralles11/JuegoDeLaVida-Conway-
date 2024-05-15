@@ -1,7 +1,11 @@
 package com.example.juegodelavida1;
 
+import com.google.gson.annotations.Expose;
+
 public abstract class Recurso {
+    @Expose
     private int tiempoAparicion;
+    @Expose
     private int porcentajeAparicion;
 
     public Recurso(int tiempoAparicion, int porcentajeAparicion) {

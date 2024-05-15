@@ -57,7 +57,7 @@
                   <Font name="Britannic Bold" size="30.0" />
                </font>
             </Button>
-            <Button layoutX="710.0" layoutY="22.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="216.0" text="Guardar">
+            <Button layoutX="710.0" layoutY="22.0" mnemonicParsing="false" onAction="#ButtonGuardar" prefHeight="60.0" prefWidth="216.0" text="Guardar">
                <font>
                   <Font name="Britannic Bold" size="35.0" />
                </font>

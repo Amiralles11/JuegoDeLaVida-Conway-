@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="720" prefWidth="960" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.WindowsController">
+<VBox alignment="CENTER" prefHeight="720" prefWidth="960" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.CargarPartidaController">
+   <children>
+      <Label />
+      <Label text="Cargar Partida" textAlignment="CENTER">
+         <font>
+            <Font name="Britannic Bold" size="92.0" />
+         </font>
+      </Label>
+      <Label>
+         <font>
+            <Font size="5.0" />
+         </font>
+      </Label>
+      <GridPane fx:id="gridPane" prefHeight="444.0" prefWidth="960.0">
+      </GridPane>
+      <AnchorPane prefHeight="44.0" prefWidth="960.0">
+         <children>
+            <Button fx:id="anterior" layoutX="220.0" layoutY="12.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="65.0" text="&lt;">
+               <font>
+                  <Font name="Britannic Bold" size="40.0" />
+               </font>
+            </Button>
+            <Button fx:id="siguiente" layoutX="670.0" layoutY="12.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="65.0" text="&gt;">
+               <font>
+                  <Font name="Britannic Bold" size="40.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Label />
+   </children>
 </VBox>
