@@ -2,6 +2,8 @@ package com.example.juegodelavida1;
 
 import com.google.gson.annotations.Expose;
 
+import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
+
 public class IndividuoTipoNormal extends Individuo{
     @Expose
     private int iD;
