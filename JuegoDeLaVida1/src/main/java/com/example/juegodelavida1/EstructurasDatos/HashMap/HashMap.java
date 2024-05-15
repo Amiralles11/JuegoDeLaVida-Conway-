@@ -1,5 +1,6 @@
 package com.example.juegodelavida1.EstructurasDatos.HashMap;
 
+import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ElementoLE;
 import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 
 public class HashMap<T, E> {
@@ -54,5 +55,23 @@ public class HashMap<T, E> {
             actual = actual.getSiguiente();
         }
         return listaClaves;
+    }
+
+    public Boolean isHashMapVacio() {
+        return primero == null;
+    }
+
+    public int getNumElemMap() {
+        if (isHashMapVacio()) {
+            return 0;
+        }else{
+            int elem = 0;
+            ElementoHashMap<T, E> first = primero;
+            while (first != null) {
+                elem += 1;
+                first = first.getSiguiente();
+            }
+            return elem;
+        }
     }
 }

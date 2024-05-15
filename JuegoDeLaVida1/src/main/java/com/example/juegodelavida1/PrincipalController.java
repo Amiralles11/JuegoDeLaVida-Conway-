@@ -4,10 +4,12 @@ import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
 import javafx.application.Platform;
 
+import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PrincipalController {
+    private HashMap<Individuo, ListaEnlazada<Celda>> rutaAvanzada;
     private static int idIndividuos = 0;
     private boolean pausa;
     private ListaSimple<ListaSimple<Celda>> listaCeldas;
@@ -26,6 +28,9 @@ public class PrincipalController {
                       RecursoAgua recursoAgua, RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,
                       ListaSimple<ListaSimple<Celda>> lista){
+        ListaEnlazada<Celda> rutaAvanzada = new ListaEnlazada<>();
+        HashMap<Individuo, ListaEnlazada<Celda>> rutasAvanzadas = new HashMap<>();
+        this.rutaAvanzada = rutasAvanzadas;
         this.pausa = pausa;
         this.individuoTipoBasico = individuoTipoBasico;
         this.individuoTipoNormal = individuoTipoNormal;
@@ -221,6 +226,9 @@ public class PrincipalController {
                     while (!listaIndividuos.isVacia()) {
                         celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(listaIndividuos.getPrimero()));
                         listaIndividuos.del(0);
+                        for (int t = 0; ; t++) {
+
+                        }
                     }
                 }
             }
@@ -266,7 +274,7 @@ public class PrincipalController {
                         } else if (actual instanceof IndividuoTipoNormal && !actual.isMovido()) {
                             moverNormal(actual, celdaActual.getFilas(), celdaActual.getColumnas(), celdaActual);
                         } else if (!actual.isMovido()){
-
+                            moverAvanzado();
                         }
                     }
                 }
@@ -274,6 +282,13 @@ public class PrincipalController {
         }
         setMovFalse();
     }
+
+    private void moverAvanzado() {
+
+    }
+
+
+
 
     private void setMovFalse() {
         for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
