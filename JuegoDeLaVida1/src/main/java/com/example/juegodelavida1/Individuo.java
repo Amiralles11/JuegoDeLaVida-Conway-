@@ -1,9 +1,15 @@
 package com.example.juegodelavida1;
 
+import com.google.gson.annotations.Expose;
+
 public abstract class Individuo {
+    @Expose
     private int vidas;
+    @Expose
     private int porcentajeReproduccion;
+    @Expose
     private int porcentajeClonacion;
+    @Expose
     private int porcentajeTipoAlReproducirse;
     private boolean movido;
 

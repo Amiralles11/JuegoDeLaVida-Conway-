@@ -2,23 +2,35 @@ package com.example.juegodelavida1;
 
 import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
+import com.google.gson.annotations.Expose;
 import javafx.application.Platform;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PrincipalController {
+    @Expose
     private static int idIndividuos = 0;
     private boolean pausa;
+    @Expose
     private ListaSimple<ListaSimple<Celda>> listaCeldas;
+    @Expose
     private IndividuoTipoBasico individuoTipoBasico;
+    @Expose
     private IndividuoTipoNormal individuoTipoNormal;
+    @Expose
     private IndividuoTipoAvanzado individuoTipoAvanzado;
+    @Expose
     private RecursoAgua recursoAgua;
+    @Expose
     private RecursoBiblioteca recursoBiblioteca;
+    @Expose
     private RecursoComida recursoComida;
+    @Expose
     private RecursoMontaña recursoMontaña;
+    @Expose
     private RecursoPozo recursoPozo;
+    @Expose
     private RecursoTesoro recursoTesoro;
 
     public PrincipalController(Boolean pausa,IndividuoTipoBasico individuoTipoBasico,
@@ -125,6 +137,7 @@ public class PrincipalController {
     public void setRecursoTesoro(RecursoTesoro recursoTesoro) {
         this.recursoTesoro = recursoTesoro;
     }
+
 
     private void esperar(int milisegundos) {
         try {

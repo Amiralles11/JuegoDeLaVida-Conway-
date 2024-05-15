@@ -11,7 +11,10 @@ module com.example.juegodelavida1 {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires org.apache.logging.log4j;
+    requires com.google.gson;
 
-    opens com.example.juegodelavida1 to javafx.fxml;
+    opens com.example.juegodelavida1 to com.google.gson,javafx.fxml;
+    opens com.example.juegodelavida1.EstructurasDatos.ListaEnlazada to com.google.gson;
+    opens com.example.juegodelavida1.EstructurasDatos.ListaSimple to com.google.gson;
     exports com.example.juegodelavida1;
 }

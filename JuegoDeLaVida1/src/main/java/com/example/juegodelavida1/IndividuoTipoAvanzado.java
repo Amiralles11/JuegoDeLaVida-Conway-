@@ -1,6 +1,9 @@
 package com.example.juegodelavida1;
 
+import com.google.gson.annotations.Expose;
+
 public class IndividuoTipoAvanzado extends Individuo{
+    @Expose
     private int iD;
     public IndividuoTipoAvanzado(int vidas, int porcentajeReproduccion, int porcentajeClonacion, int porcentajeTipoAlReproducirse) {
         super(vidas, porcentajeReproduccion, porcentajeClonacion, porcentajeTipoAlReproducirse);

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="360" prefWidth="480" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.GuardarPartidaController">
+   <children>
+      <Label text="Guardar Partida">
+         <font>
+            <Font name="Britannic Bold" size="35.0" />
+         </font>
+      </Label>
+      <AnchorPane prefHeight="267.0" prefWidth="480.0">
+         <children>
+            <Label layoutX="42.0" layoutY="68.0" text="Nombre del juego:">
+               <font>
+                  <Font name="Britannic Bold" size="21.0" />
+               </font>
+            </Label>
+            <Button layoutX="334.0" layoutY="212.0" mnemonicParsing="false" onAction="#GuardarPartidaButton" prefHeight="45.0" prefWidth="117.0" text="Guardar">
+               <font>
+                  <Font name="Britannic Bold" size="22.0" />
+               </font>
+            </Button>
+            <TextField fx:id="textField" layoutX="42.0" layoutY="107.0" prefHeight="26.0" prefWidth="251.0">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label fx:id="errorGuardar" layoutX="51.0" layoutY="156.0" prefHeight="16.0" prefWidth="251.0" textFill="RED">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
