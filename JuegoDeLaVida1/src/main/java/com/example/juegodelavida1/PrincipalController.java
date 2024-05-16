@@ -5,10 +5,12 @@ import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
 import com.google.gson.annotations.Expose;
 import javafx.application.Platform;
 
+import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PrincipalController {
+    private HashMap<Individuo, ListaEnlazada<Celda>> rutaAvanzada;
     @Expose
     private static int idIndividuos = 0;
     private boolean pausa;
@@ -38,6 +40,9 @@ public class PrincipalController {
                       RecursoAgua recursoAgua, RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,
                       ListaSimple<ListaSimple<Celda>> lista,int i){
+        ListaEnlazada<Celda> rutaAvanzada = new ListaEnlazada<>();
+        HashMap<Individuo, ListaEnlazada<Celda>> rutasAvanzadas = new HashMap<>();
+        this.rutaAvanzada = rutasAvanzadas;
         this.pausa = pausa;
         this.individuoTipoBasico = individuoTipoBasico;
         this.individuoTipoNormal = individuoTipoNormal;
@@ -235,6 +240,9 @@ public class PrincipalController {
                     while (!listaIndividuos.isVacia()) {
                         celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(listaIndividuos.getPrimero()));
                         listaIndividuos.del(0);
+                        for (int t = 0; ; t++) {
+
+                        }
                     }
                 }
             }
@@ -287,6 +295,10 @@ public class PrincipalController {
             }
         }
         setMovFalse();
+    }
+
+    private void moverAvanzado() {
+
     }
 
     private void setMovFalse() {

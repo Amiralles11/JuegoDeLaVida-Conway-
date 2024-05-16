@@ -88,6 +88,7 @@ public class CargarPartidaController implements Initializable {
             }
         }
     }
+
     @FXML
     protected void ButtonSiguiente(){
         log.info("Inciando metodo ButtonSiguiente");
