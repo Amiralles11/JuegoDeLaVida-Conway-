@@ -31,18 +31,31 @@ public class GuardarPartidaController {
         if(Objects.equals(textField.getText(), "")){
             log.warn("texto no valido");
             errorGuardar.setText("Texto introducido no valido");
-        }else {
+        }
+        else if(textField.getText().matches("[^A-Za-z]")){
+            log.warn("texto no valido");
+            errorGuardar.setText("Texto introducido no valido");
+        } else {
             log.info("Guardando Partida");
             log.debug(pC.getListaCeldas());
             partidas = cargarObjetoDesdeArchivo("Partidas.json",ListaEnlazada.class);
             guardarObjetoEnArchivoPrincipalController(textField.getText()+".json",pC);
-            if(partidas.getPosicion(textField.getText())==null){
+            int j=0;
+            for(int i=0;i<partidas.getNumeroElementos();i++){
+                if(Objects.equals(partidas.getElemento(i).getData(), textField.getText())){
+                    log.info("Datos de partida sobreescritos en ruta ya creada");
+                    j = -1;
+                }
+                j++;
+                log.debug(j);
+            }
+            if((partidas.isVacia())||(j==partidas.getNumeroElementos())&&(!Objects.equals(partidas.getUltimo().getData(), textField.getText()))){
+                log.info("Datos guardados en nueva ruta");
                 log.debug(partidas);
                 partidas.add(textField.getText());
-                log.debug(partidas);
                 guardarObjetoEnArchivo("Partidas.json",partidas);
-                log.info("Datos de partida guardados en nueva ruta");
-            }else{log.info("Datos de partida sobreescritos en ruta ya creada");}
+                log.debug(partidas);
+            }
             stage.close();
             log.info("VentanaGuardarPartida cerrada");
         }
