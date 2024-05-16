@@ -12,6 +12,11 @@ public class RecursoBiblioteca extends Recurso{
         this.porcentajeAparicion2 = porcentajeAparicion2;
         this.porcentajeClonacion = porcentajeClonacion;
     }
+    public RecursoBiblioteca(RecursoBiblioteca recurso){
+        super(recurso.getTiempoAparicion(), recurso.getPorcentajeAparicion());
+        this.porcentajeAparicion2 = recurso.getPorcentajeAparicion2();
+        this.porcentajeClonacion = recurso.getPorcentajeClonacion();
+    }
 
     @Override
     public int getPorcentajeAparicion2() {

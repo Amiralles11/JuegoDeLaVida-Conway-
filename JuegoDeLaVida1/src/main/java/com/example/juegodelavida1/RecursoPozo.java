@@ -9,6 +9,10 @@ public class RecursoPozo extends Recurso{
         super(tiempoAparicion, porcentajeAparicion);
         this.porcentajeAparicion2 = porcentajeAparicion2;
     }
+    public RecursoPozo(RecursoPozo recurso){
+        super(recurso.getTiempoAparicion(), recurso.getPorcentajeAparicion());
+        this.porcentajeAparicion2 = recurso.getPorcentajeAparicion2();
+    }
 
     @Override
     public int getPorcentajeAparicion2() {
