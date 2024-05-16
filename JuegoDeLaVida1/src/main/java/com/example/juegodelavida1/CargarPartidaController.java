@@ -41,6 +41,7 @@ public class CargarPartidaController implements Initializable {
         PrincipalController pC = cargarObjetoDesdeArchivo(button.getText(),PrincipalController.class);
         TableroController tab = new TableroController();
     }
+
     @FXML
     protected void ButtonSiguiente(){
         log.info("Inciando metodo ButtonSiguiente");
