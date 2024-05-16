@@ -100,48 +100,24 @@ public class PrincipalController {
         return recursoAgua;
     }
 
-    public void setRecursoAgua(RecursoAgua recursoAgua) {
-        this.recursoAgua = recursoAgua;
-    }
-
     public RecursoBiblioteca getRecursoBiblioteca() {
         return recursoBiblioteca;
-    }
-
-    public void setRecursoBiblioteca(RecursoBiblioteca recursoBiblioteca) {
-        this.recursoBiblioteca = recursoBiblioteca;
     }
 
     public RecursoComida getRecursoComida() {
         return recursoComida;
     }
 
-    public void setRecursoComida(RecursoComida recursoComida) {
-        this.recursoComida = recursoComida;
-    }
-
     public RecursoMontaña getRecursoMontaña() {
         return recursoMontaña;
-    }
-
-    public void setRecursoMontaña(RecursoMontaña recursoMontaña) {
-        this.recursoMontaña = recursoMontaña;
     }
 
     public RecursoPozo getRecursoPozo() {
         return recursoPozo;
     }
 
-    public void setRecursoPozo(RecursoPozo recursoPozo) {
-        this.recursoPozo = recursoPozo;
-    }
-
     public RecursoTesoro getRecursoTesoro() {
         return recursoTesoro;
-    }
-
-    public void setRecursoTesoro(RecursoTesoro recursoTesoro) {
-        this.recursoTesoro = recursoTesoro;
     }
 
 
