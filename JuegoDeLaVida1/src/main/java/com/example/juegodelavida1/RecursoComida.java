@@ -12,6 +12,11 @@ public class RecursoComida extends Recurso{
         this.porcentajeAparicion2 = porcentajeAparicion2;
         this.turnosVida = turnosVida;
     }
+    public RecursoComida(RecursoComida recurso){
+        super(recurso.getTiempoAparicion(), recurso.getPorcentajeAparicion());
+        this.porcentajeAparicion2 = recurso.getPorcentajeAparicion2();
+        this.turnosVida = recurso.getTurnosVida();
+    }
 
     @Override
     public int getPorcentajeAparicion2() {

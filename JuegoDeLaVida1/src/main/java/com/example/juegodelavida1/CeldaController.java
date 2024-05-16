@@ -133,7 +133,7 @@ public class CeldaController implements Initializable {
         if(celda.getRecursos().getNumeroElementos()<3) {
             log.info("Añadiendo RecursoAgua");
             log.debug(celda);
-            celda.add(recursoAgua);
+            celda.add(new RecursoAgua(recursoAgua));
             log.debug(celda);
             updateGUIwithModel();
             log.info("RecursoAgua Añadido");
@@ -150,7 +150,7 @@ public class CeldaController implements Initializable {
         if(celda.getRecursos().getNumeroElementos()<3) {
             log.info("Añadiendo RecursoComida");
             log.debug(celda);
-            celda.add(recursoComida);
+            celda.add(new RecursoComida(recursoComida));
             log.debug(celda);
             updateGUIwithModel();
             log.info("RecursoComida Añadido");
@@ -167,7 +167,7 @@ public class CeldaController implements Initializable {
         if(celda.getRecursos().getNumeroElementos()<3) {
             log.info("Añadiendo RecursoMontaña");
             log.debug(celda);
-            celda.add(recursoMontaña);
+            celda.add(new RecursoMontaña(recursoMontaña));
             log.debug(celda);
             updateGUIwithModel();
             log.info("RecursoMontaña Añadido");
@@ -183,7 +183,7 @@ public class CeldaController implements Initializable {
         if(celda.getRecursos().getNumeroElementos()<3) {
             log.info("Añadiendo RecursoTesoro");
             log.debug(celda);
-            celda.add(recursoTesoro);
+            celda.add(new RecursoTesoro(recursoTesoro));
             log.debug(celda);
             updateGUIwithModel();
             log.info("RecursoTesoro Añadido");
@@ -200,7 +200,7 @@ public class CeldaController implements Initializable {
         if(celda.getRecursos().getNumeroElementos()<3) {
             log.info("Añadiendo RecursoBiblioteca");
             log.debug(celda);
-            celda.add(recursoBiblioteca);
+            celda.add(new RecursoBiblioteca(recursoBiblioteca));
             log.debug(celda);
             updateGUIwithModel();
             log.info("RecursoBiblioteca Añadido");
@@ -216,7 +216,7 @@ public class CeldaController implements Initializable {
         if(celda.getRecursos().getNumeroElementos()<3) {
             log.info("Añadiendo RecursoPozo");
             log.debug(celda);
-            celda.add(recursoPozo);
+            celda.add(new RecursoPozo(recursoPozo));
             log.debug(celda);
             updateGUIwithModel();
             log.info("RecursoPozo Añadido");

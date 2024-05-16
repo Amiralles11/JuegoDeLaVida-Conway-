@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -21,6 +23,34 @@ import java.util.ResourceBundle;
 
 
 public class TableroController implements Initializable {
+    URL linkNuevoPausa = getClass().getResource("/imagenes/boton-de-pausa.png");
+    Image imagenPausa = new Image(linkNuevoPausa.toString(),35,35,false,true);
+    URL linkNuevoContinuar = getClass().getResource("/imagenes/boton-de-play.png");
+    Image imagenContinuar = new Image(linkNuevoContinuar.toString(),30,30,false,true);
+    URL linkNuevoAcelerar = getClass().getResource("/imagenes/delantero.png");
+    Image imagenAcelerar = new Image(linkNuevoAcelerar.toString(),32,32,false,true);
+    URL linkNuevoTerminar = getClass().getResource("/imagenes/caja.png");
+    Image imagenTerminar = new Image(linkNuevoTerminar.toString(),30,30,false,true);
+    URL linkNuevoGuardar = getClass().getResource("/imagenes/guardar-el-archivo.png");
+    Image imagenGuardar = new Image(linkNuevoGuardar.toString(),30,30,false,true);
+    URL linkNuevoAjustes = getClass().getResource("/imagenes/configuracion.png");
+    Image imagenAjustes = new Image(linkNuevoAjustes.toString(),30,30,false,true);
+    URL linkNuevoGuia = getClass().getResource("/imagenes/guia.png");
+    Image imagenGuia = new Image(linkNuevoGuia.toString(),50,50,false,true);
+    @FXML
+    Button botonPausa;
+    @FXML
+    Button botonContinuar;
+    @FXML
+    Button botonAcelerar;
+    @FXML
+    Button botonTerminar;
+    @FXML
+    Button botonAjustes;
+    @FXML
+    Button botonGuardar;
+    @FXML
+    Button botonGuia;
     private static Stage stageTablero;
     private PrincipalController pC;
     private static ListaSimple<ListaSimple<Celda>> listaCeldas;
@@ -271,6 +301,13 @@ public class TableroController implements Initializable {
                 }
                 listaCeldas.add(listaS);
             }
+            botonPausa.setGraphic(new ImageView(imagenPausa));
+            botonContinuar.setGraphic(new ImageView(imagenContinuar));
+            botonAcelerar.setGraphic(new ImageView(imagenAcelerar));
+            botonTerminar.setGraphic(new ImageView(imagenTerminar));
+            botonGuardar.setGraphic(new ImageView(imagenGuardar));
+            botonAjustes.setGraphic(new ImageView(imagenAjustes));
+            botonGuia.setGraphic(new ImageView(imagenGuia));
         log.info("Tablero terminado");
             if(listaCeldas2==null) {
                 pC = new PrincipalController(true, individuoTipoBasico, individuoTipoNormal, individuoTipoAvanzado, recursoAgua, recursoComida, recursoMontaña,
@@ -290,6 +327,10 @@ public class TableroController implements Initializable {
                 }
                 pC = new PrincipalController(true, individuoTipoBasico, individuoTipoNormal, individuoTipoAvanzado, recursoAgua, recursoComida, recursoMontaña,
                         recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos);
+                for(int i=0;i<listaCeldas2.getNumeroElementos();i++){
+                    listaCeldas2.del(i);
+                }
+                log.debug("listaCeldas2 es nulo? "+listaCeldas2==null);
             }
      }
 

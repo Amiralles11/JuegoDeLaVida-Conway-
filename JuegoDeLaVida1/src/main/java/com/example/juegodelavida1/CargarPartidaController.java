@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -25,6 +27,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CargarPartidaController implements Initializable {
+    URL linkNuevo = getClass().getResource("/imagenes/basura.png");
+    Image imagen = new Image(linkNuevo.toString(),30,30,false,true);
     private static int elementosPosibles;
     private static ListaEnlazada<String> partidas;
     private static final Logger log = LogManager.getLogger(CargarPartidaController.class);
@@ -105,10 +109,7 @@ public class CargarPartidaController implements Initializable {
             text.setStyle("-fx-font-family: 'Britannic Bold';-fx-font-size:25 ");
             botones.getElemento(j).getData().setGraphic(text);
 
-            Text text2 = new Text();
-            text2.setText("*");
-            text2.setStyle("-fx-font-family: 'Britannic Bold';-fx-font-size:25 ");
-            botones2.getElemento(j).getData().setGraphic(text2);
+            botones2.getElemento(j).getData().setGraphic(new ImageView(imagen));
             j++;
         }
         if(j!=7){
@@ -161,10 +162,7 @@ public class CargarPartidaController implements Initializable {
             text.setStyle("-fx-font-family: 'Britannic Bold';-fx-font-size:25 ");
             botones.getElemento(j).getData().setGraphic(text);
 
-            Text text2 = new Text();
-            text2.setText("*");
-            text2.setStyle("-fx-font-family: 'Britannic Bold';-fx-font-size:25 ");
-            botones2.getElemento(j).getData().setGraphic(text2);
+            botones2.getElemento(j).getData().setGraphic(new ImageView(imagen));
             j++;
         }
         if(j==7){
@@ -173,10 +171,7 @@ public class CargarPartidaController implements Initializable {
             text.setStyle("-fx-font-family: 'Britannic Bold';-fx-font-size:25 ");
             botones.getElemento(j).getData().setGraphic(text);
 
-            Text text2 = new Text();
-            text2.setText("*");
-            text2.setStyle("-fx-font-family: 'Britannic Bold';-fx-font-size:25 ");
-            botones2.getElemento(j).getData().setGraphic(text2);
+            botones2.getElemento(j).getData().setGraphic(new ImageView(imagen));
         }
         log.info("Finalizando metodo ButtonSiguiente");
     }
@@ -220,10 +215,7 @@ public class CargarPartidaController implements Initializable {
             placeholder.setStyle("-fx-border-color: black; -fx-text-alignment: center");
             gridPane.add(placeholder, 1, i);
             if(i<partidas.getNumeroElementos()){
-                Text text = new Text();
-                text.setText("*");
-                text.setStyle("-fx-font-family: 'Britannic Bold';-fx-font-size:25 ");
-                placeholder.setGraphic(text);
+                placeholder.setGraphic(new ImageView(imagen));
             }
             botones2.add(placeholder);
         }

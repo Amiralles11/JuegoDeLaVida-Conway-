@@ -12,7 +12,11 @@ public class RecursoTesoro extends Recurso{
         this.porcentajeAparicion2 = porcentajeAparicion2;
         this.porcentajeReproduccion = porcentajeReproduccion;
     }
-
+    public RecursoTesoro(RecursoTesoro recurso){
+        super(recurso.getTiempoAparicion(), recurso.getPorcentajeAparicion());
+        this.porcentajeAparicion2 = recurso.getPorcentajeAparicion2();
+        this.porcentajeReproduccion = recurso.getPorcentajeReproduccion();
+    }
     @Override
     public int getPorcentajeAparicion2() {
         return porcentajeAparicion2;
