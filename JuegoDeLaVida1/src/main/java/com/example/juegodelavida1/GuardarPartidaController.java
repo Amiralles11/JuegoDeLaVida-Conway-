@@ -28,11 +28,12 @@ public class GuardarPartidaController {
     }
     @FXML
     protected void GuardarPartidaButton() {
+        log.info("Iniciando metodo guardarPartida");
         if(Objects.equals(textField.getText(), "")){
             log.warn("texto no valido");
             errorGuardar.setText("Texto introducido no valido");
         }
-        else if(textField.getText().matches("[^A-Za-z]")){
+        else if(textField.getText().matches("[^A-Za-z0-9]")){
             log.warn("texto no valido");
             errorGuardar.setText("Texto introducido no valido");
         } else {
@@ -58,11 +59,13 @@ public class GuardarPartidaController {
             }
             stage.close();
             log.info("VentanaGuardarPartida cerrada");
+            log.info("Finalizando metodo guardar Partida");
         }
     }
     // Método para guardar un objeto en un archivo JSON
     public static <T> void guardarObjetoEnArchivoPrincipalController(String rutaArchivo, T objeto) {
-        com.google.gson.Gson gson = new com.google.gson.GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        com.google.gson.Gson gson = new com.google.gson.GsonBuilder().registerTypeAdapter(Individuo.class,new IndividuoJsonAdapter()).
+                registerTypeAdapter(Recurso.class,new RecursoJsonAdapter()).excludeFieldsWithoutExposeAnnotation().create();
         try (FileWriter writer = new FileWriter(rutaArchivo)) {
             gson.toJson(objeto, writer);
         } catch (IOException e) {
