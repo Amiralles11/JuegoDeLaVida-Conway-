@@ -14,6 +14,7 @@ public abstract class Individuo {
     @Expose
     private int porcentajeTipoAlReproducirse;
     private boolean movido;
+    @Expose
     private ListaSimple<Integer> ruta = new ListaSimple<>(2);
 
     public Individuo(int vidas, int porcentajeReproduccion, int porcentajeClonacion, int porcentajeTipoAlReproducirse) {
