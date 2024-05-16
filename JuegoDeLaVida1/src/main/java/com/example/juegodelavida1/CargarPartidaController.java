@@ -124,7 +124,7 @@ public class CargarPartidaController implements Initializable {
 
     }
     @FXML
-    protected void ButtonEliminar(int columna){
+    protected void ButtonEliminar(int columna) {
         if ((elementosPosibles - 8 + columna) < partidas.getNumeroElementos()) {
             log.info("Iniciando metodo eliminar partida");
             Stage stage = new Stage();
