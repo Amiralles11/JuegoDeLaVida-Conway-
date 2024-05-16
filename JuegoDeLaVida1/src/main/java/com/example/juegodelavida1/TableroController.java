@@ -24,8 +24,10 @@ public class TableroController implements Initializable {
     private static Stage stageTablero;
     private PrincipalController pC;
     private static ListaSimple<ListaSimple<Celda>> listaCeldas;
+    private static ListaSimple<ListaSimple<Celda>> listaCeldas2;
     private static int ventanas = 1;
     private static final Logger log = LogManager.getLogger(TableroController.class);
+    private static int idIndividuos;
     private static Tablero tablero;
     private static IndividuoTipoBasico individuoTipoBasico;
     private static IndividuoTipoNormal individuoTipoNormal;
@@ -58,6 +60,38 @@ public class TableroController implements Initializable {
         stageTablero.show();
     }
     @FXML
+    public void start2(Tablero tablero, IndividuoTipoBasico individuoTipoBasico,
+                      IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
+                      RecursoAgua recursoAgua,  RecursoComida recursoComida, RecursoMontaña recursoMontaña,
+                      RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,ListaSimple<ListaSimple<Celda>> lista,
+                       int idIndividuos) {
+        log.info("Iniciando controlador de tablero, ventana: "+ventanas++);
+        this.tablero = tablero;
+        this.individuoTipoBasico = individuoTipoBasico;
+        this.individuoTipoNormal = individuoTipoNormal;
+        this.individuoTipoAvanzado = individuoTipoAvanzado;
+        this.recursoAgua = recursoAgua;
+        this.recursoBiblioteca = recursoBiblioteca;
+        this.recursoComida = recursoComida;
+        this.recursoMontaña = recursoMontaña;
+        this.recursoPozo = recursoPozo;
+        this.recursoTesoro = recursoTesoro;
+        this.listaCeldas2 = lista;
+        this.idIndividuos = idIndividuos;
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(TableroController.class.getResource("Tablero.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 320*3, 240*3);
+            stage.setTitle("Tablero");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            log.error("Tablero.fxml no encontrado");
+            e.printStackTrace();
+        }
+        this.stageTablero = stage;
+    }
+    @FXML
     public void start(Tablero tablero, IndividuoTipoBasico individuoTipoBasico,
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
                       RecursoAgua recursoAgua,  RecursoComida recursoComida, RecursoMontaña recursoMontaña,
@@ -73,6 +107,8 @@ public class TableroController implements Initializable {
         this.recursoMontaña = recursoMontaña;
         this.recursoPozo = recursoPozo;
         this.recursoTesoro = recursoTesoro;
+        this.listaCeldas2 = null;
+        this.idIndividuos = 0;
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(TableroController.class.getResource("Tablero.fxml"));
         try {
@@ -236,9 +272,25 @@ public class TableroController implements Initializable {
                 listaCeldas.add(listaS);
             }
         log.info("Tablero terminado");
-        pC = new PrincipalController(true,individuoTipoBasico,individuoTipoNormal,individuoTipoAvanzado,recursoAgua,recursoComida,recursoMontaña,
-                recursoTesoro,recursoBiblioteca,recursoPozo,listaCeldas);
-        this.pC.reiniciarIdentificadores();
+            if(listaCeldas2==null) {
+                pC = new PrincipalController(true, individuoTipoBasico, individuoTipoNormal, individuoTipoAvanzado, recursoAgua, recursoComida, recursoMontaña,
+                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos);
+            }else{
+                for(int i=0;i<tablero.getColumnas();i++){
+                    for(int j=0;j< tablero.getFilas();j++){
+                        listaCeldas.getElemento(i).getData().getElemento(j).getData().setIndividuos(listaCeldas2.getElemento(i).getData().getElemento(j).getData().getIndividuos());
+                        listaCeldas.getElemento(i).getData().getElemento(j).getData().setRecursos(listaCeldas2.getElemento(i).getData().getElemento(j).getData().getRecursos());
+                    }
+                }
+                for (int i = 0; i < tablero.getColumnas(); i++) {
+                    for (int j = 0; j < tablero.getFilas(); j++) {
+                        Celda actual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
+                        actual.updateGUIwithModel();
+                    }
+                }
+                pC = new PrincipalController(true, individuoTipoBasico, individuoTipoNormal, individuoTipoAvanzado, recursoAgua, recursoComida, recursoMontaña,
+                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos);
+            }
      }
 
     public PrincipalController getpC() {

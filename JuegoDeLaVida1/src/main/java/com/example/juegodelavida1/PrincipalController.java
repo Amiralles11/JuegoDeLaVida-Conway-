@@ -39,7 +39,7 @@ public class PrincipalController {
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
                       RecursoAgua recursoAgua, RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,
-                      ListaSimple<ListaSimple<Celda>> lista){
+                      ListaSimple<ListaSimple<Celda>> lista,int i){
         ListaEnlazada<Celda> rutaAvanzada = new ListaEnlazada<>();
         HashMap<Individuo, ListaEnlazada<Celda>> rutasAvanzadas = new HashMap<>();
         this.rutaAvanzada = rutasAvanzadas;
@@ -54,14 +54,15 @@ public class PrincipalController {
         this.recursoPozo = recursoPozo;
         this.recursoTesoro = recursoTesoro;
         this.listaCeldas = lista;
-    }
-    public int identificadorIndividuos(){
-        return idIndividuos++;
+        this.idIndividuos = i;
     }
 
-    public int reiniciarIdentificadores() {
-        idIndividuos = 0;
+    public static int getIdIndividuos() {
         return idIndividuos;
+    }
+
+    public int identificadorIndividuos(){
+        return idIndividuos++;
     }
     public ListaSimple<ListaSimple<Celda>> getListaCeldas() {
         return listaCeldas;
