@@ -31,6 +31,12 @@ public class TableroController implements Initializable {
     Image imagenAcelerar = new Image(linkNuevoAcelerar.toString(),32,32,false,true);
     URL linkNuevoTerminar = getClass().getResource("/imagenes/caja.png");
     Image imagenTerminar = new Image(linkNuevoTerminar.toString(),30,30,false,true);
+    URL linkNuevoGuardar = getClass().getResource("/imagenes/guardar-el-archivo.png");
+    Image imagenGuardar = new Image(linkNuevoGuardar.toString(),30,30,false,true);
+    URL linkNuevoAjustes = getClass().getResource("/imagenes/configuracion.png");
+    Image imagenAjustes = new Image(linkNuevoAjustes.toString(),30,30,false,true);
+    URL linkNuevoGuia = getClass().getResource("/imagenes/guia.png");
+    Image imagenGuia = new Image(linkNuevoGuia.toString(),50,50,false,true);
     @FXML
     Button botonPausa;
     @FXML
@@ -299,6 +305,9 @@ public class TableroController implements Initializable {
             botonContinuar.setGraphic(new ImageView(imagenContinuar));
             botonAcelerar.setGraphic(new ImageView(imagenAcelerar));
             botonTerminar.setGraphic(new ImageView(imagenTerminar));
+            botonGuardar.setGraphic(new ImageView(imagenGuardar));
+            botonAjustes.setGraphic(new ImageView(imagenAjustes));
+            botonGuia.setGraphic(new ImageView(imagenGuia));
         log.info("Tablero terminado");
             if(listaCeldas2==null) {
                 pC = new PrincipalController(true, individuoTipoBasico, individuoTipoNormal, individuoTipoAvanzado, recursoAgua, recursoComida, recursoMontaña,
