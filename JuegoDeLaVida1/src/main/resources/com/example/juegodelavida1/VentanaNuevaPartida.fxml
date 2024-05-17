@@ -282,7 +282,7 @@
                         </Button>
                         <Button layoutX="366.0" layoutY="184.0" mnemonicParsing="false" onAction="#ButtonGuiaColumnas" prefHeight="26.0" prefWidth="31.0" text="?" />
                         <Slider fx:id="sliderFilas" layoutX="435.0" layoutY="102.0" majorTickUnit="5.0" max="20.0" min="1.0" minorTickCount="5" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="10.0" />
-                        <Slider fx:id="sliderColumnas" layoutX="435.0" layoutY="188.0" majorTickUnit="10.0" max="50.0" min="1.0" minorTickCount="5" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="20.0" />
+                        <Slider fx:id="sliderColumnas" layoutX="435.0" layoutY="188.0" majorTickUnit="10.0" max="40.0" min="1.0" minorTickCount="5" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="20.0" />
                         <Label fx:id="ValorFilas" layoutX="871.0" layoutY="97.0" text="--">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
