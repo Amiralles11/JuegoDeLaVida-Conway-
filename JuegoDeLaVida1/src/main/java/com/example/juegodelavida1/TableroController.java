@@ -1,6 +1,7 @@
 package com.example.juegodelavida1;
 
 
+import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -53,6 +54,7 @@ public class TableroController implements Initializable {
     Button botonGuia;
     private static Stage stageTablero;
     private PrincipalController pC;
+    private ListaEnlazada<Stage> celdaVentanas = new ListaEnlazada<>();
     private static ListaSimple<ListaSimple<Celda>> listaCeldas;
     private static ListaSimple<ListaSimple<Celda>> listaCeldas2;
     private static int ventanas = 1;
@@ -182,19 +184,29 @@ public class TableroController implements Initializable {
             Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Celda" + "(" + (celda.getFilas()+1) + "," + (celda.getColumnas()+1) + ")");
             stage.setScene(scene);
+            celdaVentanas.add(stage);
             stage.show();
         } catch (Exception e) {
             log.error("ButtonCelda.fxml no encontrado");
             e.printStackTrace();
         }
+
         log.info("Finalizando metodo ButtonCelda");
     }
     @FXML
     protected void ButtonPausar(){
+        for(int i = 0;i< celdaVentanas.getNumeroElementos();i++){
+            celdaVentanas.getElemento(i).getData().close();
+        }
+        celdaVentanas.vaciar();
         pC.setPausa(true);
     }
     @FXML
     protected void ButtonContinuar(){
+        for(int i = 0;i< celdaVentanas.getNumeroElementos();i++){
+            celdaVentanas.getElemento(i).getData().close();
+        }
+        celdaVentanas.vaciar();
         pC.setPausa(false);
         pC.bucleControl();
     }
