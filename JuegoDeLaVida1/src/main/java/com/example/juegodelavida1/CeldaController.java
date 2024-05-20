@@ -70,13 +70,12 @@ public class CeldaController implements Initializable {
     }
 
     protected void updateGUIwithModel() {
-        if(!pC.isPausa()){
-            botonPrincipal.setDisable(true);
-        }
         log.info("Actualizando Labels y color de la celda");
         individuo1.setText(celda.getIndividuos().toString2());
         recurso1.setText(celda.getRecursos().toString2());
-        celda.updateGUIwithModel();
+        if(pC.isPausa()) {
+            celda.updateGUIwithModel();
+        }
         log.info("Labels y color de la celda actualizados");
     }
     @FXML
@@ -117,7 +116,7 @@ public class CeldaController implements Initializable {
             if(celda.getIndividuos().getNumeroElementos()<3) {
                 log.info("Añadiendo IndividuoAvanzado");
                 log.debug(celda);
-                celda.add(new IndividuoTipoNormal(pC.identificadorIndividuos(), individuoTipoAvanzado));
+                celda.add(new IndividuoTipoAvanzado(pC.identificadorIndividuos(), individuoTipoAvanzado));
                 log.debug(celda);
                 updateGUIwithModel();
                 log.info("IndividuoAvanzado Añadido");
@@ -230,6 +229,9 @@ public class CeldaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("Inicializando controlador de celda");
+        if(!pC.isPausa()){
+            botonPrincipal.setDisable(true);
+        }
         updateGUIwithModel();
         AñadirIndividuoBasico.setOnAction(new EventHandler<ActionEvent>() {
             @Override
