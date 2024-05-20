@@ -312,7 +312,7 @@ public class ConfiguracionController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaVidas.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Vidas");
             stage.setScene(scene);
             stage.show();
@@ -328,7 +328,7 @@ public class ConfiguracionController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaReproduccion.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Reproducción");
             stage.setScene(scene);
             stage.show();
@@ -345,7 +345,7 @@ public class ConfiguracionController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaClonacion.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Clonación");
             stage.setScene(scene);
             stage.show();
@@ -361,7 +361,7 @@ public class ConfiguracionController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaTipo.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Tipo al reproducirse");
             stage.setScene(scene);
             stage.show();
@@ -379,7 +379,7 @@ public class ConfiguracionController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaTiempoAparicion.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Tiempo de aparición");
             stage.setScene(scene);
             stage.show();
@@ -397,7 +397,7 @@ public class ConfiguracionController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaProbabilidadAparicion.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Probabilidad de aparición");
             stage.setScene(scene);
             stage.show();
@@ -414,7 +414,7 @@ public class ConfiguracionController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaAgua.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Agua");
             stage.setScene(scene);
             stage.show();
@@ -431,7 +431,7 @@ public class ConfiguracionController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaComida.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Comida");
             stage.setScene(scene);
             stage.show();
@@ -448,7 +448,7 @@ public class ConfiguracionController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaMontaña.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Montaña");
             stage.setScene(scene);
             stage.show();
@@ -465,7 +465,7 @@ public class ConfiguracionController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaTesoro.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Tesoro");
             stage.setScene(scene);
             stage.show();
@@ -482,7 +482,7 @@ public class ConfiguracionController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaBiblioteca.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Biblioteca");
             stage.setScene(scene);
             stage.show();
@@ -499,7 +499,7 @@ public class ConfiguracionController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaPozo.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
             stage.setTitle("Pozo");
             stage.setScene(scene);
             stage.show();
@@ -510,36 +510,78 @@ public class ConfiguracionController implements Initializable {
 
     }
 
-
     @FXML
-    protected void ButtonGuiaFilas() {
-        log.info("Inciando zVentanaFilas");
+    protected void ButtonGuiaAguaTurnos() {
+        log.info("Inciando zVentanaAguaTurnos");
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaFilas.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaAguaTurnos.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
-            stage.setTitle("Filas");
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+            stage.setTitle("Turnos de Vida agua");
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-            log.error("zVentanaFilas.fxml no encontrada");
+            log.error("zVentanaAguaTurnos.fxml no encontrada");
             e.printStackTrace();
         }
-
     }
-
     @FXML
-    protected void ButtonGuiaColumnas() {
-        log.info("Inciando zVentanaColumnas");
+    protected void ButtonGuiaComidaTurnos() {
+        log.info("Inciando zVentanaComidaTurnos");
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaColumnas.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaComidaTurnos.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
-            stage.setTitle("Columnas");
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+            stage.setTitle("Turnos de Vida comida");
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-            log.error("zVentanaColumnas.fxml no encontrada");
+            log.error("zVentanaComidaTurnos.fxml no encontrada");
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    protected void ButtonGuiaMontañaTurnos() {
+        log.info("Inciando zVentanaMontañaTurnos");
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaMontañaTurnos.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+            stage.setTitle("Turnos de Vida montaña");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            log.error("zVentanaMontañaTurnos.fxml no encontrada");
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    protected void ButtonGuiaTesoroReproduccion() {
+        log.info("Inciando zVentanaTesoroReproduccion");
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaTesoroReproduccion.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+            stage.setTitle("Reproducción(%) Tesoro");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            log.error("zVentanaTesoroReproduccion.fxml no encontrada");
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    protected void ButtonGuiaBibliotecaClonacion() {
+        log.info("Inciando zVentanaBibliotecaClonacion");
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zVentanaBibliotecaClonacion.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+            stage.setTitle("Clonación(%) Biblioteca");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            log.error("zVentanaBibliotecaClonacion.fxml no encontrada");
             e.printStackTrace();
         }
     }
