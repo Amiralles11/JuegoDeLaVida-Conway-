@@ -15,9 +15,9 @@ public class PrincipalController {
 
     private int tiempoEspera;
     @Expose
-    private static int idIndividuos;
+    private int idIndividuos;
     @Expose
-    private static int turnos;
+    private int turnos;
     private boolean pausa;
     @Expose
     private ListaSimple<ListaSimple<Celda>> listaCeldas;
@@ -77,7 +77,7 @@ public class PrincipalController {
         }
     }
 
-    public static int getIdIndividuos() {
+    public int getIdIndividuos() {
         return idIndividuos;
     }
 
