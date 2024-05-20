@@ -6,6 +6,8 @@ import com.google.gson.annotations.Expose;
 
 public abstract class Individuo {
     @Expose
+    private int añosVividos;
+    @Expose
     private int vidas;
     @Expose
     private int porcentajeReproduccion;
@@ -81,4 +83,11 @@ public abstract class Individuo {
         this.ruta = ruta;
     }
 
+    public int getAñosVividos() {
+        return añosVividos;
+    }
+
+    public void setAñosVividos(int añosVividos) {
+        this.añosVividos = añosVividos;
+    }
 }
