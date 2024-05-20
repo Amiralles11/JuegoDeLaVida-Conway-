@@ -11,8 +11,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PrincipalController {
     private HashMap<Individuo, ListaEnlazada<Celda>> rutaAvanzada;
+    private static  TableroController tab;
+
+    private int tiempoEspera;
     @Expose
-    private static int idIndividuos = 0;
+    private static int idIndividuos;
+    @Expose
+    private static int turnos;
     private boolean pausa;
     @Expose
     private ListaSimple<ListaSimple<Celda>> listaCeldas;
@@ -39,7 +44,7 @@ public class PrincipalController {
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
                       RecursoAgua recursoAgua, RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,
-                      ListaSimple<ListaSimple<Celda>> lista,int i){
+                      ListaSimple<ListaSimple<Celda>> lista,int i, int j,TableroController tableroController){
         ListaEnlazada<Celda> rutaAvanzada = new ListaEnlazada<>();
         HashMap<Individuo, ListaEnlazada<Celda>> rutasAvanzadas = new HashMap<>();
         this.rutaAvanzada = rutasAvanzadas;
@@ -55,6 +60,21 @@ public class PrincipalController {
         this.recursoTesoro = recursoTesoro;
         this.listaCeldas = lista;
         this.idIndividuos = i;
+        this.turnos = j;
+        this.tab = tableroController;
+        this.tiempoEspera = 1000;
+    }
+
+    public void setTiempoEspera() {
+        if(this.tiempoEspera==1000){
+            this.tiempoEspera=750;
+        }else if(this.tiempoEspera==750){
+            this.tiempoEspera = 750;
+        }else if(this.tiempoEspera==500){
+            this.tiempoEspera = 500;
+        }else if(this.tiempoEspera==500){
+            this.tiempoEspera=1000;
+        }
     }
 
     public static int getIdIndividuos() {
@@ -63,6 +83,12 @@ public class PrincipalController {
 
     public int identificadorIndividuos(){
         return idIndividuos++;
+    }
+    public int getTurnos(){
+        return turnos;
+    }
+    public int identificadorTurnos(){
+        return turnos++;
     }
     public ListaSimple<ListaSimple<Celda>> getListaCeldas() {
         return listaCeldas;
@@ -143,6 +169,7 @@ public class PrincipalController {
             while (comprobacionFinal.get()) {
                 pasarTurno();
                 Platform.runLater(() -> {
+                    tab.setTurnos();
                     for (int i = 0; i < listaCeldas.getNumeroElementos(); i++) {
                         for (int j = 0; j < listaCeldas.getElemento(i).getData().getNumeroElementos(); j++) {
                             Celda actual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
@@ -150,7 +177,7 @@ public class PrincipalController {
                         }
                     }
                 });
-                esperar(1000);
+                esperar(tiempoEspera);
                 if (!finPartida()) {
                     comprobacionFinal.set(false);
                 }

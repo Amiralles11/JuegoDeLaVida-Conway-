@@ -20,6 +20,7 @@ public class ConfiguracionController implements Initializable {
     /**
      * Hooks de conexión entre los controles visuales y el código, llevan @FXML para identificarlos
      **/
+    private  static PrincipalController pC;
     private TableroController tab;
     private Stage stage;
     private static int ventanas = 1;
@@ -222,7 +223,7 @@ public class ConfiguracionController implements Initializable {
      **/
     public void loadUserData(TableroController tab,IndividuoParametros parametrosData, RecursoParametros parametrosData2, RecursoParametros.RecursoParametrosAgua parametrosAgua, RecursoParametros.RecursoParametrosComida parametrosComida,
                              RecursoParametros.RecursoParametrosMontaña parametrosMontaña, RecursoParametros.RecursoParametrosTesoro parametrosTesoro,
-                             RecursoParametros.RecursoParametrosBiblioteca parametrosBiblioteca, RecursoParametros.RecursoParametrosPozo parametrosPozo,Stage stage) {
+                             RecursoParametros.RecursoParametrosBiblioteca parametrosBiblioteca, RecursoParametros.RecursoParametrosPozo parametrosPozo,Stage stage,PrincipalController pC) {
         log.info("Cargando datos");
         this.tab = tab;
         this.model = parametrosData;
@@ -234,6 +235,7 @@ public class ConfiguracionController implements Initializable {
         this.modelBiblioteca = parametrosBiblioteca;
         this.modelPozo = parametrosPozo;
         this.stage = stage;
+        this.pC = pC;
         this.updateGUIwithModel();
     }
 
@@ -246,7 +248,7 @@ public class ConfiguracionController implements Initializable {
      **/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        log.info("Iniciando controlador de parametros, ventana: "+ventanas++);
+        log.info("Iniciando controlador de parametros (Ajustes), ventana: "+ventanas++);
         if((model!=null)&&(model2!=null)&&(modelAgua!=null)&&(modelComida!=null)&&(modelMontaña!=null)&&(modelTesoro !=null)
                 &&(modelBiblioteca!=null)&&(modelPozo!=null)){
             this.updateGUIwithModel();
@@ -548,7 +550,7 @@ public class ConfiguracionController implements Initializable {
             log.info("Creando nuevo controlador de tablero (TableroController)");
             TableroController tab = new TableroController();
             log.info("Creando clases con los datos de los sliders");
-            tab.update((new IndividuoTipoBasico(model.getOriginal().getVidas(), model.getOriginal().getPorcentajeReproduccion(), model.getOriginal().getPorcentajeClonacion(), model.getOriginal().getPorcentajeTipoAlReproducirse())),
+            tab.start2((new Tablero(pC.getListaCeldas().getElemento(0).getData().getNumeroElementos(),pC.getListaCeldas().getNumeroElementos())),(new IndividuoTipoBasico(model.getOriginal().getVidas(), model.getOriginal().getPorcentajeReproduccion(), model.getOriginal().getPorcentajeClonacion(), model.getOriginal().getPorcentajeTipoAlReproducirse())),
                     (new IndividuoTipoNormal(model.getOriginal().getVidas(), model.getOriginal().getPorcentajeReproduccion(), model.getOriginal().getPorcentajeClonacion(), model.getOriginal().getPorcentajeTipoAlReproducirse())),
                     (new IndividuoTipoAvanzado(model.getOriginal().getVidas(), model.getOriginal().getPorcentajeReproduccion(), model.getOriginal().getPorcentajeClonacion(), model.getOriginal().getPorcentajeTipoAlReproducirse())),
                     (new RecursoAgua(model2.getOriginal().getTiempoAparicion(), model2.getOriginal().getPorcentajeAparicion(), getPorcentajesRecurso(modelAgua.getOriginal().getPorcentajeAparicion2()), modelAgua.getOriginal().getTurnosVida())),
@@ -556,10 +558,10 @@ public class ConfiguracionController implements Initializable {
                     (new RecursoMontaña(model2.getOriginal().getTiempoAparicion(), model2.getOriginal().getPorcentajeAparicion(), getPorcentajesRecurso(modelMontaña.getOriginal().getPorcentajeAparicion2()), modelComida.getOriginal().getTurnosVida())),
                     (new RecursoTesoro(model2.getOriginal().getTiempoAparicion(), model2.getOriginal().getPorcentajeAparicion(), getPorcentajesRecurso(modelTesoro.getOriginal().getPorcentajeAparicion2()), modelTesoro.getOriginal().getPorcentajeReproduccion())),
                     (new RecursoBiblioteca(model2.getOriginal().getTiempoAparicion(), model2.getOriginal().getPorcentajeAparicion(), getPorcentajesRecurso(modelBiblioteca.getOriginal().getPorcentajeAparicion2()), modelBiblioteca.getOriginal().getPorcentajeClonacion())),
-                    (new RecursoPozo(model2.getOriginal().getTiempoAparicion(), model2.getOriginal().getPorcentajeAparicion(), getPorcentajesRecurso(modelPozo.getOriginal().getPorcentajeAparicion2()))));
+                    (new RecursoPozo(model2.getOriginal().getTiempoAparicion(), model2.getOriginal().getPorcentajeAparicion(), getPorcentajesRecurso(modelPozo.getOriginal().getPorcentajeAparicion2()))),pC.getListaCeldas(),pC.getIdIndividuos(),pC.getTurnos());
             log.debug(model.getOriginal().toString());
-            log.debug("Porcentaje Aparicion recurso" + model2.getOriginal().getPorcentajeAparicion());
-            log.debug("Tiempo Aparicion recurso" + model2.getOriginal().getTiempoAparicion());
+            log.debug("Porcentaje Aparicion recurso " + model2.getOriginal().getPorcentajeAparicion());
+            log.debug("Tiempo Aparicion recurso " + model2.getOriginal().getTiempoAparicion());
             log.debug("aparicionAgua=" + getPorcentajesRecurso(modelAgua.getOriginal().getPorcentajeAparicion2()));
             log.debug("aparicionComida=" + getPorcentajesRecurso(modelComida.getOriginal().getPorcentajeAparicion2()));
             log.debug("aparicionMontaña=" + getPorcentajesRecurso(modelMontaña.getOriginal().getPorcentajeAparicion2()));
