@@ -87,8 +87,7 @@ public class TableroController implements Initializable {
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
                       RecursoAgua recursoAgua,  RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,ListaSimple<ListaSimple<Celda>> lista,
-                       int idIndividuos,int turnosValor) {
-                       int idIndividuos, int idArcos) {
+                       int idIndividuos,int turnosValor, int idArcos) {
         log.info("Iniciando controlador de tablero, ventana: "+ventanas++);
         this.tablero = tablero;
         this.individuoTipoBasico = individuoTipoBasico;
@@ -325,7 +324,7 @@ public class TableroController implements Initializable {
         log.info("Tablero terminado");
             if(listaCeldas2==null) {
                 pC = new PrincipalController(true, individuoTipoBasico, individuoTipoNormal, individuoTipoAvanzado, recursoAgua, recursoComida, recursoMontaña,
-                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos, idArcos, 0,0,this);
+                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos, idArcos, 0,this);
             }else{
                 for(int i=0;i<tablero.getColumnas();i++){
                     for(int j=0;j< tablero.getFilas();j++){
@@ -340,8 +339,7 @@ public class TableroController implements Initializable {
                     }
                 }
                 pC = new PrincipalController(true, individuoTipoBasico, individuoTipoNormal, individuoTipoAvanzado, recursoAgua, recursoComida, recursoMontaña,
-                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos, idArcos);
-                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos,turnosValor-1,this);
+                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos, idArcos,turnosValor-1,this);
                 for(int i=0;i<listaCeldas2.getNumeroElementos();i++){
                     listaCeldas2.del(i);
                 }

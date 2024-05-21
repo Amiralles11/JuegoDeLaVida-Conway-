@@ -48,8 +48,7 @@ public class PrincipalController {
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
                       RecursoAgua recursoAgua, RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,
-                      ListaSimple<ListaSimple<Celda>> lista,int i, int j){
-                      ListaSimple<ListaSimple<Celda>> lista,int i, int j,TableroController tableroController){
+                      ListaSimple<ListaSimple<Celda>> lista,int i, int j, int k, TableroController tableroController){
         ListaEnlazada<Celda> rutaAvanzada = new ListaEnlazada<>();
         Map<Individuo, ListaEnlazada<Celda>> rutasAvanzadas = new Map<>();
         this.rutaAvanzada = rutasAvanzadas;
@@ -66,7 +65,7 @@ public class PrincipalController {
         this.listaCeldas = lista;
         this.idIndividuos = i;
         this.idArcos = j;
-        this.turnos = j;
+        this.turnos = k;
         this.tab = tableroController;
         this.tiempoEspera = 1000;
     }
@@ -350,7 +349,6 @@ public class PrincipalController {
                 rutaAvanzada.del(rutaAvanzada.getPosicion(actual));
                 assert verticeIni != null;
                 rutaAvanzada.put(actual, encontrarNuevoDestino(verticeIni.getDato(), mapaActual));
-                moverAvanzado(actual, celdaActual);
             }
         } catch (ElementoRepetidoExcepcion e) {
             System.out.println("Se ha intentado añadir un elemento ya existente");
