@@ -1,14 +1,14 @@
-package com.example.juegodelavida1.EstructurasDatos.HashMap;
+package com.example.juegodelavida1.EstructurasDatos.Map;
 
 public class ElementoHashMap<T, E> {
     private T indice;
     private E dato;
     private ElementoHashMap<T, E> siguiente;
 
-    public ElementoHashMap(T indice, E dato, ElementoHashMap<T, E> siguiente) {
+    public ElementoHashMap(T indice, E dato) {
         this.indice = indice;
         this.dato = dato;
-        this.siguiente = siguiente;
+        this.siguiente = null;
     }
 
     public T getIndice() {

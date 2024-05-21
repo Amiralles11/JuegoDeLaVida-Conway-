@@ -1,21 +1,25 @@
 package com.example.juegodelavida1;
 
+import com.example.juegodelavida1.EstructurasDatos.Grafo.*;
 import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
+import com.example.juegodelavida1.EstructurasDatos.Map.ElementoHashMap;
 import com.google.gson.annotations.Expose;
 import javafx.application.Platform;
-
+import com.example.juegodelavida1.EstructurasDatos.Map.Map;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PrincipalController {
-    private HashMap<Individuo, ListaEnlazada<Celda>> rutaAvanzada;
     private static  TableroController tab;
 
     private int tiempoEspera;
+    private Map<Individuo, ListaEnlazada<Celda>> rutaAvanzada;
     @Expose
-    private int idIndividuos;
+    private static int idIndividuos = 0;
+
+    private static int idArcos = 0;
     @Expose
     private int turnos;
     private boolean pausa;
@@ -44,9 +48,9 @@ public class PrincipalController {
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
                       RecursoAgua recursoAgua, RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,
-                      ListaSimple<ListaSimple<Celda>> lista,int i, int j,TableroController tableroController){
+                      ListaSimple<ListaSimple<Celda>> lista,int i, int j, int k, TableroController tableroController){
         ListaEnlazada<Celda> rutaAvanzada = new ListaEnlazada<>();
-        HashMap<Individuo, ListaEnlazada<Celda>> rutasAvanzadas = new HashMap<>();
+        Map<Individuo, ListaEnlazada<Celda>> rutasAvanzadas = new Map<>();
         this.rutaAvanzada = rutasAvanzadas;
         this.pausa = pausa;
         this.individuoTipoBasico = individuoTipoBasico;
@@ -60,7 +64,8 @@ public class PrincipalController {
         this.recursoTesoro = recursoTesoro;
         this.listaCeldas = lista;
         this.idIndividuos = i;
-        this.turnos = j;
+        this.idArcos = j;
+        this.turnos = k;
         this.tab = tableroController;
         this.tiempoEspera = 1000;
     }
@@ -81,8 +86,16 @@ public class PrincipalController {
         return idIndividuos;
     }
 
+    public static int getIdArcos() {
+        return idArcos;
+    }
+
     public int identificadorIndividuos(){
         return idIndividuos++;
+    }
+
+    public int identificadorArcos() {
+        return idArcos++;
     }
     public int getTurnos(){
         return turnos;
@@ -165,6 +178,9 @@ public class PrincipalController {
 
     public void bucleControl() {
         AtomicBoolean comprobacionFinal = new AtomicBoolean(true);
+        if (!finPartida()) {
+            comprobacionFinal.set(false);
+        }
         Thread juegoThread = new Thread(() -> {
             while (comprobacionFinal.get()) {
                 pasarTurno();
@@ -178,9 +194,6 @@ public class PrincipalController {
                     }
                 });
                 esperar(tiempoEspera);
-                if (!finPartida()) {
-                    comprobacionFinal.set(false);
-                }
             }
         });
         juegoThread.start();
@@ -255,9 +268,9 @@ public class PrincipalController {
     }
 
     private void tiempoRecursoActualicer() {
-        for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
-            for (int j = 0; this.getListaCeldas().getElemento(i).getData().getNumeroElementos() != j; j++) {
-                Celda celdaActual = this.getListaCeldas().getElemento(i).getData().getElemento(j).getData();
+        for (int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
+            for (int j = 0; listaCeldas.getElemento(i).getData().getNumeroElementos() != j; j++) {
+                Celda celdaActual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
                 ListaEnlazada<Recurso> listaRecursosDesaparecer = new ListaEnlazada<>();
                 for (int k = 0; celdaActual.getRecursos().getNumeroElementos() != k; k++) {
                     Recurso actual = celdaActual.getRecursos().getElemento(k).getData();
@@ -275,9 +288,9 @@ public class PrincipalController {
     }
 
     private void mover() {
-        for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
-            for (int j = 0; this.getListaCeldas().getElemento(i).getData().getNumeroElementos() != j; j++) {
-                Celda celdaActual = this.getListaCeldas().getElemento(i).getData().getElemento(j).getData();
+        for (int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
+            for (int j = 0; listaCeldas.getElemento(i).getData().getNumeroElementos() != j; j++) {
+                Celda celdaActual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
                 ListaEnlazada<Individuo> listaIndividuos = new ListaEnlazada<>();
                 for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                     Individuo individuoActual = celdaActual.getIndividuos().getElemento(h).getData();
@@ -285,16 +298,18 @@ public class PrincipalController {
                         listaIndividuos.add(individuoActual);
                     }
                 }
-                if (!listaIndividuos.isVacia()) {
-                    for (int k = 0; listaIndividuos.getNumeroElementos() != k; k++) {
-                        Individuo actual = listaIndividuos.getElemento(k).getData();
-                        if (actual instanceof IndividuoTipoBasico && !actual.isMovido()) {
-                            moverBasico(actual, celdaActual.getFilas(), celdaActual.getColumnas(), celdaActual);
-                        } else if (actual instanceof IndividuoTipoNormal && !actual.isMovido()) {
-                            moverNormal(actual, celdaActual.getFilas(), celdaActual.getColumnas(), celdaActual);
-                        } else if (!actual.isMovido()){
-
-                        }
+                while (!listaIndividuos.isVacia()) {
+                    Individuo actual = listaIndividuos.getElemento(0).getData();
+                    if (actual instanceof IndividuoTipoBasico && !actual.isMovido()) {
+                        moverBasico(actual, celdaActual.getFilas(), celdaActual.getColumnas(), celdaActual);
+                        listaIndividuos.del(0);
+                    } else if (actual instanceof IndividuoTipoNormal && !actual.isMovido()) {
+                        moverNormal(actual, celdaActual.getFilas(), celdaActual.getColumnas(), celdaActual);
+                        listaIndividuos.del(0);
+                    } else if (!actual.isMovido()){
+                        encontrarActual(actual);
+                        moverAvanzado(actual, celdaActual);
+                        listaIndividuos.del(0);
                     }
                 }
             }
@@ -302,9 +317,148 @@ public class PrincipalController {
         setMovFalse();
     }
 
-    private void moverAvanzado() {
+    private void encontrarActual(Individuo actual) {
+        if (rutaAvanzada.get(actual) == null) {
+            ListaEnlazada<Celda> nuevaRuta = new ListaEnlazada<>();
+            rutaAvanzada.put(actual, nuevaRuta);
+        }
+    }
+
+    private void moverAvanzado(Individuo actual, Celda celdaActual) {
+        try {
+            if (!rutaAvanzada.get(actual).isVacia()) {
+                if (rutaAvanzada.get(actual).getPrimero().getData() == celdaActual) {
+                    rutaAvanzada.get(actual).del(0);
+                }
+                if (!rutaAvanzada.get(actual).isVacia()) {
+                    Celda nuevaCelda = rutaAvanzada.get(actual).getPrimero().getData();
+                    listaCeldas.getElemento(nuevaCelda.getColumnas()).getData().getElemento(nuevaCelda.getFilas()).getData().add(actual);
+                    actual.setMovido(true);
+                    celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
+                }
+            } else {
+                Grafo<Celda> mapaActual = getGrafo();
+
+                Vertice<Celda> verticeIni = null;
+                for (int i = 0; mapaActual.getVertices().getNumeroElementos() != i; i++) {
+                    Vertice<Celda> verticeActual = mapaActual.getVertices().getElemento(i).getData();
+                    if (verticeActual.getDato().getFilas().equals(celdaActual.getFilas()) && verticeActual.getDato().getColumnas().equals(celdaActual.getColumnas())) {
+                        verticeIni = verticeActual;
+                    }
+                }
+                rutaAvanzada.del(rutaAvanzada.getPosicion(actual));
+                assert verticeIni != null;
+                rutaAvanzada.put(actual, encontrarNuevoDestino(verticeIni.getDato(), mapaActual));
+            }
+        } catch (ElementoRepetidoExcepcion e) {
+            System.out.println("Se ha intentado añadir un elemento ya existente");
+        }
 
     }
+
+    private Grafo<Celda> getGrafo() throws ElementoRepetidoExcepcion {
+        Grafo<Celda> grafoFinal = new Grafo<>();
+        for (int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
+            for (int j = 0; listaCeldas.getElemento(i).getData().getNumeroElementos() != j; j++) {
+                Celda celdaActual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
+                grafoFinal.add(celdaActual);
+
+                if (i > 0) {
+                    Celda celdaContraria = listaCeldas.getElemento(i - 1).getData().getElemento(j).getData();
+                    int peso = pesoArco(celdaActual, celdaContraria, recursoMontaña.getTurnosVida());
+                    grafoFinal.addArco(celdaActual, celdaContraria, peso);
+                    identificadorArcos();
+                }
+                if (j > 0) {
+                    Celda celdaContraria = listaCeldas.getElemento(i).getData().getElemento(j - 1).getData();
+                    int peso = pesoArco(celdaActual, celdaContraria, recursoMontaña.getTurnosVida());
+                    grafoFinal.addArco(celdaActual, celdaContraria, peso);
+                    identificadorArcos();
+                }
+                if (i > 0 && j > 0) {
+                    Celda celdaContraria = listaCeldas.getElemento(i - 1).getData().getElemento(j - 1).getData();
+                    int peso = pesoArco(celdaActual, celdaContraria, recursoMontaña.getTurnosVida());
+                    grafoFinal.addArco(celdaActual, celdaContraria, peso);
+                    identificadorArcos();
+                }
+                if (i > 0 && j < listaCeldas.getElemento(i).getData().getNumeroElementos() - 1) {
+                    Celda celdaContraria = listaCeldas.getElemento(i - 1).getData().getElemento(j + 1).getData();
+                    int peso = pesoArco(celdaActual, celdaContraria, recursoMontaña.getTurnosVida());
+                    grafoFinal.addArco(celdaActual, celdaContraria, peso);
+                    identificadorArcos();
+                }
+            }
+        }
+        return grafoFinal;
+    }
+
+    private int pesoArco (Celda celda1, Celda celda2, int retraso) {
+        int peso = 1;
+        peso = añadirPeso(peso, celda1, retraso);
+        peso = añadirPeso(peso, celda2, retraso);
+        return peso;
+    }
+
+    private int añadirPeso (int peso, Celda celda, int retraso) {
+        for (int i = 0; celda.getRecursos().getNumeroElementos() != i; i++) {
+            Recurso actual = celda.getRecursos().getElemento(i).getData();
+            if (actual instanceof RecursoMontaña) {
+                if (peso < Integer.MAX_VALUE / 2) {
+                    peso += retraso;
+                }
+            } else if (actual instanceof RecursoPozo) {
+                peso = Integer.MAX_VALUE / 2;
+            }
+        }
+        return peso;
+    }
+
+    private ListaEnlazada<Celda> encontrarNuevoDestino(Celda celdaActual, Grafo<Celda> grafoActual) {
+        try {
+            ListaEnlazada<Celda> celdasFavorables = new ListaEnlazada<>();
+            for (int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
+                for (int j = 0; listaCeldas.getElemento(i).getData().getNumeroElementos() != j; j++) {
+                    boolean add = false;
+                    boolean notAdd = false;
+                    Celda celda = listaCeldas.getElemento(i).getData().getElemento(j).getData();
+                    if (celda != celdaActual) {
+                        for (int k = 0; celda.getRecursos().getNumeroElementos() != k; k++) {
+                            Recurso recActual = celda.getRecursos().getElemento(k).getData();
+                            if (recActual instanceof RecursoAgua || recActual instanceof RecursoComida) {
+                                add = true;
+                            }
+                            if (recActual instanceof RecursoPozo) {
+                                notAdd = true;
+                            }
+                        }
+                        if (!notAdd && add) {
+                            celdasFavorables.add(celda);
+                        }
+                    }
+                }
+            }
+            Map<Celda, ListaEnlazada<Celda>> posiblesCaminos = new Map<>();
+            Vertice<Celda> verticeInicio = grafoActual.getVertice(celdaActual);
+
+            for (int v = 0; celdasFavorables.getNumeroElementos() != v; v++) {
+                ListaEnlazada<Celda> nuevoCamino = grafoActual.getCamino(verticeInicio, grafoActual.getVertice(celdasFavorables.getElemento(v).getData()));
+                posiblesCaminos.put(celdasFavorables.getElemento(v).getData(), nuevoCamino);
+            }
+            if (!posiblesCaminos.isVacia()) {
+                ListaEnlazada<Celda> listaMinima = posiblesCaminos.getPrimero().getDato();
+                for (int v = 0; posiblesCaminos.getNumElemMap() != v ; v++) {
+                    if (posiblesCaminos.getElemento(v).getDato().getNumeroElementos() < listaMinima.getNumeroElementos()) {
+                        listaMinima = posiblesCaminos.getElemento(v).getDato();
+                    }
+                }
+                return listaMinima;
+            }
+        } catch (ElementoInexistenteExcepcion e) {
+            System.out.println("Elemento no encontrado en el grafo.");
+        }
+        return new ListaEnlazada<>();
+    }
+
 
     private void setMovFalse() {
         for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
@@ -373,7 +527,7 @@ public class PrincipalController {
     }
 
     private void moverNormal(Individuo actual, int fila, int columna, Celda celdaActual) {
-        if (actual.getRuta().getElemento(0).getData() == 0 && actual.getRuta().getElemento(1).getData() == 0) {
+        if (actual.getRuta().getElemento(0).getData().equals(0) && actual.getRuta().getElemento(1).getData().equals(0)) {
             Celda celdaMover = celdaMover(celdaActual);
             ListaSimple<Integer> nuevaRuta = new ListaSimple<>(2);
             nuevaRuta.insert(celdaMover.getFilas() - fila, 0);
@@ -438,19 +592,32 @@ public class PrincipalController {
                             actual.getCola().add("Comida consumida, turnos ganados "+recursoComida.getTurnosVida()+", turno: "+turnos);
                         }
                     } else if (recursoActual instanceof RecursoBiblioteca) {
+                        ListaEnlazada<Individuo> desaparecer = new ListaEnlazada<>();
+                        ListaEnlazada<Individuo> añadir = new ListaEnlazada<>();
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
                             actual.setPorcentajeClonacion(actual.getPorcentajeClonacion() + recursoBiblioteca.getPorcentajeClonacion());
                             if (actual instanceof IndividuoTipoBasico) {
-                                IndividuoTipoNormal nuevo = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
-                                celdaActual.getIndividuos().insert(nuevo, celdaActual.getIndividuos().getPosicion(actual));
-                                celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
-
+                                IndividuoTipoNormal nuevo1 = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
+                                IndividuoTipoNormal nuevo = new IndividuoTipoNormal(nuevo1.getiD(), nuevo1);
+                                añadir.add(nuevo);
+                                desaparecer.add(actual);
                             } else if (actual instanceof IndividuoTipoNormal){
+                                IndividuoTipoAvanzado nuevo1 = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                                 IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
-                                celdaActual.getIndividuos().insert(nuevo, celdaActual.getIndividuos().getPosicion(actual));
-                                celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
+                                añadir.add(nuevo);
+                                desaparecer.add(actual);
                             }
+                        }
+                        while (!desaparecer.isVacia()) {
+                            Individuo pendiente = desaparecer.getElemento(0).getData();
+                            celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(pendiente));
+                            desaparecer.del(0);
+                        }
+                        while (!añadir.isVacia()) {
+                            Individuo pendiente = añadir.getElemento(0).getData();
+                            celdaActual.getIndividuos().add(pendiente);
+                            añadir.del(0);
                         }
                     } else if (recursoActual instanceof RecursoMontaña) {
                         ListaEnlazada<Individuo> listaIndividuos = new ListaEnlazada<>();
@@ -615,14 +782,15 @@ public class PrincipalController {
             for(int j = 0; listaCeldas.getElemento(j).getData().getNumeroElementos() != j; j++) {
                 Celda celdaActual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
                 while (celdaActual.getIndividuos().getNumeroElementos() > 3) {
-                    Individuo SanPedro = celdaActual.getIndividuos().getPrimero().getData();
-                    for (int k = 0; celdaActual.getIndividuos().getNumeroElementos() != k; k++) {
-                        if (celdaActual.getIndividuos().getElemento(k).getData().getVidas() < SanPedro.getVidas()) {
-                            SanPedro = celdaActual.getIndividuos().getElemento(k).getData();
+                    Individuo sanPedro = celdaActual.getIndividuos().getPrimero().getData();
+                    for (int k = 1; celdaActual.getIndividuos().getNumeroElementos() != k; k++) {
+                        Individuo candidato = celdaActual.getIndividuos().getElemento(k).getData();
+                        if (candidato.getVidas() < sanPedro.getVidas()) {
+                            sanPedro = candidato;
                         }
                     }
-                    SanPedro.getCola().add(("Muere porque hay más de 3 individuos en la misma casilla, turno: ")+turnos);
-                    celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(SanPedro));
+                    celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(sanPedro));
+                    sanPedro.getCola().add(("Muere porque hay más de 3 individuos en la misma casilla, turno: ")+turnos);
                 }
             }
         }

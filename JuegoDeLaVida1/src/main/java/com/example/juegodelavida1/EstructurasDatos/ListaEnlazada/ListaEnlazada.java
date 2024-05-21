@@ -64,21 +64,22 @@ public class ListaEnlazada<TipoDato> {
             return elem;
         }
     }
-    public int del(int pos) {
+    public void del(int pos) {
         if (pos == 0) {
             primero = primero.getSiguiente();
-            return this.getNumeroElementos();
         }else{
             ElementoLE<TipoDato> first = this.primero;
             for (int i=0; i != pos - 1; i++) {
                 first = first.getSiguiente();
                 if (first.getSiguiente().getSiguiente() == null) {
                     first.setSiguiente(null);
-                    return this.getNumeroElementos();
                 }
             }
-            first.setSiguiente(first.getSiguiente().getSiguiente());
-            return this.getNumeroElementos();
+            if (first.getSiguiente() != null && first.getSiguiente().getSiguiente() != null) {
+                first.setSiguiente(first.getSiguiente().getSiguiente());
+            } else {
+                first.setSiguiente(null);
+            }
         }
     }
     public Integer getPosicion(ElementoLE<TipoDato> el) {
@@ -91,7 +92,7 @@ public class ListaEnlazada<TipoDato> {
             first = first.getSiguiente();
             pos += 1;
         }
-        if ((pos>=getNumeroElementos())&&(el.getData()!= getUltimo().getData())) {
+        if ((pos>=getNumeroElementos())&&(el.getData() != getUltimo().getData())) {
             return null;
         }
         return pos;

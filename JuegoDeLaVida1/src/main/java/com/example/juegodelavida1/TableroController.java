@@ -65,6 +65,7 @@ public class TableroController implements Initializable {
     private static final Logger log = LogManager.getLogger(TableroController.class);
     private static int idIndividuos;
     private static int turnosValor;
+    private static int idArcos;
     private static Tablero tablero;
     private static IndividuoTipoBasico individuoTipoBasico;
     private static IndividuoTipoNormal individuoTipoNormal;
@@ -86,7 +87,7 @@ public class TableroController implements Initializable {
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
                       RecursoAgua recursoAgua,  RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,ListaSimple<ListaSimple<Celda>> lista,
-                       int idIndividuos,int turnosValor) {
+                       int idIndividuos,int turnosValor, int idArcos) {
         log.info("Iniciando controlador de tablero, ventana: "+ventanas++);
         this.tablero = tablero;
         this.individuoTipoBasico = individuoTipoBasico;
@@ -101,6 +102,7 @@ public class TableroController implements Initializable {
         this.listaCeldas2 = lista;
         this.idIndividuos = idIndividuos;
         this.turnosValor = turnosValor;
+        this.idArcos = idArcos;
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(TableroController.class.getResource("Tablero.fxml"));
         try {
@@ -133,6 +135,7 @@ public class TableroController implements Initializable {
         this.recursoTesoro = recursoTesoro;
         this.listaCeldas2 = null;
         this.idIndividuos = 0;
+        this.idArcos = 0;
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(TableroController.class.getResource("Tablero.fxml"));
         try {
@@ -321,7 +324,7 @@ public class TableroController implements Initializable {
         log.info("Tablero terminado");
             if(listaCeldas2==null) {
                 pC = new PrincipalController(true, individuoTipoBasico, individuoTipoNormal, individuoTipoAvanzado, recursoAgua, recursoComida, recursoMontaña,
-                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,0,0,this);
+                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos, idArcos, 0,this);
             }else{
                 for(int i=0;i<tablero.getColumnas();i++){
                     for(int j=0;j< tablero.getFilas();j++){
@@ -336,11 +339,12 @@ public class TableroController implements Initializable {
                     }
                 }
                 pC = new PrincipalController(true, individuoTipoBasico, individuoTipoNormal, individuoTipoAvanzado, recursoAgua, recursoComida, recursoMontaña,
-                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos,turnosValor-1,this);
+                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos, idArcos,turnosValor-1,this);
                 for(int i=0;i<listaCeldas2.getNumeroElementos();i++){
                     listaCeldas2.del(i);
                 }
                 listaCeldas2 = null;
+                log.debug("listaCeldas2 es nulo? "+listaCeldas2 == null);
             }
             setTurnos();
      }
