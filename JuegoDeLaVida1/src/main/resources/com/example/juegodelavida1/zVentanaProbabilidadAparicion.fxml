@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="240" prefWidth="320" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.WindowsController">
+
+<VBox alignment="CENTER" prefHeight="240" prefWidth="320" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.WindowsController">
+   <children>
+      <AnchorPane prefHeight="221.0" prefWidth="320.0">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Imagenes/curva.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="33.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La probabilidad de aparición de un recurso es la probabilidad de que, en un nuevo turno, aparezca un nuevo recurso en una casilla." textAlignment="JUSTIFY" wrappingWidth="253.62890625">
+               <font>
+                  <Font name="Britannic Bold" size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="118.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Probabilidad de aparición" textAlignment="CENTER" wrappingWidth="159.25921630859375">
+               <font>
+                  <Font name="Britannic Bold" size="25.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
 </VBox>

@@ -41,4 +41,9 @@ public class IndividuoTipoBasico extends Individuo{
 
         }
     }
+
+    @Override
+    public int getId() {
+        return iD;
+    }
 }

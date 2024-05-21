@@ -32,4 +32,8 @@ public class IndividuoTipoNormal extends Individuo{
 
     }
 
+    @Override
+    public int getId() {
+        return iD;
+    }
 }

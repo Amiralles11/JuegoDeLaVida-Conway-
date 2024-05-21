@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class WindowsController implements Initializable {
     private static final Logger log = LogManager.getLogger(WindowsController.class);
     private Individuo parametrosData = new IndividuoTipoBasico(20, 50,20,80);
-    private Recurso parametrosData2 = new RecursoPozo(20, 50,-1 );
+    private Recurso parametrosData2 = new RecursoPozo(20, 20,-1 );
     private RecursoAgua parametrosDataAgua = new RecursoAgua(-1, -1,50,5);
     private RecursoComida parametrosDataComida = new RecursoComida(-1, -1,50,10);
     private RecursoMontaña parametrosDataMontaña = new RecursoMontaña(-1, -1,50,5);

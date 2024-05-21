@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="720" prefWidth="960" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.ParameterController">
+<VBox alignment="CENTER" prefHeight="720" prefWidth="960" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.ParameterController">
    <children>
       <Label prefHeight="94.0" prefWidth="482.0" text="Parametros" textAlignment="CENTER">
          <font>
@@ -42,10 +48,22 @@
                         <Slider fx:id="sliderPorcentajeReproduccion" layoutX="435.0" layoutY="112.0" majorTickUnit="20.0" minorTickCount="5" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="50.0" />
                         <Slider fx:id="sliderPorcentajeClonacion" layoutX="435.0" layoutY="179.0" majorTickUnit="20.0" minorTickCount="5" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="20.0" />
                         <Slider fx:id="sliderPorcentajeTipoAlReproducirse" layoutX="435.0" layoutY="245.0" majorTickUnit="20.0" prefHeight="20.0" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="80.0" />
-                        <Button layoutX="366.0" layoutY="43.0" mnemonicParsing="false" onAction="#ButtonGuiaVidas" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="366.0" layoutY="109.0" mnemonicParsing="false" onAction="#ButtonGuiaReproduccion" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="366.0" layoutY="175.0" mnemonicParsing="false" onAction="#ButtonGuiaClonacion" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="366.0" layoutY="241.0" mnemonicParsing="false" onAction="#ButtonGuiaTipo" prefHeight="26.0" prefWidth="31.0" text="?" />
+                        <Button layoutX="366.0" layoutY="43.0" mnemonicParsing="false" onAction="#ButtonGuiaVidas" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="366.0" layoutY="109.0" mnemonicParsing="false" onAction="#ButtonGuiaReproduccion" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="366.0" layoutY="175.0" mnemonicParsing="false" onAction="#ButtonGuiaClonacion" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="366.0" layoutY="241.0" mnemonicParsing="false" onAction="#ButtonGuiaTipo" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
                         <Button alignment="TOP_CENTER" layoutX="244.0" layoutY="348.0" mnemonicParsing="false" onAction="#onBotonReiniciarClick" prefHeight="51.0" prefWidth="205.0" text="Restablecer">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
@@ -104,10 +122,22 @@
                               <Font name="Britannic Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Button layoutX="201.0" layoutY="113.0" mnemonicParsing="false" onAction="#ButtonGuiaAgua" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="201.0" layoutY="246.0" mnemonicParsing="false" onAction="#ButtonGuiaBiblioteca" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="366.0" layoutY="64.0" mnemonicParsing="false" onAction="#ButtonGuiaPropabilidadAparicion" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="366.0" layoutY="26.0" mnemonicParsing="false" onAction="#ButtonGuiaTiempoAparicion" prefHeight="26.0" prefWidth="31.0" text="?" />
+                        <Button layoutX="201.0" layoutY="113.0" mnemonicParsing="false" onAction="#ButtonGuiaAgua" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="201.0" layoutY="246.0" mnemonicParsing="false" onAction="#ButtonGuiaBiblioteca" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="366.0" layoutY="64.0" mnemonicParsing="false" onAction="#ButtonGuiaPropabilidadAparicion" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="366.0" layoutY="26.0" mnemonicParsing="false" onAction="#ButtonGuiaTiempoAparicion" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
                         <Button alignment="TOP_CENTER" layoutX="244.0" layoutY="348.0" mnemonicParsing="false" onAction="#onBotonReiniciarClick2" prefHeight="51.0" prefWidth="205.0" text="Restablecer">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
@@ -118,10 +148,22 @@
                               <Font name="Britannic Bold" size="30.0" />
                            </font>
                         </Button>
-                        <Button layoutX="201.0" layoutY="145.0" mnemonicParsing="false" onAction="#ButtonGuiaComida" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="201.0" layoutY="179.0" mnemonicParsing="false" onAction="#ButtonGuiaMontaña" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="201.0" layoutY="212.0" mnemonicParsing="false" onAction="#ButtonGuiaTesoro" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="201.0" layoutY="281.0" mnemonicParsing="false" onAction="#ButtonGuiaPozo" prefHeight="26.0" prefWidth="31.0" text="?" />
+                        <Button layoutX="201.0" layoutY="145.0" mnemonicParsing="false" onAction="#ButtonGuiaComida" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="201.0" layoutY="179.0" mnemonicParsing="false" onAction="#ButtonGuiaMontaña" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="201.0" layoutY="212.0" mnemonicParsing="false" onAction="#ButtonGuiaTesoro" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="201.0" layoutY="281.0" mnemonicParsing="false" onAction="#ButtonGuiaPozo" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
                         <Separator layoutX="-36.0" layoutY="98.0" prefHeight="18.0" prefWidth="976.0" />
                         <Label alignment="TOP_RIGHT" layoutX="50.0" layoutY="180.0" text="Montaña (%)">
                            <font>
@@ -216,11 +258,26 @@
                               <Font name="Britannic Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Button layoutX="591.0" layoutY="113.0" mnemonicParsing="false" onAction="#ButtonGuiaTiempoAparicion" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="591.0" layoutY="145.0" mnemonicParsing="false" onAction="#ButtonGuiaTiempoAparicion" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="591.0" layoutY="179.0" mnemonicParsing="false" onAction="#ButtonGuiaTiempoAparicion" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="591.0" layoutY="212.0" mnemonicParsing="false" onAction="#ButtonGuiaTiempoAparicion" prefHeight="26.0" prefWidth="31.0" text="?" />
-                        <Button layoutX="591.0" layoutY="246.0" mnemonicParsing="false" onAction="#ButtonGuiaTiempoAparicion" prefHeight="26.0" prefWidth="31.0" text="?" />
+                        <Button layoutX="591.0" layoutY="113.0" mnemonicParsing="false" onAction="#ButtonGuiaAguaTurnos" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="591.0" layoutY="145.0" mnemonicParsing="false" onAction="#ButtonGuiaComidaTurnos" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="591.0" layoutY="179.0" mnemonicParsing="false" onAction="#ButtonGuiaMontañaTurnos" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="591.0" layoutY="212.0" mnemonicParsing="false" onAction="#ButtonGuiaTesoroReproduccion" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
+                        <Button layoutX="591.0" layoutY="246.0" mnemonicParsing="false" onAction="#ButtonGuiaBibliotecaClonacion" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
                         <Slider fx:id="sliderPorcentajeClonacionBiblioteca" blockIncrement="1.0" layoutX="807.0" layoutY="253.0" min="1.0" prefHeight="14.0" prefWidth="103.0" />
                         <Slider fx:id="sliderPorcentajeReproduccionTesoro" layoutX="807.0" layoutY="218.0" min="1.0" prefHeight="14.0" prefWidth="103.0" />
                         <Slider fx:id="sliderTurnosVidaMontaña" layoutX="807.0" layoutY="185.0" max="20.0" min="1.0" prefHeight="14.0" prefWidth="103.0" />
@@ -259,7 +316,10 @@
               <content>
                 <AnchorPane>
                      <children>
-                        <Button layoutX="366.0" layoutY="99.0" mnemonicParsing="false" onAction="#ButtonGuiaFilas" prefHeight="26.0" prefWidth="31.0" text="?" />
+                        <Button layoutX="366.0" layoutY="99.0" mnemonicParsing="false" onAction="#ButtonGuiaFilas" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
                         <Label layoutX="284.0" layoutY="97.0" text="Filas">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
@@ -280,7 +340,10 @@
                               <Font name="Britannic Bold" size="30.0" />
                            </font>
                         </Button>
-                        <Button layoutX="366.0" layoutY="184.0" mnemonicParsing="false" onAction="#ButtonGuiaColumnas" prefHeight="26.0" prefWidth="31.0" text="?" />
+                        <Button layoutX="366.0" layoutY="184.0" mnemonicParsing="false" onAction="#ButtonGuiaColumnas" prefHeight="26.0" prefWidth="31.0" text="?">
+                           <font>
+                              <Font name="Britannic Bold" size="15.0" />
+                           </font></Button>
                         <Slider fx:id="sliderFilas" layoutX="435.0" layoutY="102.0" majorTickUnit="5.0" max="20.0" min="1.0" minorTickCount="5" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="10.0" />
                         <Slider fx:id="sliderColumnas" layoutX="435.0" layoutY="188.0" majorTickUnit="10.0" max="40.0" min="1.0" minorTickCount="5" prefWidth="400.0" showTickLabels="true" showTickMarks="true" value="20.0" />
                         <Label fx:id="ValorFilas" layoutX="871.0" layoutY="97.0" text="--">

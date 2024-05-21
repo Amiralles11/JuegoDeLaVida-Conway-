@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="240" prefWidth="320" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.WindowsController">
+<VBox alignment="CENTER" prefHeight="240" prefWidth="320" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.WindowsController">
+   <children>
+      <AnchorPane prefHeight="221.0" prefWidth="320.0">
+         <children>
+            <Text layoutX="42.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Esta probabilidad puede variar dentro del juego debido a los recursos" textAlignment="JUSTIFY" wrappingWidth="253.62890625">
+               <font>
+                  <Font name="Britannic Bold" size="14.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Imagenes/tipo.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="42.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay 3 tipos de individuo, el básico, el normal y el avanzado. Al reproducirse dos individuos de distinto tipo el porcentaje (%) determinará si quedarse con el mejor tipo o no." textAlignment="JUSTIFY" wrappingWidth="253.62890625">
+               <font>
+                  <Font name="Britannic Bold" size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="119.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo al reproducirse" textAlignment="CENTER" wrappingWidth="149.909912109375">
+               <font>
+                  <Font name="Britannic Bold" size="25.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
 </VBox>

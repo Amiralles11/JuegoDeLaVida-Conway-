@@ -1,10 +1,15 @@
 package com.example.juegodelavida1;
 
+import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
 
 import com.google.gson.annotations.Expose;
 
 public abstract class Individuo {
+    @Expose
+    private ListaEnlazada<String> cola;
+    @Expose
+    private int añosVividos;
     @Expose
     private int vidas;
     @Expose
@@ -21,6 +26,7 @@ public abstract class Individuo {
         ListaSimple<Integer> nuevaRuta = new ListaSimple<>(2);
         nuevaRuta.add(0);
         nuevaRuta.add(0);
+        this.cola = new ListaEnlazada<>();
         this.vidas = vidas;
         this.porcentajeReproduccion = porcentajeReproduccion;
         this.porcentajeClonacion = porcentajeClonacion;
@@ -81,4 +87,16 @@ public abstract class Individuo {
         this.ruta = ruta;
     }
 
+    public int getAñosVividos() {
+        return añosVividos;
+    }
+
+    public void setAñosVividos(int añosVividos) {
+        this.añosVividos = añosVividos;
+    }
+
+    public ListaEnlazada<String> getCola() {
+        return cola;
+    }
+    public abstract int getId();
 }
