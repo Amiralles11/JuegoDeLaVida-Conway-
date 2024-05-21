@@ -23,6 +23,10 @@ public class IndividuoTipoBasico extends Individuo{
         iD = i;
     }
 
+    public int getiD() {
+        return iD;
+    }
+
     @Override
     public void move() {
         Random r = new Random();

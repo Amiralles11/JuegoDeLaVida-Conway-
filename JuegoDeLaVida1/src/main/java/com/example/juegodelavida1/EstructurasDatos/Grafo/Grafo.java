@@ -1,6 +1,7 @@
 package com.example.juegodelavida1.EstructurasDatos.Grafo;
 
-import com.example.juegodelavida1.EstructurasDatos.HashMap.HashMap;
+import com.example.juegodelavida1.PrincipalController;
+import com.example.juegodelavida1.EstructurasDatos.Map.Map;
 import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 
 import java.util.Objects;
@@ -20,6 +21,15 @@ public class Grafo<TipoDato> {
 
     public ListaEnlazada<Arco<TipoDato>> getArcos() {
         return arcos;
+    }
+
+    public Vertice<TipoDato> getVertice(TipoDato dato) {
+        for (int i = 0; vertices.getNumeroElementos() != i; i++) {
+            if (vertices.getElemento(i).getData().getDato() == dato) {
+                return vertices.getElemento(i).getData();
+            }
+        }
+        return null;
     }
 
     public void add(TipoDato dato) throws ElementoRepetidoExcepcion {
@@ -80,6 +90,19 @@ public class Grafo<TipoDato> {
         arco.getV2().addFrontera(arco);
     }
 
+    public void addArco(TipoDato dato1, TipoDato dato2, double peso) throws ElementoRepetidoExcepcion {
+        Vertice<TipoDato> vertice1 = new Vertice<>(dato1);
+        Vertice<TipoDato> vertice2 = new Vertice<>(dato2);
+        if (this.getVertice(dato1) != null) {
+            vertice1 = this.getVertice(dato1);
+        }
+        if (this.getVertice(dato2) != null) {
+            vertice2 = this.getVertice(dato2);
+        }
+        Arco<TipoDato> nuevoArco = new Arco<>(vertice1, vertice2, peso, ""+PrincipalController.getIdArcos());
+        this.add(nuevoArco);
+    }
+
     public void del(Arco<TipoDato> arco) throws ElementoInexistenteExcepcion {
         if (arcos.isVacia() || arcos.getPosicion(arco) == null) {
             throw new ElementoInexistenteExcepcion("No se ha encontrado el elemento en el grafo.");
@@ -103,17 +126,17 @@ public class Grafo<TipoDato> {
             vertices.del(vertices.getPosicion(vertice));
         }
     }
-    public HashMap<Vertice<TipoDato>, Camino<TipoDato>> getDijkstra(Vertice<TipoDato> verticeOrigen) throws ElementoInexistenteExcepcion{
-        HashMap<Vertice<TipoDato>, Double> distancias = new HashMap<>();
+    public Map<Vertice<TipoDato>, Camino<TipoDato>> getDijkstra(Vertice<TipoDato> verticeOrigen) throws ElementoInexistenteExcepcion{
+        Map<Vertice<TipoDato>, Double> distancias = new Map<>();
         ListaEnlazada<Vertice<TipoDato>> colaPendientes = new ListaEnlazada<>();
-        HashMap<Vertice<TipoDato>, Vertice<TipoDato>> verticesAnteriores = new HashMap<>();
+        Map<Vertice<TipoDato>, Vertice<TipoDato>> verticesAnteriores = new Map<>();
 
         this.dijkstra_Init(verticeOrigen, distancias, colaPendientes, verticesAnteriores);
         this.dijkstra_calcula(distancias, colaPendientes, verticesAnteriores);
         return this.dijkstra_ProcesaResultados(distancias, verticesAnteriores);
     }
 
-    protected void dijkstra_Init(Vertice<TipoDato> origen, HashMap<Vertice<TipoDato>, Double> distancias, ListaEnlazada<Vertice<TipoDato>> colaPendientes, HashMap<Vertice<TipoDato>, Vertice<TipoDato>> verticesAnteriores) {
+    protected void dijkstra_Init(Vertice<TipoDato> origen, Map<Vertice<TipoDato>, Double> distancias, ListaEnlazada<Vertice<TipoDato>> colaPendientes, Map<Vertice<TipoDato>, Vertice<TipoDato>> verticesAnteriores) {
         for (int i = 0; vertices.getElemento(i) != null; i ++) {
             distancias.put(vertices.getElemento(i).getData(), Double.MAX_VALUE);
         }
@@ -121,7 +144,7 @@ public class Grafo<TipoDato> {
         colaPendientes.add(origen);
     }
 
-    protected void dijkstra_calcula(HashMap<Vertice<TipoDato>, Double>distancias, ListaEnlazada<Vertice<TipoDato>> colaPendientes, HashMap<Vertice<TipoDato>, Vertice<TipoDato>> verticesAnteriores) throws ElementoInexistenteExcepcion {
+    protected void dijkstra_calcula(Map<Vertice<TipoDato>, Double>distancias, ListaEnlazada<Vertice<TipoDato>> colaPendientes, Map<Vertice<TipoDato>, Vertice<TipoDato>> verticesAnteriores) throws ElementoInexistenteExcepcion {
         while (!colaPendientes.isVacia()) {
             Vertice<TipoDato> verticeActual = colaPendientes.getUltimo().getData();
             colaPendientes.del(colaPendientes.getNumeroElementos()-1);
@@ -138,8 +161,8 @@ public class Grafo<TipoDato> {
             }
         }
     }
-    protected HashMap<Vertice<TipoDato>, Camino<TipoDato>> dijkstra_ProcesaResultados(HashMap<Vertice<TipoDato>, Double> distancias, HashMap<Vertice<TipoDato>, Vertice<TipoDato>> verticesAnteriores) {
-        HashMap<Vertice<TipoDato>, Camino<TipoDato>> caminos = new HashMap<>();
+    protected Map<Vertice<TipoDato>, Camino<TipoDato>> dijkstra_ProcesaResultados(Map<Vertice<TipoDato>, Double> distancias, Map<Vertice<TipoDato>, Vertice<TipoDato>> verticesAnteriores) {
+        Map<Vertice<TipoDato>, Camino<TipoDato>> caminos = new Map<>();
         ListaEnlazada<Vertice<TipoDato>> listaVertices = verticesAnteriores.KeySet();
 
         for (int i = 0; listaVertices.getElemento(i) != null; i ++) {
@@ -158,8 +181,7 @@ public class Grafo<TipoDato> {
 
     public ListaEnlazada<Vertice<TipoDato>> getCaminoVertices(Vertice<TipoDato> salida, Vertice<TipoDato> llegada) throws ElementoInexistenteExcepcion {
         if (vertices.getPosicion(salida) != null && vertices.getPosicion(llegada) != null) {
-            ListaEnlazada<Vertice<TipoDato>> caminoHastaLlegada = this.getDijkstra(salida).get(llegada).getCamino();
-            return caminoHastaLlegada;
+            return this.getDijkstra(salida).get(llegada).getCamino();
         } else {
             throw new ElementoInexistenteExcepcion("Error, alguno de los datos no están en el grafo");
         }
