@@ -26,6 +26,7 @@ public abstract class Individuo {
         ListaSimple<Integer> nuevaRuta = new ListaSimple<>(2);
         nuevaRuta.add(0);
         nuevaRuta.add(0);
+        this.cola = new ListaEnlazada<>();
         this.vidas = vidas;
         this.porcentajeReproduccion = porcentajeReproduccion;
         this.porcentajeClonacion = porcentajeClonacion;
