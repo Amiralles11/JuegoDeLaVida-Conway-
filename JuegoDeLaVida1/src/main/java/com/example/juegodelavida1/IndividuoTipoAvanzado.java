@@ -24,4 +24,8 @@ public class IndividuoTipoAvanzado extends Individuo{
     public void move() {
 
     }
+    @Override
+    public int getId() {
+        return iD;
+    }
 }

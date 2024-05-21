@@ -228,6 +228,7 @@ public class PrincipalController {
                     for (int k = 0; celdaActual.getIndividuos().getNumeroElementos() != k; k++) {
                         Individuo actual = celdaActual.getIndividuos().getElemento(k).getData();
                         actual.setVidas(actual.getVidas() - 1);
+                        actual.setAñosVividos(actual.getAñosVividos()+1);
                         actual.setPorcentajeReproduccion(actual.getPorcentajeReproduccion() - 10);
                         actual.setPorcentajeClonacion(actual.getPorcentajeClonacion() - 10);
                         if (actual.getPorcentajeClonacion() <= 0) {
@@ -238,6 +239,7 @@ public class PrincipalController {
                         }
                         if (actual.getVidas() == 0) {
                             listaIndividuos.add(actual);
+                            actual.getCola().add("Muere por causas naturales, turno: "+turnos);
                         }
                     }
                     while (!listaIndividuos.isVacia()) {
@@ -427,11 +429,13 @@ public class PrincipalController {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
                             actual.setVidas(actual.getVidas() + recursoAgua.getTurnosVida());
+                            actual.getCola().add("Agua consumida, turnos ganados "+recursoAgua.getTurnosVida()+", turno: "+turnos);
                         }
                     } else if (recursoActual instanceof RecursoComida) {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
                             actual.setVidas(actual.getVidas() + recursoComida.getTurnosVida());
+                            actual.getCola().add("Comida consumida, turnos ganados "+recursoComida.getTurnosVida()+", turno: "+turnos);
                         }
                     } else if (recursoActual instanceof RecursoBiblioteca) {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
@@ -441,6 +445,7 @@ public class PrincipalController {
                                 IndividuoTipoNormal nuevo = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                                 celdaActual.getIndividuos().insert(nuevo, celdaActual.getIndividuos().getPosicion(actual));
                                 celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
+
                             } else if (actual instanceof IndividuoTipoNormal){
                                 IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                                 celdaActual.getIndividuos().insert(nuevo, celdaActual.getIndividuos().getPosicion(actual));
@@ -453,16 +458,20 @@ public class PrincipalController {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
                             actual.setVidas(actual.getVidas() - recursoMontaña.getTurnosVida());
                             listaIndividuos.add(actual);
+                            actual.getCola().add("Montaña escalada, turnos perdidos "+recursoMontaña.getTurnosVida()+", turno: "+turnos);
                         }
                         for (int h = 0; listaIndividuos.getNumeroElementos() != h; h++) {
                             if (listaIndividuos.getElemento(h).getData().getVidas() <= 0) {
                                 celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(listaIndividuos.getElemento(h).getData()));
+                                listaIndividuos.getElemento(h).getData().getCola().add("Muere intenando escalar una montaña, turno: "+turnos);
                             }
                         }
                     } else if (recursoActual instanceof RecursoTesoro) {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
                             actual.setPorcentajeReproduccion(actual.getPorcentajeReproduccion() + recursoTesoro.getPorcentajeReproduccion());
+                            actual.getCola().add("Tesoro encontrado, porcentaje de reproducción aumentado: "+recursoMontaña.getTurnosVida()+" %"+", turno: "+turnos);
+
                         }
                     }
                 }
@@ -497,20 +506,25 @@ public class PrincipalController {
                 if (celdaActual.getIndividuos().getElemento(valor2).getData().getPorcentajeReproduccion() >= prob2) {
                     Individuo padre1 = celdaActual.getIndividuos().getElemento(valor1).getData();
                     Individuo padre2 = celdaActual.getIndividuos().getElemento(valor2).getData();
+                    padre1.getCola().add("Ha tenido un hijo con individuo "+padre2.getId()+", turno:"+turnos);
+                    padre2.getCola().add("Ha tenido un hijo con individuo "+padre1.getId()+", turno:"+turnos);
                     if (padre1 instanceof IndividuoTipoBasico && padre2 instanceof IndividuoTipoBasico) {
                         IndividuoTipoBasico hijo = new IndividuoTipoBasico(individuoTipoBasico.getVidas(), individuoTipoBasico.getPorcentajeReproduccion(),individuoTipoBasico.getPorcentajeClonacion(), individuoTipoBasico.getPorcentajeTipoAlReproducirse());
                         IndividuoTipoBasico hijo1 = new IndividuoTipoBasico(idIndividuos, hijo);
                         identificadorIndividuos();
+                        hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                         celdaActual.getIndividuos().add(hijo1);
                     } else if (padre1 instanceof IndividuoTipoNormal && padre2 instanceof IndividuoTipoNormal) {
                         IndividuoTipoNormal hijo = new IndividuoTipoNormal(individuoTipoNormal.getVidas(), individuoTipoNormal.getPorcentajeReproduccion(),individuoTipoNormal.getPorcentajeClonacion(), individuoTipoNormal.getPorcentajeTipoAlReproducirse());
                         IndividuoTipoNormal hijo1 = new IndividuoTipoNormal(idIndividuos, hijo);
                         identificadorIndividuos();
+                        hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                         celdaActual.getIndividuos().add(hijo1);
                     } else if (padre1 instanceof IndividuoTipoAvanzado && padre2 instanceof IndividuoTipoAvanzado) {
                         IndividuoTipoAvanzado hijo = new IndividuoTipoAvanzado(individuoTipoAvanzado.getVidas(), individuoTipoAvanzado.getPorcentajeReproduccion(),individuoTipoAvanzado.getPorcentajeClonacion(), individuoTipoAvanzado.getPorcentajeTipoAlReproducirse());
                         IndividuoTipoAvanzado hijo1 = new IndividuoTipoAvanzado(idIndividuos, hijo);
                         identificadorIndividuos();
+                        hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                         celdaActual.getIndividuos().add(hijo1);
                     } else if ((padre1 instanceof IndividuoTipoBasico && padre2 instanceof IndividuoTipoNormal) || (padre1 instanceof IndividuoTipoNormal && padre2 instanceof IndividuoTipoBasico)) {
                         Random r3 = new Random();
@@ -519,11 +533,13 @@ public class PrincipalController {
                             IndividuoTipoNormal hijo = new IndividuoTipoNormal(individuoTipoNormal.getVidas(), individuoTipoNormal.getPorcentajeReproduccion(),individuoTipoNormal.getPorcentajeClonacion(), individuoTipoNormal.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoNormal hijo1 = new IndividuoTipoNormal(idIndividuos, hijo);
                             identificadorIndividuos();
+                            hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
                         } else {
                             IndividuoTipoBasico hijo = new IndividuoTipoBasico(individuoTipoBasico.getVidas(), individuoTipoBasico.getPorcentajeReproduccion(),individuoTipoBasico.getPorcentajeClonacion(), individuoTipoBasico.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoBasico hijo1 = new IndividuoTipoBasico(idIndividuos, hijo);
                             identificadorIndividuos();
+                            hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
                         }
                     } else if ((padre1 instanceof IndividuoTipoBasico && padre2 instanceof IndividuoTipoAvanzado) || (padre1 instanceof IndividuoTipoAvanzado && padre2 instanceof IndividuoTipoBasico)) {
@@ -533,11 +549,13 @@ public class PrincipalController {
                             IndividuoTipoAvanzado hijo = new IndividuoTipoAvanzado(individuoTipoAvanzado.getVidas(), individuoTipoAvanzado.getPorcentajeReproduccion(),individuoTipoAvanzado.getPorcentajeClonacion(), individuoTipoAvanzado.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoAvanzado hijo1 = new IndividuoTipoAvanzado(idIndividuos, hijo);
                             identificadorIndividuos();
+                            hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
                         } else {
                             IndividuoTipoBasico hijo = new IndividuoTipoBasico(individuoTipoBasico.getVidas(), individuoTipoBasico.getPorcentajeReproduccion(),individuoTipoBasico.getPorcentajeClonacion(), individuoTipoBasico.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoBasico hijo1 = new IndividuoTipoBasico(idIndividuos, hijo);
                             identificadorIndividuos();
+                            hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
                         }
                     } else if ((padre1 instanceof IndividuoTipoNormal && padre2 instanceof IndividuoTipoAvanzado) || (padre1 instanceof IndividuoTipoAvanzado && padre2 instanceof IndividuoTipoNormal)) {
@@ -547,11 +565,13 @@ public class PrincipalController {
                             IndividuoTipoAvanzado hijo = new IndividuoTipoAvanzado(individuoTipoAvanzado.getVidas(), individuoTipoAvanzado.getPorcentajeReproduccion(),individuoTipoAvanzado.getPorcentajeClonacion(), individuoTipoAvanzado.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoAvanzado hijo1 = new IndividuoTipoAvanzado(idIndividuos, hijo);
                             identificadorIndividuos();
+                            hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
                         } else {
                             IndividuoTipoNormal hijo = new IndividuoTipoNormal(individuoTipoNormal.getVidas(), individuoTipoNormal.getPorcentajeReproduccion(),individuoTipoNormal.getPorcentajeClonacion(), individuoTipoNormal.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoNormal hijo1 = new IndividuoTipoNormal(idIndividuos, hijo);
                             identificadorIndividuos();
+                            hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
                         }
                     }
@@ -567,20 +587,24 @@ public class PrincipalController {
         Random r = new Random();
         int prob = r.nextInt(1, 100);
         if (actual.getPorcentajeClonacion() >= prob) {
+            actual.getCola().add(("Se ha clonado y ha tenido un hijo, turno: "+turnos));
             if (actual instanceof IndividuoTipoBasico) {
                 IndividuoTipoBasico nuevo = new IndividuoTipoBasico(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoBasico nuevo1 = new IndividuoTipoBasico(idIndividuos, nuevo);
                 identificadorIndividuos();
+                nuevo1.getCola().add("Acaba de nacer por clonación, padre: individuo "+actual.getId()+", turno:"+turnos);
                 celdaActual.getIndividuos().add(nuevo1);
             } else if (actual instanceof IndividuoTipoNormal) {
                 IndividuoTipoNormal nuevo = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoNormal nuevo1 = new IndividuoTipoNormal(idIndividuos, nuevo);
                 identificadorIndividuos();
+                nuevo1.getCola().add("Acaba de nacer por clonación, padre: individuo "+actual.getId()+", turno:"+turnos);
                 celdaActual.getIndividuos().add(nuevo1);
             } else {
                 IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoAvanzado nuevo1 = new IndividuoTipoAvanzado(idIndividuos, nuevo);
                 identificadorIndividuos();
+                nuevo1.getCola().add("Acaba de nacer por clonación, padre: individuo "+actual.getId()+", turno:"+turnos);
                 celdaActual.getIndividuos().add(nuevo1);
             }
         }
@@ -597,6 +621,7 @@ public class PrincipalController {
                             SanPedro = celdaActual.getIndividuos().getElemento(k).getData();
                         }
                     }
+                    SanPedro.getCola().add(("Muere porque hay más de 3 individuos en la misma casilla, turno: ")+turnos);
                     celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(SanPedro));
                 }
             }

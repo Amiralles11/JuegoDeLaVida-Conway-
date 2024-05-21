@@ -1,10 +1,13 @@
 package com.example.juegodelavida1;
 
+import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
 
 import com.google.gson.annotations.Expose;
 
 public abstract class Individuo {
+    @Expose
+    private ListaEnlazada<String> cola;
     @Expose
     private int añosVividos;
     @Expose
@@ -90,4 +93,9 @@ public abstract class Individuo {
     public void setAñosVividos(int añosVividos) {
         this.añosVividos = añosVividos;
     }
+
+    public ListaEnlazada<String> getCola() {
+        return cola;
+    }
+    public abstract int getId();
 }
