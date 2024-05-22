@@ -178,11 +178,11 @@ public class PrincipalController {
 
     public void bucleControl() {
         AtomicBoolean comprobacionFinal = new AtomicBoolean(true);
-        if (!finPartida()) {
-            comprobacionFinal.set(false);
-        }
         Thread juegoThread = new Thread(() -> {
             while (comprobacionFinal.get()) {
+                if (!finPartida()) {
+                    comprobacionFinal.set(false);
+                }
                 pasarTurno();
                 Platform.runLater(() -> {
                     tab.setTurnos();
