@@ -289,7 +289,7 @@ public class TableroController implements Initializable {
                     // mainGrid.add(customComponent, i, j);
 
                     // Ejemplo simplificado con un label
-                    Rectangle rectangle = new Rectangle(310 * 3 / tablero.getColumnas(), 450 / tablero.getFilas(),Color.WHITE);
+                    Rectangle rectangle = new Rectangle(310 * 3 / tablero.getColumnas(), 441 / tablero.getFilas(),Color.WHITE);
                     final Button placeholder = new Button();
                     Celda celda = new Celda(j,i,rectangle);
                     placeholder.setOnAction(new EventHandler<ActionEvent>() {
@@ -351,5 +351,29 @@ public class TableroController implements Initializable {
 
     public PrincipalController getpC() {
         return pC;
+    }
+
+    public Button getBotonPausa() {
+        return botonPausa;
+    }
+
+    public Button getBotonContinuar() {
+        return botonContinuar;
+    }
+
+    public Button getBotonAcelerar() {
+        return botonAcelerar;
+    }
+
+    public Button getBotonTerminar() {
+        return botonTerminar;
+    }
+
+    public Button getBotonAjustes() {
+        return botonAjustes;
+    }
+
+    public Button getBotonGuardar() {
+        return botonGuardar;
     }
 }
