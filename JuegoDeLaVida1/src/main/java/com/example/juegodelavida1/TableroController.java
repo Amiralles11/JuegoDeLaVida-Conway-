@@ -58,7 +58,7 @@ public class TableroController implements Initializable {
     private static Stage stageTablero;
     private PrincipalController pC;
     private ListaEnlazada<Stage> celdaVentanas = new ListaEnlazada<>();
-    private ListaEnlazada<CeldaController> celdaControllerVentanas = new ListaEnlazada<>();
+    private static ListaEnlazada<Individuo> individuosTotales;
     private static ListaSimple<ListaSimple<Celda>> listaCeldas;
     private static ListaSimple<ListaSimple<Celda>> listaCeldas2;
     private static int ventanas = 1;
@@ -87,8 +87,9 @@ public class TableroController implements Initializable {
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
                       RecursoAgua recursoAgua,  RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,ListaSimple<ListaSimple<Celda>> lista,
-                       int idIndividuos,int turnosValor, int idArcos) {
+                       int idIndividuos2,int turnosValor2, int idArcos, ListaEnlazada<Individuo> individuosTotales) {
         log.info("Iniciando controlador de tablero, ventana: "+ventanas++);
+        log.debug("AAAAAAAAAAAAAAAAAAAA");
         this.tablero = tablero;
         this.individuoTipoBasico = individuoTipoBasico;
         this.individuoTipoNormal = individuoTipoNormal;
@@ -100,9 +101,10 @@ public class TableroController implements Initializable {
         this.recursoPozo = recursoPozo;
         this.recursoTesoro = recursoTesoro;
         this.listaCeldas2 = lista;
-        this.idIndividuos = idIndividuos;
-        this.turnosValor = turnosValor;
+        this.idIndividuos = idIndividuos2;
+        this.turnosValor = turnosValor2;
         this.idArcos = idArcos;
+        this.individuosTotales = individuosTotales;
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(TableroController.class.getResource("Tablero.fxml"));
         try {
@@ -136,6 +138,7 @@ public class TableroController implements Initializable {
         this.listaCeldas2 = null;
         this.idIndividuos = 0;
         this.idArcos = 0;
+        this.turnosValor = 0;
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(TableroController.class.getResource("Tablero.fxml"));
         try {
@@ -324,7 +327,8 @@ public class TableroController implements Initializable {
         log.info("Tablero terminado");
             if(listaCeldas2==null) {
                 pC = new PrincipalController(true, individuoTipoBasico, individuoTipoNormal, individuoTipoAvanzado, recursoAgua, recursoComida, recursoMontaña,
-                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos, idArcos, 0,this);
+                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos, idArcos, 1,this,new ListaEnlazada<>());
+                turnos.setText(0+"");
             }else{
                 for(int i=0;i<tablero.getColumnas();i++){
                     for(int j=0;j< tablero.getFilas();j++){
@@ -339,14 +343,16 @@ public class TableroController implements Initializable {
                     }
                 }
                 pC = new PrincipalController(true, individuoTipoBasico, individuoTipoNormal, individuoTipoAvanzado, recursoAgua, recursoComida, recursoMontaña,
-                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos, idArcos,turnosValor-1,this);
+                        recursoTesoro, recursoBiblioteca, recursoPozo, listaCeldas,idIndividuos, idArcos,turnosValor,this,individuosTotales);
                 for(int i=0;i<listaCeldas2.getNumeroElementos();i++){
                     listaCeldas2.del(i);
                 }
                 listaCeldas2 = null;
-                log.debug("listaCeldas2 es nulo? "+listaCeldas2 == null);
+                log.debug("listaCeldas2 es nulo? "+listaCeldas2);
+                turnos.setText(turnosValor-1+"");
+                log.info("AAAAAAAAAAAAAAAAAAAAAAAa");
+                log.info(turnosValor);
             }
-            setTurnos();
      }
 
     public PrincipalController getpC() {

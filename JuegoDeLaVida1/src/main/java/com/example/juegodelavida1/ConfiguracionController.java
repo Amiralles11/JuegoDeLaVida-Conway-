@@ -600,7 +600,7 @@ public class ConfiguracionController implements Initializable {
                     (new RecursoMontaña(model2.getOriginal().getTiempoAparicion(), model2.getOriginal().getPorcentajeAparicion(), getPorcentajesRecurso(modelMontaña.getOriginal().getPorcentajeAparicion2()), modelComida.getOriginal().getTurnosVida())),
                     (new RecursoTesoro(model2.getOriginal().getTiempoAparicion(), model2.getOriginal().getPorcentajeAparicion(), getPorcentajesRecurso(modelTesoro.getOriginal().getPorcentajeAparicion2()), modelTesoro.getOriginal().getPorcentajeReproduccion())),
                     (new RecursoBiblioteca(model2.getOriginal().getTiempoAparicion(), model2.getOriginal().getPorcentajeAparicion(), getPorcentajesRecurso(modelBiblioteca.getOriginal().getPorcentajeAparicion2()), modelBiblioteca.getOriginal().getPorcentajeClonacion())),
-                    (new RecursoPozo(model2.getOriginal().getTiempoAparicion(), model2.getOriginal().getPorcentajeAparicion(), getPorcentajesRecurso(modelPozo.getOriginal().getPorcentajeAparicion2()))),pC.getListaCeldas(),pC.getIdIndividuos(),pC.getTurnos(),pC.getIdArcos());
+                    (new RecursoPozo(model2.getOriginal().getTiempoAparicion(), model2.getOriginal().getPorcentajeAparicion(), getPorcentajesRecurso(modelPozo.getOriginal().getPorcentajeAparicion2()))),pC.getListaCeldas(),pC.getIdIndividuos(),pC.getTurnos(),pC.getIdArcos(),pC.getIndividuosTotales());
             log.debug(model.getOriginal().toString());
             log.debug("Porcentaje Aparicion recurso " + model2.getOriginal().getPorcentajeAparicion());
             log.debug("Tiempo Aparicion recurso " + model2.getOriginal().getTiempoAparicion());
