@@ -84,10 +84,10 @@ public class PrincipalController {
         if(this.tiempoEspera==1000){
             this.tiempoEspera=750;
         }else if(this.tiempoEspera==750){
-            this.tiempoEspera = 750;
-        }else if(this.tiempoEspera==500){
             this.tiempoEspera = 500;
         }else if(this.tiempoEspera==500){
+            this.tiempoEspera = 760;
+        }else if(this.tiempoEspera==760){
             this.tiempoEspera=1000;
         }
     }
@@ -374,6 +374,18 @@ public class PrincipalController {
                     listaCeldas.getElemento(nuevaCelda.getColumnas()).getData().getElemento(nuevaCelda.getFilas()).getData().add(actual);
                     actual.setMovido(true);
                     celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(actual));
+                } else {
+                    Grafo<Celda> mapaActual = getGrafo();
+                    Vertice<Celda> verticeIni = null;
+                    for (int i = 0; mapaActual.getVertices().getNumeroElementos() != i; i++) {
+                        Vertice<Celda> verticeActual = mapaActual.getVertices().getElemento(i).getData();
+                        if (verticeActual.getDato().getFilas().equals(celdaActual.getFilas()) && verticeActual.getDato().getColumnas().equals(celdaActual.getColumnas())) {
+                            verticeIni = verticeActual;
+                        }
+                    }
+                    rutaAvanzada.del(rutaAvanzada.getPosicion(actual));
+                    assert verticeIni != null;
+                    rutaAvanzada.put(actual, encontrarNuevoDestino(verticeIni.getDato(), mapaActual));
                 }
             } else {
                 Grafo<Celda> mapaActual = getGrafo();
@@ -613,6 +625,8 @@ public class PrincipalController {
     private void interaccionRecursos() {
         for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
             for (int j = 0; this.getListaCeldas().getElemento(i).getData().getNumeroElementos() != j; j++) {
+                boolean visitado = false;
+                ListaEnlazada<Recurso> desaparecerB = new ListaEnlazada<>();
                 Celda celdaActual = this.getListaCeldas().getElemento(i).getData().getElemento(j).getData();
                 for (int k = 0; celdaActual.getRecursos().getNumeroElementos() != k; k++) {
                     Recurso recursoActual = celdaActual.getRecursos().getElemento(k).getData();
@@ -630,23 +644,26 @@ public class PrincipalController {
                             actual.setVidas(actual.getVidas() + recursoComida.getTurnosVida());
                             actual.getCola().add("Comida consumida, turnos ganados "+recursoComida.getTurnosVida()+", turno: "+turnos);
                         }
-                    } else if (recursoActual instanceof RecursoBiblioteca) {
+                    } else if (recursoActual instanceof RecursoBiblioteca && !visitado) {
                         ListaEnlazada<Individuo> desaparecer = new ListaEnlazada<>();
                         ListaEnlazada<Individuo> añadir = new ListaEnlazada<>();
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
                             actual.setPorcentajeClonacion(actual.getPorcentajeClonacion() + recursoBiblioteca.getPorcentajeClonacion());
-                            if (actual instanceof IndividuoTipoBasico) {
+                            if ((actual instanceof IndividuoTipoBasico)) {
                                 IndividuoTipoNormal nuevo1 = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
-                                IndividuoTipoNormal nuevo = new IndividuoTipoNormal(nuevo1.getiD(), nuevo1);
+                                IndividuoTipoNormal nuevo = new IndividuoTipoNormal(nuevo1.getId(), nuevo1);
                                 añadir.add(nuevo);
                                 desaparecer.add(actual);
-                            } else if (actual instanceof IndividuoTipoNormal){
+                                desaparecerB.add(recursoActual);
+                            } else if ((actual instanceof IndividuoTipoNormal)){
                                 IndividuoTipoAvanzado nuevo1 = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
-                                IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
+                                IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(nuevo1.getId(), nuevo1);
                                 añadir.add(nuevo);
                                 desaparecer.add(actual);
+                                desaparecerB.add(recursoActual);
                             }
+                            visitado = true;
                         }
                         while (!desaparecer.isVacia()) {
                             Individuo pendiente = desaparecer.getElemento(0).getData();
@@ -658,6 +675,7 @@ public class PrincipalController {
                             celdaActual.getIndividuos().add(pendiente);
                             añadir.del(0);
                         }
+                        visitado = true;
                     } else if (recursoActual instanceof RecursoMontaña) {
                         ListaEnlazada<Individuo> listaIndividuos = new ListaEnlazada<>();
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
@@ -681,6 +699,14 @@ public class PrincipalController {
                         }
                     }
                 }
+                while (!desaparecerB.isVacia()) {
+                    Recurso recursoDesaparecer = desaparecerB.getElemento(0).getData();
+                    if (celdaActual.getRecursos().getPosicion(recursoDesaparecer) != null) {
+                        celdaActual.getRecursos().del(celdaActual.getRecursos().getPosicion(recursoDesaparecer));
+                    }
+                    desaparecerB.del(0);
+                }
+
             }
         }
     }
@@ -830,7 +856,7 @@ public class PrincipalController {
 
     private void hacerEspacio1() {
         for(int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
-            for(int j = 0; listaCeldas.getElemento(j).getData().getNumeroElementos() != j; j++) {
+            for(int j = 0; listaCeldas.getElemento(i).getData().getNumeroElementos() != j; j++) {
                 Celda celdaActual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
                 while (celdaActual.getIndividuos().getNumeroElementos() > 3) {
                     Individuo sanPedro = celdaActual.getIndividuos().getPrimero().getData();
@@ -849,7 +875,7 @@ public class PrincipalController {
 
     private void hacerEspacio2 () {
         for(int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
-            for(int j = 0; listaCeldas.getElemento(j).getData().getNumeroElementos() != j; j++) {
+            for(int j = 0; listaCeldas.getElemento(i).getData().getNumeroElementos() != j; j++) {
                 Celda celdaActual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
                 if (celdaActual.getRecursos().getNumeroElementos() < 3) {
                     Random r = new Random();
