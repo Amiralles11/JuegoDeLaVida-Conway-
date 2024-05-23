@@ -52,7 +52,7 @@ public class CargarPartidaController implements Initializable {
             TableroController tab = new TableroController();
             tab.start2(new Tablero(pC.getListaCeldas().getElemento(0).getData().getNumeroElementos(),pC.getListaCeldas().getNumeroElementos()),pC.getIndividuoTipoBasico(),pC.getIndividuoTipoNormal(),
                     pC.getIndividuoTipoAvanzado(),pC.getRecursoAgua(),pC.getRecursoComida(),pC.getRecursoMontaña(),pC.getRecursoTesoro(),
-                    pC.getRecursoBiblioteca(),pC.getRecursoPozo(),pC.getListaCeldas(),pC.getIdIndividuos(), pC.identificadorArcos(), pC.getTurnos());
+                    pC.getRecursoBiblioteca(),pC.getRecursoPozo(),pC.getListaCeldas(),pC.getIdIndividuos(), pC.getTurnos(),pC.identificadorArcos(),pC.getIndividuosTotales());
             scene.close();
             log.info("Partida cargada");
         }

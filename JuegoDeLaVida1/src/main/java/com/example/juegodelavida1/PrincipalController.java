@@ -7,17 +7,25 @@ import com.example.juegodelavida1.EstructurasDatos.Map.ElementoHashMap;
 import com.google.gson.annotations.Expose;
 import javafx.application.Platform;
 import com.example.juegodelavida1.EstructurasDatos.Map.Map;
+import javafx.fxml.FXML;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PrincipalController {
+    private static final Logger log = LogManager.getLogger(PrincipalController.class);
     private static  TableroController tab;
+    private ListaEnlazada<Individuo> supervivientes = new ListaEnlazada<>();
+    @Expose
+    private ListaEnlazada<Individuo> individuosTotales;
 
     private int tiempoEspera;
     private Map<Individuo, ListaEnlazada<Celda>> rutaAvanzada;
     @Expose
-    private static int idIndividuos = 0;
+    private int idIndividuos = 0;
 
     private static int idArcos = 0;
     @Expose
@@ -48,7 +56,8 @@ public class PrincipalController {
                       IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
                       RecursoAgua recursoAgua, RecursoComida recursoComida, RecursoMontaña recursoMontaña,
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,
-                      ListaSimple<ListaSimple<Celda>> lista,int i, int j, int k, TableroController tableroController){
+                      ListaSimple<ListaSimple<Celda>> lista,int i, int j, int k, TableroController tableroController,
+                               ListaEnlazada<Individuo> individuosTotales){
         ListaEnlazada<Celda> rutaAvanzada = new ListaEnlazada<>();
         Map<Individuo, ListaEnlazada<Celda>> rutasAvanzadas = new Map<>();
         this.rutaAvanzada = rutasAvanzadas;
@@ -68,6 +77,7 @@ public class PrincipalController {
         this.turnos = k;
         this.tab = tableroController;
         this.tiempoEspera = 1000;
+        this.individuosTotales = individuosTotales;
     }
 
     public void setTiempoEspera() {
@@ -80,6 +90,18 @@ public class PrincipalController {
         }else if(this.tiempoEspera==500){
             this.tiempoEspera=1000;
         }
+    }
+
+    public ListaEnlazada<Individuo> getIndividuosTotales() {
+        return individuosTotales;
+    }
+
+    public ListaEnlazada<Individuo> getSupervivientes() {
+        return supervivientes;
+    }
+
+    public static TableroController getTab() {
+        return tab;
     }
 
     public int getIdIndividuos() {
@@ -180,10 +202,11 @@ public class PrincipalController {
         AtomicBoolean comprobacionFinal = new AtomicBoolean(true);
         Thread juegoThread = new Thread(() -> {
             while (comprobacionFinal.get()) {
-                if (!finPartida()) {
+                if (finPartida()<0) {
                     comprobacionFinal.set(false);
                 }
                 pasarTurno();
+
                 Platform.runLater(() -> {
                     tab.setTurnos();
                     for (int i = 0; i < listaCeldas.getNumeroElementos(); i++) {
@@ -192,27 +215,44 @@ public class PrincipalController {
                             actual.updateGUIwithModel();
                         }
                     }
+                    if (finPartida()==-2) {
+                        FinalPartidaController fC = new FinalPartidaController();
+                        fC.start(this);
+                    }
+                    log.debug("turno= "+(turnos-1));
+                    log.debug("Individuos vivos= "+supervivientes.getNumeroElementos());
+                    log.debug("Individuos totales= "+individuosTotales.getNumeroElementos());
+                    if (finPartida()<0) {
+                        comprobacionFinal.set(false);
+                    }
                 });
                 esperar(tiempoEspera);
             }
         });
         juegoThread.start();
     }
-
-    private boolean finPartida() {
-        if (!pausa && numeroIndividuos()) {
-            return true;
-        } else {
-            return false;
-        }
+    private int finPartida() {
+            if (!pausa && numeroIndividuos()) {
+                return 1;
+            } else if (!numeroIndividuos()) {
+                return -2;
+            } else {
+                return -1;
+            }
     }
 
     private boolean numeroIndividuos() {
+        supervivientes.vaciar();
         int cont = 0;
         for (int i = 0; listaCeldas.getNumeroElementos() != i; i++) {
             for (int j = 0; listaCeldas.getElemento(i).getData().getNumeroElementos() != j; j++) {
                 Celda actual = listaCeldas.getElemento(i).getData().getElemento(j).getData();
                 cont += actual.getIndividuos().getNumeroElementos();
+                if(actual.getIndividuos().getNumeroElementos()!=0){
+                    for(int z = 0; z<actual.getIndividuos().getNumeroElementos();z++){
+                        supervivientes.add(actual.getIndividuos().getElemento(z).getData());
+                    }
+                }
             }
         }
         if (cont > 1) {
@@ -251,7 +291,6 @@ public class PrincipalController {
                             actual.setPorcentajeReproduccion(0);
                         }
                         if (actual.getVidas() == 0) {
-                            listaIndividuos.add(actual);
                             actual.getCola().add("Muere por causas naturales, turno: "+turnos);
                         }
                     }
@@ -681,18 +720,21 @@ public class PrincipalController {
                         identificadorIndividuos();
                         hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                         celdaActual.getIndividuos().add(hijo1);
+                        individuosTotales.add(hijo1);
                     } else if (padre1 instanceof IndividuoTipoNormal && padre2 instanceof IndividuoTipoNormal) {
                         IndividuoTipoNormal hijo = new IndividuoTipoNormal(individuoTipoNormal.getVidas(), individuoTipoNormal.getPorcentajeReproduccion(),individuoTipoNormal.getPorcentajeClonacion(), individuoTipoNormal.getPorcentajeTipoAlReproducirse());
                         IndividuoTipoNormal hijo1 = new IndividuoTipoNormal(idIndividuos, hijo);
                         identificadorIndividuos();
                         hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                         celdaActual.getIndividuos().add(hijo1);
+                        individuosTotales.add(hijo1);
                     } else if (padre1 instanceof IndividuoTipoAvanzado && padre2 instanceof IndividuoTipoAvanzado) {
                         IndividuoTipoAvanzado hijo = new IndividuoTipoAvanzado(individuoTipoAvanzado.getVidas(), individuoTipoAvanzado.getPorcentajeReproduccion(),individuoTipoAvanzado.getPorcentajeClonacion(), individuoTipoAvanzado.getPorcentajeTipoAlReproducirse());
                         IndividuoTipoAvanzado hijo1 = new IndividuoTipoAvanzado(idIndividuos, hijo);
                         identificadorIndividuos();
                         hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                         celdaActual.getIndividuos().add(hijo1);
+                        individuosTotales.add(hijo1);
                     } else if ((padre1 instanceof IndividuoTipoBasico && padre2 instanceof IndividuoTipoNormal) || (padre1 instanceof IndividuoTipoNormal && padre2 instanceof IndividuoTipoBasico)) {
                         Random r3 = new Random();
                         int prob3 = r3.nextInt(1, 100);
@@ -702,12 +744,14 @@ public class PrincipalController {
                             identificadorIndividuos();
                             hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
+                            individuosTotales.add(hijo1);
                         } else {
                             IndividuoTipoBasico hijo = new IndividuoTipoBasico(individuoTipoBasico.getVidas(), individuoTipoBasico.getPorcentajeReproduccion(),individuoTipoBasico.getPorcentajeClonacion(), individuoTipoBasico.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoBasico hijo1 = new IndividuoTipoBasico(idIndividuos, hijo);
                             identificadorIndividuos();
                             hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
+                            individuosTotales.add(hijo1);
                         }
                     } else if ((padre1 instanceof IndividuoTipoBasico && padre2 instanceof IndividuoTipoAvanzado) || (padre1 instanceof IndividuoTipoAvanzado && padre2 instanceof IndividuoTipoBasico)) {
                         Random r3 = new Random();
@@ -718,12 +762,14 @@ public class PrincipalController {
                             identificadorIndividuos();
                             hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
+                            individuosTotales.add(hijo1);
                         } else {
                             IndividuoTipoBasico hijo = new IndividuoTipoBasico(individuoTipoBasico.getVidas(), individuoTipoBasico.getPorcentajeReproduccion(),individuoTipoBasico.getPorcentajeClonacion(), individuoTipoBasico.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoBasico hijo1 = new IndividuoTipoBasico(idIndividuos, hijo);
                             identificadorIndividuos();
                             hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
+                            individuosTotales.add(hijo1);
                         }
                     } else if ((padre1 instanceof IndividuoTipoNormal && padre2 instanceof IndividuoTipoAvanzado) || (padre1 instanceof IndividuoTipoAvanzado && padre2 instanceof IndividuoTipoNormal)) {
                         Random r3 = new Random();
@@ -734,12 +780,14 @@ public class PrincipalController {
                             identificadorIndividuos();
                             hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
+                            individuosTotales.add(hijo1);
                         } else {
                             IndividuoTipoNormal hijo = new IndividuoTipoNormal(individuoTipoNormal.getVidas(), individuoTipoNormal.getPorcentajeReproduccion(),individuoTipoNormal.getPorcentajeClonacion(), individuoTipoNormal.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoNormal hijo1 = new IndividuoTipoNormal(idIndividuos, hijo);
                             identificadorIndividuos();
                             hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
+                            individuosTotales.add(hijo1);
                         }
                     }
                 }
@@ -761,18 +809,21 @@ public class PrincipalController {
                 identificadorIndividuos();
                 nuevo1.getCola().add("Acaba de nacer por clonación, padre: individuo "+actual.getId()+", turno:"+turnos);
                 celdaActual.getIndividuos().add(nuevo1);
+                individuosTotales.add(nuevo1);
             } else if (actual instanceof IndividuoTipoNormal) {
                 IndividuoTipoNormal nuevo = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoNormal nuevo1 = new IndividuoTipoNormal(idIndividuos, nuevo);
                 identificadorIndividuos();
                 nuevo1.getCola().add("Acaba de nacer por clonación, padre: individuo "+actual.getId()+", turno:"+turnos);
                 celdaActual.getIndividuos().add(nuevo1);
+                individuosTotales.add(nuevo1);
             } else {
                 IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoAvanzado nuevo1 = new IndividuoTipoAvanzado(idIndividuos, nuevo);
                 identificadorIndividuos();
                 nuevo1.getCola().add("Acaba de nacer por clonación, padre: individuo "+actual.getId()+", turno:"+turnos);
                 celdaActual.getIndividuos().add(nuevo1);
+                individuosTotales.add(nuevo1);
             }
         }
     }
