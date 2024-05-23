@@ -13,9 +13,4 @@ class IndividuoTipoBasicoTest {
         assertEquals(individuo.toString(),"IndividuoBasico 0, vidas= 1");
     }
 
-    @Test
-    void move() {
-        assertDoesNotThrow(()->individuo2.move());
-        assertDoesNotThrow(()->individuo.move());
-    }
 }

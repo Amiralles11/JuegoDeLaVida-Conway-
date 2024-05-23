@@ -15,18 +15,10 @@ public class IndividuoTipoAvanzado extends Individuo{
         }
     }
 
-    public int getiD() {
-        return iD;
-    }
 
     public IndividuoTipoAvanzado(int i, Individuo individuo) {
         super(individuo.getVidas(), individuo.getPorcentajeReproduccion(), individuo.getPorcentajeClonacion(), individuo.getPorcentajeTipoAlReproducirse());
         iD = i;
-    }
-
-    @Override
-    public void move() {
-
     }
     @Override
     public int getId() {

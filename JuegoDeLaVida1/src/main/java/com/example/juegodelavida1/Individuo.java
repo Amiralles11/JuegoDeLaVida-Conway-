@@ -76,7 +76,6 @@ public abstract class Individuo {
     }
 
     public abstract String toString();
-    public abstract void move();
 
 
     public ListaSimple<Integer> getRuta() {

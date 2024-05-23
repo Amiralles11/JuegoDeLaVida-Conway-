@@ -14,8 +14,8 @@ class IndividuoTipoNormalTest {
     }
 
     @Test
-    void move() {
-        assertDoesNotThrow(()->individuo2.move());
-        assertDoesNotThrow(()->individuo.move());
+    void getId() {
+        IndividuoTipoNormal i = new IndividuoTipoNormal(12,12,12,12);
+        assertDoesNotThrow(()-> i.getId());
     }
 }
