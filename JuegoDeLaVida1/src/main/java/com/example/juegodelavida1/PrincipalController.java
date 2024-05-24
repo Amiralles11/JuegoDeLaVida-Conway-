@@ -129,10 +129,6 @@ public class PrincipalController {
         return listaCeldas;
     }
 
-    public void setListaCeldas(ListaSimple<ListaSimple<Celda>> listaCeldas) {
-        this.listaCeldas = listaCeldas;
-    }
-
     public IndividuoTipoBasico getIndividuoTipoBasico() {
         return individuoTipoBasico;
     }
@@ -145,16 +141,8 @@ public class PrincipalController {
         return individuoTipoNormal;
     }
 
-    public void setIndividuoTipoNormal(IndividuoTipoNormal individuoTipoNormal) {
-        this.individuoTipoNormal = individuoTipoNormal;
-    }
-
     public IndividuoTipoAvanzado getIndividuoTipoAvanzado() {
         return individuoTipoAvanzado;
-    }
-
-    public void setIndividuoTipoAvanzado(IndividuoTipoAvanzado individuoTipoAvanzado) {
-        this.individuoTipoAvanzado = individuoTipoAvanzado;
     }
 
     public RecursoAgua getRecursoAgua() {
@@ -714,13 +702,27 @@ public class PrincipalController {
     private void reproduccionClonacion() {
         for (int i = 0; this.listaCeldas.getNumeroElementos() != i; i++) {
             for (int j = 0; this.getListaCeldas().getElemento(i).getData().getNumeroElementos() != j; j++) {
+                ListaEnlazada<Individuo> nuevos = new ListaEnlazada<>();
+                ListaEnlazada<Individuo> eliminar = new ListaEnlazada<>();
                 Celda celdaActual = this.getListaCeldas().getElemento(i).getData().getElemento(j).getData();
                 if (celdaActual.getIndividuos().getNumeroElementos() > 1) {
                     reproducir(celdaActual);
                 }
                 for (int k = 0; celdaActual.getIndividuos().getNumeroElementos() != k; k++) {
                     Individuo actual = celdaActual.getIndividuos().getElemento(k).getData();
-                    clonar(actual, celdaActual);
+                    if (actual.getVidas() <= 0) {
+                        eliminar.add(actual);
+                    } else {
+                        nuevos = clonar(actual, celdaActual);
+                    }
+                }
+                while (!nuevos.isVacia()) {
+                    celdaActual.getIndividuos().add(nuevos.getPrimero().getData());
+                    nuevos.del(0);
+                }
+                while (!eliminar.isVacia()) {
+                    celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(eliminar.getPrimero()));
+                    eliminar.del(0);
                 }
             }
         }
@@ -824,34 +826,36 @@ public class PrincipalController {
         }
     }
 
-    private void clonar(Individuo actual, Celda celdaActual) {
+    private ListaEnlazada<Individuo> clonar(Individuo actual, Celda celdaActual) {
+        ListaEnlazada<Individuo> individuosNuevos = new ListaEnlazada<>();
         Random r = new Random();
         int prob = r.nextInt(1, 100);
         if (actual.getPorcentajeClonacion() >= prob) {
-            actual.getCola().add(("Se ha clonado y ha tenido un hijo, turno: "+turnos));
+            actual.getCola().add(("Se ha clonado y ha tenido un hijo, turno: " + turnos));
             if (actual instanceof IndividuoTipoBasico) {
                 IndividuoTipoBasico nuevo = new IndividuoTipoBasico(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoBasico nuevo1 = new IndividuoTipoBasico(idIndividuos, nuevo);
                 identificadorIndividuos();
                 nuevo1.getCola().add("Acaba de nacer por clonación, padre: individuo "+actual.getId()+", turno:"+turnos);
-                celdaActual.getIndividuos().add(nuevo1);
+                individuosNuevos.add(nuevo1);
                 individuosTotales.add(nuevo1);
             } else if (actual instanceof IndividuoTipoNormal) {
                 IndividuoTipoNormal nuevo = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoNormal nuevo1 = new IndividuoTipoNormal(idIndividuos, nuevo);
                 identificadorIndividuos();
                 nuevo1.getCola().add("Acaba de nacer por clonación, padre: individuo "+actual.getId()+", turno:"+turnos);
-                celdaActual.getIndividuos().add(nuevo1);
+                individuosNuevos.add(nuevo1);
                 individuosTotales.add(nuevo1);
             } else {
                 IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoAvanzado nuevo1 = new IndividuoTipoAvanzado(idIndividuos, nuevo);
                 identificadorIndividuos();
                 nuevo1.getCola().add("Acaba de nacer por clonación, padre: individuo "+actual.getId()+", turno:"+turnos);
-                celdaActual.getIndividuos().add(nuevo1);
+                individuosNuevos.add(nuevo1);
                 individuosTotales.add(nuevo1);
             }
         }
+        return individuosNuevos;
     }
 
     private void hacerEspacio1() {
