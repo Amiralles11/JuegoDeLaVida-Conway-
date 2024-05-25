@@ -908,6 +908,7 @@ public class PrincipalController {
         int prob = r.nextInt(1, 100);
         if (actual.getPorcentajeClonacion() >= prob) {
             actual.getCola().add(("Se ha clonado y ha tenido un hijo, turno: "+turnos));
+            log.trace("Un individuo se ha clonado");
             if (actual instanceof IndividuoTipoBasico) {
                 IndividuoTipoBasico nuevo = new IndividuoTipoBasico(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoBasico nuevo1 = new IndividuoTipoBasico(idIndividuos, nuevo);
