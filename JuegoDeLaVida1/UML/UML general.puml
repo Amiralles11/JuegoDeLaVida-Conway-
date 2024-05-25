@@ -1,61 +1,198 @@
 @startuml
 'https://plantuml.com/sequence-diagram
-Interface Elemento {
-+make turn()
-}
 
-abstract class Recurso extends Elemento {
--tiempoAparicion:int
--porcentajeAparicion:int
-+accion():
+package individuos {
+abstract class Individuo{
+    -vidas:int
+    -reproduccion%:int
+    -clonacion%:int
+    -tipoAlReproducirse%: int
+    -movido: boolean
+    -añosVividos: int
+    -cola: ListaEnlazada<String>
+    ----
+    +getters()
+    +setters()
+    }
+    class IndividuoBasico extends Individuo{
+    -id: int
+    }
+
+    class IndividuoNormal extends Individuo{
+    -id: int
+    }
+
+    class IndividuoAvanzado extends Individuo{
+    -id: int
+    }
 }
-abstract class Individuo extends Elemento{
--progenitor1:Individuo
--progenitor2:Individuo
--id:int
--vidasRestantes:int
--reproduccion%:int
--mutacion%:int
--clonacion%:int
--muerte%:int
--edad:int
--aguaBebida:int
--reproducciones:int
--mutaciones:int
+package Recursos {
+    abstract class Recurso{
+    -tiempoAparicion:int
+    -porcentajeAparicion:int
+    ----
+    getters()
+    setters()
+    }
+    class Agua extends Recurso {
+    -porcentajeAparicion2: int
+    -turnosVida: int
+    ----
+    +getters()
+    +setters()
+    }
+    class Comida extends Recurso {
+    -porcentajeAparicion2: int
+    -turnosVida: int
+    ----
+    +getters()
+    +setters()
+    }
+    class Montaña extends Recurso {
+    -porcentajeAparicion2: int
+    -turnosVida: int
+    ----
+    +getters()
+    +setters()
+    }
+    class Tesoro extends Recurso {
+    -porcentajeAparicion2: int
+    -porcentajeReproduccion: int
+    ----
+    +getters()
+    +setters()
+    }
+    class Biblioteca extends Recurso {
+    -porcentajeAparicion2: int
+    -porcentajeClonacion: int
+    ----
+    +getters()
+    +setters()
+    }
+    class Pozo extends Recurso {
+    -porcentajeAparicion2: int
+    ----
+    +getters()
+    +setters()
+    }
+}
+class ventanaTablero {
+}
+class tableroController {
+}
+class ventanaCelda {
+}
+class celdaController {
+}
+class helloAplication {
+}
+class windowsController {
+}
+class tableroParametros {
+}
+class parameterController {
+}
+class cargarPartidaController {
+}
+class configuracionController {
+}
+class finalPartidaController {
+}
+class guardarPartidaController {
+}
+class Tablero {
+-dimensiones: ListaSimple<Integer>
+}
+class Celda {
+-rectangle: Rectangle
+-coordenadas: ListaSimple<Integer>
+-individuos: ListaEnlazada<Individuo>
+-recursos: ListaEnlazada<Recurso>
 ----
-+mover()
-}
-class IndividuoBasico extends Individuo{
-+mover():void
-}
-
-class IndividuoNormal extends Individuo{
-+mover():void
++getters()
++setters()
++addRecurso()
++addIndividuo()
 }
 
-class IndividuoAvanzado extends Individuo{
-+mover():void
+@startuml
+class PrincipalController {
+    -static final Logger log
+    -static TableroController tab
+    -ListaEnlazada<Individuo> supervivientes
+    -ListaEnlazada<Individuo> individuosTotales
+    -int tiempoEspera
+    -Map<Individuo, ListaEnlazada<Celda>> rutaAvanzada
+    -int idIndividuos = 0
+    -static int idArcos = 0
+    -int turnos
+    -boolean pausa
+    -ListaSimple<ListaSimple<Celda>> listaCeldas
+    -IndividuoTipoBasico individuoTipoBasico
+    -IndividuoTipoNormal individuoTipoNormal
+    -IndividuoTipoAvanzado individuoTipoAvanzado
+    -RecursoAgua recursoAgua
+    -RecursoBiblioteca recursoBiblioteca
+    -RecursoComida recursoComida
+    -RecursoMontaña recursoMontaña
+    -RecursoPozo recursoPozo
+    -RecursoTesoro recursoTesoro
+    -------------
+    + PrincipalController(Boolean pausa, IndividuoTipoBasico individuoTipoBasico, IndividuoTipoNormal individuoTipoNormal,
+    IndividuoTipoAvanzado individuoTipoAvanzado, RecursoAgua recursoAgua, RecursoComida recursoComida,
+    RecursoMontaña recursoMontaña, RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca,
+     RecursoPozo recursoPozo, ListaSimple<ListaSimple<Celda>> lista, int i, int j, int k, TableroController tableroController,
+     ListaEnlazada<Individuo> individuosTotales)
+
+    + void setTiempoEspera(int tiempoEspera)
+    + void setIndividuosTotales(ListaEnlazada<Individuo> individuosTotales)
+    + TableroController getTab()
+    + int getIdIndividuos()
+    + int getIdArcos()
+    + int getIdentificadorIndividuos()
+    + int identificadorArcos()
+    + int getTurnos()
+    + int identificadorTurnos()
+    + ListaSimple<ListaSimple<Celda>> getListaCeldas()
+    + IndividuoTipoBasico getIndividuoTipoBasico()
+    + IndividuoTipoNormal getIndividuoTipoNormal()
+    + IndividuoTipoAvanzado getIndividuoTipoAvanzado()
+    + RecursoAgua getRecursoAgua()
+    + RecursoBiblioteca getRecursoBiblioteca()
+    + RecursoComida getRecursoComida()
+    + RecursoMontaña getRecursoMontaña()
+    + RecursoPozo getRecursoPozo()
+    + RecursoTesoro getRecursoTesoro()
+    + boolean isPausa()
+    + void setPausa(boolean pausa)
+    + void bucleControl()
 }
-class Agua extends Recurso {
-}
-class Comida extends Recurso {
-}
-class Montaña extends Recurso {
-}
-class Tesoro extends Recurso {
-}
-class Biblioteca extends Recurso {
-}
-class Pozo extends Recurso {
-}
-class Simulador{
--tablero:Tablero
-+ iniciar_juego()
-+ cargar_juego()
-+ pausar_juego()
-+ detener_juego()
-+ guardar_juego()
-}
+
+ventanaTablero <-- tableroController
+tableroController <- Tablero
+ventanaCelda <- celdaController
+celdaController <- Celda
+PrincipalController <-- celdaController
+Celda <- Individuo
+tableroController --> PrincipalController
+PrincipalController <--- Individuo
+PrincipalController <- Recurso
+Celda <- Recurso
+PrincipalController <-- finalPartidaController
+PrincipalController <-- parameterController
+helloAplication <- ventanaCelda
+helloAplication <- ventanaTablero
+PrincipalController <- configuracionController
+windowsController <- ventanaTablero
+windowsController <- ventanaCelda
+tableroParametros <- Tablero
+tableroParametros --> PrincipalController
+PrincipalController <-- cargarPartidaController
+PrincipalController <-- guardarPartidaController
+
+
+@enduml
+
 
 class Tablero(Lista) extends Simulador{
 -dimensiones:int[2]
