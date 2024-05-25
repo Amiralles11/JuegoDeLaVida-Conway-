@@ -1,5 +1,6 @@
 package com.example.juegodelavida1;
 
+import com.example.juegodelavida1.EstructurasDatos.ArbolBinario.ArbolBinario;
 import com.example.juegodelavida1.EstructurasDatos.Grafo.*;
 import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
 import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
@@ -25,6 +26,9 @@ public class PrincipalController {
 
     private int tiempoEspera;
     private Map<Individuo, ListaEnlazada<Celda>> rutaAvanzada;
+
+    private Map<Individuo, ArbolBinario<Individuo>> genealogia;
+
     @Expose
     private int idIndividuos = 0;
 
@@ -53,15 +57,16 @@ public class PrincipalController {
     @Expose
     private RecursoTesoro recursoTesoro;
 
-    public PrincipalController(Boolean pausa,IndividuoTipoBasico individuoTipoBasico,
-                      IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
-                      RecursoAgua recursoAgua, RecursoComida recursoComida, RecursoMontaña recursoMontaña,
-                      RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,
-                      ListaSimple<ListaSimple<Celda>> lista,int i, int j, int k, TableroController tableroController,
+    public PrincipalController(Boolean pausa, IndividuoTipoBasico individuoTipoBasico,
+                               IndividuoTipoNormal individuoTipoNormal, IndividuoTipoAvanzado individuoTipoAvanzado,
+                               RecursoAgua recursoAgua, RecursoComida recursoComida, RecursoMontaña recursoMontaña,
+                               RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,
+                               ListaSimple<ListaSimple<Celda>> lista, int i, int j, int k, TableroController tableroController,
                                ListaEnlazada<Individuo> individuosTotales){
         ListaEnlazada<Celda> rutaAvanzada = new ListaEnlazada<>();
         this.finPartida = false;
         Map<Individuo, ListaEnlazada<Celda>> rutasAvanzadas = new Map<>();
+        Map<Individuo, ArbolBinario<Individuo>> genealogia = new Map<>();
         this.rutaAvanzada = rutasAvanzadas;
         this.pausa = pausa;
         this.individuoTipoBasico = individuoTipoBasico;
@@ -80,6 +85,7 @@ public class PrincipalController {
         this.tab = tableroController;
         this.tiempoEspera = 1000;
         this.individuosTotales = individuosTotales;
+        this.genealogia = genealogia;
     }
 
     public void setTiempoEspera() {
@@ -762,6 +768,7 @@ public class PrincipalController {
                         IndividuoTipoBasico hijo = new IndividuoTipoBasico(individuoTipoBasico.getVidas(), individuoTipoBasico.getPorcentajeReproduccion(),individuoTipoBasico.getPorcentajeClonacion(), individuoTipoBasico.getPorcentajeTipoAlReproducirse());
                         IndividuoTipoBasico hijo1 = new IndividuoTipoBasico(idIndividuos, hijo);
                         identificadorIndividuos();
+                        añadirArbol(hijo1, padre1, padre2);
                         hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                         celdaActual.getIndividuos().add(hijo1);
                         individuosTotales.add(hijo1);
@@ -769,6 +776,7 @@ public class PrincipalController {
                         IndividuoTipoNormal hijo = new IndividuoTipoNormal(individuoTipoNormal.getVidas(), individuoTipoNormal.getPorcentajeReproduccion(),individuoTipoNormal.getPorcentajeClonacion(), individuoTipoNormal.getPorcentajeTipoAlReproducirse());
                         IndividuoTipoNormal hijo1 = new IndividuoTipoNormal(idIndividuos, hijo);
                         identificadorIndividuos();
+                        añadirArbol(hijo1, padre1, padre2);
                         hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                         celdaActual.getIndividuos().add(hijo1);
                         individuosTotales.add(hijo1);
@@ -776,6 +784,7 @@ public class PrincipalController {
                         IndividuoTipoAvanzado hijo = new IndividuoTipoAvanzado(individuoTipoAvanzado.getVidas(), individuoTipoAvanzado.getPorcentajeReproduccion(),individuoTipoAvanzado.getPorcentajeClonacion(), individuoTipoAvanzado.getPorcentajeTipoAlReproducirse());
                         IndividuoTipoAvanzado hijo1 = new IndividuoTipoAvanzado(idIndividuos, hijo);
                         identificadorIndividuos();
+                        añadirArbol(hijo1, padre1, padre2);
                         hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                         celdaActual.getIndividuos().add(hijo1);
                         individuosTotales.add(hijo1);
@@ -786,6 +795,7 @@ public class PrincipalController {
                             IndividuoTipoNormal hijo = new IndividuoTipoNormal(individuoTipoNormal.getVidas(), individuoTipoNormal.getPorcentajeReproduccion(),individuoTipoNormal.getPorcentajeClonacion(), individuoTipoNormal.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoNormal hijo1 = new IndividuoTipoNormal(idIndividuos, hijo);
                             identificadorIndividuos();
+                            añadirArbol(hijo1, padre1, padre2);
                             hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
                             individuosTotales.add(hijo1);
@@ -793,6 +803,7 @@ public class PrincipalController {
                             IndividuoTipoBasico hijo = new IndividuoTipoBasico(individuoTipoBasico.getVidas(), individuoTipoBasico.getPorcentajeReproduccion(),individuoTipoBasico.getPorcentajeClonacion(), individuoTipoBasico.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoBasico hijo1 = new IndividuoTipoBasico(idIndividuos, hijo);
                             identificadorIndividuos();
+                            añadirArbol(hijo1, padre1, padre2);
                             hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
                             individuosTotales.add(hijo1);
@@ -804,6 +815,7 @@ public class PrincipalController {
                             IndividuoTipoAvanzado hijo = new IndividuoTipoAvanzado(individuoTipoAvanzado.getVidas(), individuoTipoAvanzado.getPorcentajeReproduccion(),individuoTipoAvanzado.getPorcentajeClonacion(), individuoTipoAvanzado.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoAvanzado hijo1 = new IndividuoTipoAvanzado(idIndividuos, hijo);
                             identificadorIndividuos();
+                            añadirArbol(hijo1, padre1, padre2);
                             hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
                             individuosTotales.add(hijo1);
@@ -811,6 +823,7 @@ public class PrincipalController {
                             IndividuoTipoBasico hijo = new IndividuoTipoBasico(individuoTipoBasico.getVidas(), individuoTipoBasico.getPorcentajeReproduccion(),individuoTipoBasico.getPorcentajeClonacion(), individuoTipoBasico.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoBasico hijo1 = new IndividuoTipoBasico(idIndividuos, hijo);
                             identificadorIndividuos();
+                            añadirArbol(hijo1, padre1, padre2);
                             hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
                             individuosTotales.add(hijo1);
@@ -822,6 +835,7 @@ public class PrincipalController {
                             IndividuoTipoAvanzado hijo = new IndividuoTipoAvanzado(individuoTipoAvanzado.getVidas(), individuoTipoAvanzado.getPorcentajeReproduccion(),individuoTipoAvanzado.getPorcentajeClonacion(), individuoTipoAvanzado.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoAvanzado hijo1 = new IndividuoTipoAvanzado(idIndividuos, hijo);
                             identificadorIndividuos();
+                            añadirArbol(hijo1, padre1, padre2);
                             hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
                             individuosTotales.add(hijo1);
@@ -829,6 +843,7 @@ public class PrincipalController {
                             IndividuoTipoNormal hijo = new IndividuoTipoNormal(individuoTipoNormal.getVidas(), individuoTipoNormal.getPorcentajeReproduccion(),individuoTipoNormal.getPorcentajeClonacion(), individuoTipoNormal.getPorcentajeTipoAlReproducirse());
                             IndividuoTipoNormal hijo1 = new IndividuoTipoNormal(idIndividuos, hijo);
                             identificadorIndividuos();
+                            añadirArbol(hijo1, padre1, padre2);
                             hijo1.getCola().add("Acaba de nacer por reproducción, padres: individuo "+padre1.getId()+",individuo "+padre2.getId()+", turno:"+turnos);
                             celdaActual.getIndividuos().add(hijo1);
                             individuosTotales.add(hijo1);
@@ -842,6 +857,51 @@ public class PrincipalController {
         }
     }
 
+    private void añadirArbol(Individuo hijo1, Individuo padre1, Individuo padre2) {
+        try {
+            ArbolBinario<Individuo> nuevoArbol = new ArbolBinario<>();
+            nuevoArbol.add(hijo1);
+            ArbolBinario<Individuo> arbol1 = new ArbolBinario<>();
+            ArbolBinario<Individuo> arbol2 = new ArbolBinario<>();
+            if (genealogia.get(padre1) == null) {
+                arbol1.add(padre1);
+                genealogia.put(padre1, arbol1);
+            } else {
+                arbol1 = genealogia.get(padre1);
+            }
+            if (genealogia.get(padre2) == null) {
+                arbol2.add(padre2);
+                genealogia.put(padre2, arbol2);
+            } else {
+                arbol2 = genealogia.get(padre2);
+            }
+            nuevoArbol.setArbolIzquierda(arbol1);
+            nuevoArbol.setArbolDerecha(arbol2);
+            genealogia.put(hijo1, nuevoArbol);
+        } catch (ElementoRepetidoExcepcion e) {
+            System.out.println("Elemento Repetido, no se puede añadir al árbol");
+        }
+    }
+
+    private void añadirArbol2(Individuo original, Individuo copia) {
+        try {
+            ArbolBinario<Individuo> nuevoArbol = new ArbolBinario<>();
+            nuevoArbol.add(copia);
+            ArbolBinario<Individuo> arbol1 = new ArbolBinario<>();
+            if (genealogia.get(original) == null) {
+                arbol1.add(original);
+                genealogia.put(original, arbol1);
+            } else {
+                arbol1 = genealogia.get(original);
+            }
+            nuevoArbol.setArbolIzquierda(arbol1);
+            genealogia.put(copia, nuevoArbol);
+
+        } catch (ElementoRepetidoExcepcion e) {
+            System.out.println("Elemento Repetido, no se puede añadir al árbol");
+        }
+    }
+
     private ListaEnlazada<Individuo> clonar(Individuo actual, Celda celdaActual) {
         ListaEnlazada<Individuo> individuosNuevos = new ListaEnlazada<>();
         Random r = new Random();
@@ -852,6 +912,7 @@ public class PrincipalController {
                 IndividuoTipoBasico nuevo = new IndividuoTipoBasico(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoBasico nuevo1 = new IndividuoTipoBasico(idIndividuos, nuevo);
                 identificadorIndividuos();
+                añadirArbol2(actual, nuevo1);
                 nuevo1.getCola().add("Acaba de nacer por clonación, padre: individuo "+actual.getId()+", turno:"+turnos);
                 individuosNuevos.add(nuevo1);
                 individuosTotales.add(nuevo1);
@@ -859,6 +920,7 @@ public class PrincipalController {
                 IndividuoTipoNormal nuevo = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoNormal nuevo1 = new IndividuoTipoNormal(idIndividuos, nuevo);
                 identificadorIndividuos();
+                añadirArbol2(actual, nuevo1);
                 nuevo1.getCola().add("Acaba de nacer por clonación, padre: individuo "+actual.getId()+", turno:"+turnos);
                 individuosNuevos.add(nuevo1);
                 individuosTotales.add(nuevo1);
@@ -866,6 +928,7 @@ public class PrincipalController {
                 IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoAvanzado nuevo1 = new IndividuoTipoAvanzado(idIndividuos, nuevo);
                 identificadorIndividuos();
+                añadirArbol2(actual, nuevo1);
                 nuevo1.getCola().add("Acaba de nacer por clonación, padre: individuo "+actual.getId()+", turno:"+turnos);
                 individuosNuevos.add(nuevo1);
                 individuosTotales.add(nuevo1);
