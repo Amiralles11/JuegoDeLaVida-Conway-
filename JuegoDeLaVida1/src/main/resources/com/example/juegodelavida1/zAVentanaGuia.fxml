@@ -178,43 +178,43 @@
                   <Font name="Britannic Bold" size="15.0" />
                </font>
             </Text>
-            <Text layoutX="548.0" layoutY="442.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Casillas del tablero:" underline="true">
+            <Text layoutX="548.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Casillas del tablero:" underline="true">
                <font>
                   <Font name="Britannic Bold" size="17.0" />
                </font>
             </Text>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="40.0" layoutX="553.0" layoutY="465.0" stroke="BLUE" strokeType="INSIDE" width="40.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DARKBLUE" height="40.0" layoutX="553.0" layoutY="510.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="MIDNIGHTBLUE" height="40.0" layoutX="553.0" layoutY="556.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="LIGHTGREEN" height="40.0" layoutX="553.0" layoutY="602.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="LIGHTCORAL" height="40.0" layoutX="553.0" layoutY="647.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" layoutX="553.0" layoutY="692.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
-            <Text layoutX="605.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay 1 individuo en la casilla." wrappingWidth="286.5087890624998">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="40.0" layoutX="553.0" layoutY="455.0" stroke="BLUE" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DARKBLUE" height="40.0" layoutX="553.0" layoutY="500.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="MIDNIGHTBLUE" height="40.0" layoutX="553.0" layoutY="546.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="LIGHTGREEN" height="40.0" layoutX="553.0" layoutY="592.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="LIGHTCORAL" height="40.0" layoutX="553.0" layoutY="637.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" layoutX="553.0" layoutY="682.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Text layoutX="605.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay 1 individuo en la casilla." wrappingWidth="286.5087890624998">
                <font>
                   <Font name="Britannic Bold" size="15.0" />
                </font>
             </Text>
-            <Text layoutX="603.0" layoutY="535.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay 2 individuos en la casilla." wrappingWidth="286.5087890624998">
+            <Text layoutX="603.0" layoutY="525.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay 2 individuos en la casilla." wrappingWidth="286.5087890624998">
                <font>
                   <Font name="Britannic Bold" size="15.0" />
                </font>
             </Text>
-            <Text layoutX="603.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay 3 individuos en la casilla." wrappingWidth="286.5087890624998">
+            <Text layoutX="603.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay 3 individuos en la casilla." wrappingWidth="286.5087890624998">
                <font>
                   <Font name="Britannic Bold" size="15.0" />
                </font>
             </Text>
-            <Text layoutX="603.0" layoutY="619.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay un recurso positivo y ninguno negativo en la casilla." wrappingWidth="286.5087890624998">
+            <Text layoutX="603.0" layoutY="609.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay un recurso positivo y ninguno negativo en la casilla." wrappingWidth="286.5087890624998">
                <font>
                   <Font name="Britannic Bold" size="15.0" />
                </font>
             </Text>
-            <Text layoutX="603.0" layoutY="672.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay una montaña en la casilla." wrappingWidth="286.5087890624998">
+            <Text layoutX="603.0" layoutY="662.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay una montaña en la casilla." wrappingWidth="286.5087890624998">
                <font>
                   <Font name="Britannic Bold" size="15.0" />
                </font>
             </Text>
-            <Text layoutX="607.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay un pozo en la casilla." wrappingWidth="286.5087890624998">
+            <Text layoutX="607.0" layoutY="707.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay un pozo en la casilla." wrappingWidth="286.5087890624998">
                <font>
                   <Font name="Britannic Bold" size="15.0" />
                </font>
