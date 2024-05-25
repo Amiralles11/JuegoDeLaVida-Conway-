@@ -16,9 +16,12 @@ public class Celda {
     private ListaEnlazada<Recurso> recursos = new ListaEnlazada<>();
 
     public Celda(int fila, int columna) {
+        ListaEnlazada<Individuo> listaIndividuos = new ListaEnlazada<>();
+        ListaEnlazada<Recurso> listaRecursos = new ListaEnlazada<>();
         this.coordenadas.add(fila);
         this.coordenadas.add(columna);
-
+        this.individuos = listaIndividuos;
+        this.recursos = listaRecursos;
     }
 
     public Celda(int fila, int columna, Rectangle rectangle) {

@@ -22,16 +22,6 @@ public class IndividuoTipoNormal extends Individuo{
         super(individuo.getVidas(), individuo.getPorcentajeReproduccion(), individuo.getPorcentajeClonacion(), individuo.getPorcentajeTipoAlReproducirse());
         iD = i;
     }
-
-    public int getiD() {
-        return iD;
-    }
-
-    @Override
-    public void move() {
-
-    }
-
     @Override
     public int getId() {
         return iD;

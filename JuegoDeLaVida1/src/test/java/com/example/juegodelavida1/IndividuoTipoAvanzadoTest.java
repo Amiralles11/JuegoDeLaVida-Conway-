@@ -12,7 +12,8 @@ class IndividuoTipoAvanzadoTest {
     }
 
     @Test
-    void move() {
-        assertDoesNotThrow(()->individuo2.move());
+    void getId() {
+        IndividuoTipoAvanzado i = new IndividuoTipoAvanzado(12,12, 12,12);
+        assertDoesNotThrow(()->i.getId());
     }
 }

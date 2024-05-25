@@ -21,4 +21,11 @@ class RecursoTesoroTest {
     void testToString() {
         assertEquals(recursoAgua.toString(),"RecursoTesoro, turnosRestantes = 1");
     }
+    @Test
+    void getTurnosDeVida() {
+        RecursoTesoro recurso = new RecursoTesoro(12,12,12 ,1);
+        RecursoTesoro recurso1 = new RecursoTesoro(recurso);
+        assertDoesNotThrow(()->recurso1.getPorcentajeReproduccion());
+        assertDoesNotThrow(()->recurso1.setPorcentajeReproduccion(21));
+    }
 }

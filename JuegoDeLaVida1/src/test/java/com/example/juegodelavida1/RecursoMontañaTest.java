@@ -21,4 +21,11 @@ class RecursoMontañaTest {
     void testToString() {
         assertEquals(recursoAgua.toString(),"RecursoMontaña, turnosRestantes = 1");
     }
+    @Test
+    void getTurnosDeVida() {
+        RecursoMontaña recurso = new RecursoMontaña(12,12,12 ,1);
+        RecursoMontaña recurso1 = new RecursoMontaña(recurso);
+        assertDoesNotThrow(()->recurso1.getTurnosVida());
+        assertDoesNotThrow(()->recurso1.setTurnosVida(12));
+    }
 }

@@ -21,4 +21,9 @@ class RecursoPozoTest {
     void testToString() {
         assertEquals(recursoAgua.toString(),"RecursoPozo, turnosRestantes = 1");
     }
+    @Test
+    void getTurnosDeVida() {
+        RecursoPozo recurso = new RecursoPozo(12,12,12);
+        RecursoPozo recurso1 = new RecursoPozo(recurso);
+    }
 }

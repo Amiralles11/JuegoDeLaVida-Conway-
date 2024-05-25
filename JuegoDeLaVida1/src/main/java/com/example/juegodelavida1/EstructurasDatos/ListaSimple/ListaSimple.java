@@ -73,8 +73,10 @@ public class ListaSimple<T> {
 
     public Integer getPosicion(T el) {
         for (int i = 0; i < maximo; i++) {
-            if (datos[i].getData() == el) {
-                return i;
+            if (datos[i] != null) {
+                if (datos[i].getData() == el) {
+                    return i;
+                }
             }
         }
         return null;

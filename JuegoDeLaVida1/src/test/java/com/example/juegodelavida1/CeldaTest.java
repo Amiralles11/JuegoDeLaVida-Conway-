@@ -68,7 +68,7 @@ class CeldaTest {
         Celda celda = new Celda(5,10);
         celda.add(new RecursoPozo(1,6,3));
         assertDoesNotThrow(()->celda.getRecursos());
-        assertEquals(celda.getRecursos().toString(),"[RecursoComida, turnosRestantes = 1]");
+        assertEquals(celda.getRecursos().toString(),"[RecursoPozo, turnosRestantes = 1]");
     }
 
     @Test
