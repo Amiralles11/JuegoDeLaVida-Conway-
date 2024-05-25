@@ -11,7 +11,6 @@ public class Nodo<TipoDato> {
         this.izq = null;
         this.drch = null;
     }
-
     public void add(Nodo<TipoDato> nuevonodo) throws ElementoRepetidoExcepcion {
         Comparable midato = (Comparable) this.dato;
         Comparable nuevoDato = (Comparable) nuevonodo.dato;
@@ -48,5 +47,17 @@ public class Nodo<TipoDato> {
         } else {
             return 2;
         }
+    }
+
+    public TipoDato getDato() {
+        return dato;
+    }
+
+    public Nodo<TipoDato> getIzq() {
+        return izq;
+    }
+
+    public Nodo<TipoDato> getDrch() {
+        return drch;
     }
 }
