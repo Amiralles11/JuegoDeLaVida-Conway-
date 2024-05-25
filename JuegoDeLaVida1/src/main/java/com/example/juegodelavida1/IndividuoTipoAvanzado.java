@@ -19,6 +19,7 @@ public class IndividuoTipoAvanzado extends Individuo{
     public IndividuoTipoAvanzado(int i, Individuo individuo) {
         super(individuo.getVidas(), individuo.getPorcentajeReproduccion(), individuo.getPorcentajeClonacion(), individuo.getPorcentajeTipoAlReproducirse());
         iD = i;
+        super.setCola(individuo.getCola());
     }
     @Override
     public int getId() {
