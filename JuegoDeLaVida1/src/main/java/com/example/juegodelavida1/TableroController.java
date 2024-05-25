@@ -89,7 +89,6 @@ public class TableroController implements Initializable {
                       RecursoTesoro recursoTesoro, RecursoBiblioteca recursoBiblioteca, RecursoPozo recursoPozo,ListaSimple<ListaSimple<Celda>> lista,
                        int idIndividuos2,int turnosValor2, int idArcos, ListaEnlazada<Individuo> individuosTotales) {
         log.info("Iniciando controlador de tablero, ventana: "+ventanas++);
-        log.debug("AAAAAAAAAAAAAAAAAAAA");
         this.tablero = tablero;
         this.individuoTipoBasico = individuoTipoBasico;
         this.individuoTipoNormal = individuoTipoNormal;
@@ -278,6 +277,10 @@ public class TableroController implements Initializable {
     protected void ButtonTerminarPartida(){
         log.info("Iniciando metodo finalizar partida");
         pC.setFinPartida(true);
+        if(pC.isPausa()){
+            FinalPartidaController fC = new FinalPartidaController();
+            fC.start(pC);
+        }
     }
     @FXML
     protected void ButtonGuardar(){

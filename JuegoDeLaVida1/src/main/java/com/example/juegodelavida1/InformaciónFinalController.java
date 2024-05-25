@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -113,8 +115,28 @@ public class InformaciónFinalController implements Initializable {
         log.info("Cargando arbol genealógico del individuo");
         if ((elementosPosibles - 8 + columna) < pC.getSupervivientes().getNumeroElementos()) {
             Individuo actual = pC.getSupervivientes().getElemento(elementosPosibles - 8 + columna).getData();
+            TreeItem<String> individuoItem = IniciarArbol(actual);
+            TreeView<String> treeView = new TreeView<>();
+            treeView.setRoot(individuoItem);
+            Stage stage = new Stage();
+            Scene scene = new Scene(treeView, 320, 480);
+            stage.setTitle("Arbol geneálógico");
+            stage.setScene(scene);
+            stage.show();
         }
 
+    }
+    private TreeItem<String> IniciarArbol(Individuo individuo){
+        TreeItem<String> individuoTreeItem = new TreeItem<>("Individuo "+individuo.getId());
+        if(pC.getGenealogia().get(individuo)==null){
+            return individuoTreeItem;
+        }
+        if(pC.getGenealogia().get(individuo).getSubArbolIzquierda()!=null){
+            individuoTreeItem.getChildren().add(IniciarArbol(pC.getGenealogia().get(individuo).getSubArbolIzquierda().getRaiz().getDato()));
+        }if(pC.getGenealogia().get(individuo).getSubArbolDerecha()!=null){
+            individuoTreeItem.getChildren().add(IniciarArbol(pC.getGenealogia().get(individuo).getSubArbolDerecha().getRaiz().getDato()));
+        }
+        return individuoTreeItem;
     }
     @FXML
     protected void ButtonSiguiente() {
