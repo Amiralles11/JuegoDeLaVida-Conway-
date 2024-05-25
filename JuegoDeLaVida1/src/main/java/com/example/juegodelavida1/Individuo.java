@@ -98,4 +98,8 @@ public abstract class Individuo {
         return cola;
     }
     public abstract int getId();
+
+    public void setCola(ListaEnlazada<String> cola) {
+        this.cola = cola;
+    }
 }
