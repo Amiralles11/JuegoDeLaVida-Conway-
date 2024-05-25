@@ -60,7 +60,7 @@ public class FinalPartidaController implements Initializable {
         }else if(pC.getSupervivientes().getNumeroElementos()==1) {
             supervivienteUltimo.setText("Individuo "+pC.getSupervivientes().getPrimero().getData().getId()+", edad "+pC.getSupervivientes().getPrimero().getData().getAñosVividos()+" años");
         }else{
-            supervivienteUltimo.setText("Individuo "+pC.getSupervivientes().getUltimo().getData());
+            supervivienteUltimo.setText("Individuo "+pC.getSupervivientes().getUltimo().getData().getId());
             masSupervivientes.setText("y "+(pC.getSupervivientes().getNumeroElementos()-1)+" más");
         }
     }
