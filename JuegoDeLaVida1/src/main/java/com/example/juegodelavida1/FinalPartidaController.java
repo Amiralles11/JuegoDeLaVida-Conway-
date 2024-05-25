@@ -1,7 +1,5 @@
 package com.example.juegodelavida1;
 
-import com.example.juegodelavida1.EstructurasDatos.ListaEnlazada.ListaEnlazada;
-import com.example.juegodelavida1.EstructurasDatos.ListaSimple.ListaSimple;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,17 +9,13 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
 
 public class FinalPartidaController implements Initializable {
-    @FXML
-    Text supervivienteS;
+    private static Stage stage;
     @FXML
     Text supervivienteUltimo;
     @FXML
@@ -45,12 +39,19 @@ public class FinalPartidaController implements Initializable {
             stage.setScene(scene);
             stage.show();
             fxmlLoader.setController(this);
+            this.stage = stage;
         } catch (Exception e) {
             log.error("VentanaCargarPartida.fxml no encontrada");
             e.printStackTrace();
         }
     }
-
+    @FXML
+    protected void ButtonSI() {
+        log.info("Iniciando metodo ButtonSI");
+        InformaciónFinal iF = new InformaciónFinal();
+        iF.start(pC);
+        this.stage.close();
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         log.info("Incializando ventanaFinal");

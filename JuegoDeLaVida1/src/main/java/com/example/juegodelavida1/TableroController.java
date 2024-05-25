@@ -193,6 +193,23 @@ public class TableroController implements Initializable {
         log.info("Finalizando metodo ButtonCelda");
     }
     @FXML
+    protected void ButtonGuia(){
+        log.info("Iniciando metodo ButtonGuia");
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(CeldaController.class.getResource("zAVentanaGuia.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 960, 720);
+            stage.setTitle("Guia");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            log.error("zAVentanaGuia.fxml no encontrado");
+            e.printStackTrace();
+        }
+
+        log.info("Finalizando metodo ButtonGuia");
+    }
+    @FXML
     protected void ButtonPausar(){
         for(int i = 0;i< celdaVentanas.getNumeroElementos();i++){
             celdaVentanas.getElemento(i).getData().close();
@@ -259,6 +276,8 @@ public class TableroController implements Initializable {
 
     @FXML
     protected void ButtonTerminarPartida(){
+        log.info("Iniciando metodo finalizar partida");
+        pC.setFinPartida(true);
     }
     @FXML
     protected void ButtonGuardar(){
@@ -350,8 +369,6 @@ public class TableroController implements Initializable {
                 listaCeldas2 = null;
                 log.debug("listaCeldas2 es nulo? "+listaCeldas2);
                 turnos.setText(turnosValor-1+"");
-                log.info("AAAAAAAAAAAAAAAAAAAAAAAa");
-                log.info(turnosValor);
             }
      }
 
@@ -381,5 +398,9 @@ public class TableroController implements Initializable {
 
     public Button getBotonGuardar() {
         return botonGuardar;
+    }
+
+    public static Stage getStageTablero() {
+        return stageTablero;
     }
 }

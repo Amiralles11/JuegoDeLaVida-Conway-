@@ -13,12 +13,12 @@
                   <Font name="Britannic Bold" size="92.0" />
                </font>
             </Label>
-            <Label fx:id="turnos" layoutX="424.0" layoutY="7.0" prefHeight="94.0" prefWidth="167.0" text="--">
+            <Label fx:id="turnos" layoutX="381.0" layoutY="21.0" text="9999">
                <font>
-                  <Font name="Britannic Bold" size="92.0" />
+                  <Font name="Britannic Bold" size="81.0" />
                </font>
             </Label>
-            <Button fx:id="botonGuia" layoutX="614.0" layoutY="11.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="231.0" text="Guia">
+            <Button fx:id="botonGuia" layoutX="614.0" layoutY="11.0" mnemonicParsing="false" onAction="#ButtonGuia" prefHeight="86.0" prefWidth="231.0" text="Guia">
                <font>
                   <Font name="Britannic Bold" size="50.0" />
                </font>
@@ -52,7 +52,7 @@
                   <Font name="Britannic Bold" size="30.0" />
                </font>
             </Button>
-            <Button fx:id="botonTerminar" layoutX="608.0" layoutY="22.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="65.0">
+            <Button fx:id="botonTerminar" layoutX="608.0" layoutY="22.0" mnemonicParsing="false" onAction="#ButtonTerminarPartida" prefHeight="60.0" prefWidth="65.0">
                <font>
                   <Font name="Britannic Bold" size="30.0" />
                </font>

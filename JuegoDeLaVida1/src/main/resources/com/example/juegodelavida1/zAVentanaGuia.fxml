@@ -1,10 +1,225 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="240" prefWidth="320" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.WindowsController">
+
+<VBox alignment="CENTER" prefHeight="720" prefWidth="960" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.juegodelavida1.WindowsController">
+   <children>
+      <AnchorPane prefHeight="721.0" prefWidth="960.0">
+         <children>
+            <Text layoutX="31.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Este videojuego es una inspiración del juego de la vida, un autómata celular diseñado por el matemático británico John Horton Conway en 1970." textAlignment="JUSTIFY" wrappingWidth="445.6326751708984">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="31.0" layoutY="513.0" strokeType="OUTSIDE" strokeWidth="0.0" text="En este juego no se trata de ganar o perder, sino de conseguir una población estable el mayor tiempo posible." textAlignment="JUSTIFY" wrappingWidth="445.6326751708984">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="31.0" layoutY="560.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Para ello, podemos parametrizar al inicio y durante el juego todas las cualidades de los individuos y de los recursos. ¿Queremos que los individuos tengan vida de sobra? Cuidado porque puede llevar a sobrepoblación. ¿Quieres aumentar la probabilidad de aparición del pozo para que no haya sobrepoblación? Cuidado porque pueden caerse todos los individuos a un pozo." textAlignment="JUSTIFY" wrappingWidth="445.6326751708984">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="182.0" layoutY="418.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Objetivo">
+               <font>
+                  <Font name="Britannic Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text layoutX="31.0" layoutY="663.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Por todo ello, tendrás que intentar encontrar una forma de equilibrio para que tu poblado se desarrollé de forma prospera. " textAlignment="JUSTIFY" wrappingWidth="445.6326751708984">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="80.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Información Básica">
+               <font>
+                  <Font name="Britannic Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text layoutX="30.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Existen 3 tipos de individuos">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="30.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Básicos : se mueven aletoriamente por el mapa" wrappingWidth="426.59179687499994">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="30.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Normales : Seleccionan un recurso positivo y se dirigen hacia él">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="30.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avanzados : Seleccionan el recurso positivo más cercano y se dirigen hacia él. Cada turno actualiza la información por si las circunstancias cambian, pudiendo cambiar de ruta." textAlignment="JUSTIFY" wrappingWidth="426.59179687499994">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="37.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Y 6 tipos de recurso">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="37.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agua: aumenta turnos de vida." wrappingWidth="308.76708984374994">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="34.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comida: aumenta turnos de vida." wrappingWidth="308.76708984374994">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="34.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Montaña: resta turnos de vida." wrappingWidth="308.76708984374994">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="33.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tesoro: Aumenta probabilidad de reproducción.">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="35.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Biblioteca: Aumenta probabilidad de clonación.">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="34.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pozo: mata a todo individuo en la casilla." textAlignment="JUSTIFY" wrappingWidth="308.76708984374994">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="177.0" layoutY="713.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Buena Suerte!">
+               <font>
+                  <Font name="Britannic Bold" size="23.0" />
+               </font>
+            </Text>
+            <Text layoutX="618.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jugabilidad">
+               <font>
+                  <Font name="Britannic Bold" size="40.0" />
+               </font>
+            </Text>
+            <Separator layoutX="4.0" layoutY="375.0" prefHeight="3.0" prefWidth="492.0" />
+            <Separator layoutX="493.0" layoutY="2.0" orientation="VERTICAL" prefHeight="751.0" prefWidth="0.0" />
+            <Button layoutX="548.0" layoutY="102.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" />
+            <Button layoutX="548.0" layoutY="151.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" />
+            <Button layoutX="548.0" layoutY="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" />
+            <Button layoutX="548.0" layoutY="253.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" />
+            <Button layoutX="548.0" layoutY="305.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" />
+            <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="553.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Imagenes/boton-de-pausa.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="553.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Imagenes/boton-de-play.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="553.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Imagenes/delantero.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="553.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Imagenes/caja.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="553.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Imagenes/configuracion.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="548.0" layoutY="355.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" />
+            <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="553.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Imagenes/guardar-el-archivo.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="603.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Botón pausa: Para pausar el juego.">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="603.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Botón continuar: Para reanudar la partida.">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="603.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Botón acelerar: Para acelerar/desacelerar la partida." wrappingWidth="286.5087890624998">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="605.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Botón terminar: Para terminar la partida." wrappingWidth="282.2241210937498">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="607.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Botón ajustes: Para configurar los parametros del juego." wrappingWidth="282.2241210937498">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="607.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Botón guardar: Para guardar la partida." wrappingWidth="286.5087890624998">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="548.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Casillas del tablero:" underline="true">
+               <font>
+                  <Font name="Britannic Bold" size="17.0" />
+               </font>
+            </Text>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="40.0" layoutX="553.0" layoutY="455.0" stroke="BLUE" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DARKBLUE" height="40.0" layoutX="553.0" layoutY="500.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="MIDNIGHTBLUE" height="40.0" layoutX="553.0" layoutY="546.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="LIGHTGREEN" height="40.0" layoutX="553.0" layoutY="592.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="LIGHTCORAL" height="40.0" layoutX="553.0" layoutY="637.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" layoutX="553.0" layoutY="682.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Text layoutX="605.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay 1 individuo en la casilla." wrappingWidth="286.5087890624998">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="603.0" layoutY="525.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay 2 individuos en la casilla." wrappingWidth="286.5087890624998">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="603.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay 3 individuos en la casilla." wrappingWidth="286.5087890624998">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="603.0" layoutY="609.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay un recurso positivo y ninguno negativo en la casilla." wrappingWidth="286.5087890624998">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="603.0" layoutY="662.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay una montaña en la casilla." wrappingWidth="286.5087890624998">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="607.0" layoutY="707.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hay un pozo en la casilla." wrappingWidth="286.5087890624998">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
 </VBox>
