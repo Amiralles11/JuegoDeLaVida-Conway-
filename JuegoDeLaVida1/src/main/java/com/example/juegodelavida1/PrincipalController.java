@@ -83,14 +83,10 @@ public class PrincipalController {
     }
 
     public void setTiempoEspera() {
-        if(this.tiempoEspera==1000){
-            this.tiempoEspera=750;
-        }else if(this.tiempoEspera==750){
-            this.tiempoEspera = 750;
-        }else if(this.tiempoEspera==500){
-            this.tiempoEspera = 500;
-        }else if(this.tiempoEspera==500){
-            this.tiempoEspera=1000;
+        if(this.tiempoEspera==1000) {
+            this.tiempoEspera = 250;
+        }else if(this.tiempoEspera==250){
+            this.tiempoEspera = 1000;
         }
     }
 
@@ -654,6 +650,7 @@ public class PrincipalController {
                         for (int h = 0; celdaActual.getIndividuos().getNumeroElementos() != h; h++) {
                             Individuo actual = celdaActual.getIndividuos().getElemento(h).getData();
                             actual.setPorcentajeClonacion(actual.getPorcentajeClonacion() + recursoBiblioteca.getPorcentajeClonacion());
+                            actual.getCola().add("Biblioteca leída, clonación aumentado en: "+recursoBiblioteca.getPorcentajeClonacion());
                             if ((actual instanceof IndividuoTipoBasico)) {
                                 IndividuoTipoNormal nuevo1 = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                                 IndividuoTipoNormal nuevo = new IndividuoTipoNormal(nuevo1.getId(), nuevo1);
