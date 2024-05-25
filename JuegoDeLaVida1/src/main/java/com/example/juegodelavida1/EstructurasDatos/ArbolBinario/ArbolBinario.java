@@ -9,6 +9,11 @@ public class ArbolBinario<TipoDato> {
     public ArbolBinario() {
         raiz = null;
     }
+
+    public Nodo<TipoDato> getRaiz() {
+        return raiz;
+    }
+
     public void add(TipoDato dato) throws ElementoRepetidoExcepcion {
         Nodo<TipoDato> nuevonodo = new Nodo<>(dato);
         if (raiz == null) {
