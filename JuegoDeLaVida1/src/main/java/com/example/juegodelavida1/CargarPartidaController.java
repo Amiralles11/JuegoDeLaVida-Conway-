@@ -111,8 +111,12 @@ public class CargarPartidaController implements Initializable {
 
             botones2.getElemento(j).getData().setGraphic(new ImageView(imagen));
             j++;
-        }
-        if(j!=7){
+        }if(j==7){
+            Text text = new Text();
+            text.setText(partidas.getElemento(elementosPosibles-1).getData());
+            text.setStyle("-fx-font-family: 'Britannic Bold';-fx-font-size:25 ");
+            botones.getElemento(j).getData().setGraphic(text);
+        }else if(j!=7){
             for(int i = j;i<=7;i++){
                 Text text = new Text();
                 text.setText("");
@@ -120,7 +124,6 @@ public class CargarPartidaController implements Initializable {
                 botones2.getElemento(i).getData().setGraphic(text);
             }
         }
-        log.info("Finalizando metodo ButtonSiguiente");
 
 
     }
@@ -167,7 +170,7 @@ public class CargarPartidaController implements Initializable {
         }
         if(j==7){
             Text text = new Text();
-            text.setText(partidas.getElemento(j).getData());
+            text.setText(partidas.getElemento(elementosPosibles-1).getData());
             text.setStyle("-fx-font-family: 'Britannic Bold';-fx-font-size:25 ");
             botones.getElemento(j).getData().setGraphic(text);
 

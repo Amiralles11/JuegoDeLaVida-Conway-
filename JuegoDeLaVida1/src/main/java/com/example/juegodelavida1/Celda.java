@@ -104,6 +104,7 @@ public class Celda {
             }
             else if (zz == 1) {
                 rectangle.setFill(Color.LIGHTGREEN);
+                rectangle.setStyle("--fxbackground-color: LIGHTGREEN");
             } else if (zz == 2) {
                 rectangle.setFill(Color.LIGHTCORAL);
             } else if (zz == 3) {
