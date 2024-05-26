@@ -155,7 +155,7 @@ public class InformaciónFinal {
         this.reproduccionIndividuo = individuoQueMasReproduccion.getElemento(reproduccion).getData();
         this.vidaIndividuo = individuoQueMasVidaTotal.getElemento(vida).getData();
         InformaciónFinalController iF = new InformaciónFinalController();
-        iF.start(pC,reproducciones,clonaciones,aguaBebida,comidaConsumida,montañaEscalada,tesorosEncontrados,muertesMontaña,
+        iF.start(pC,reproducciones/2,clonaciones,aguaBebida,comidaConsumida,montañaEscalada,tesorosEncontrados,muertesMontaña,
                 muertesPozo,muertesSobrepobladas,muertesNaturales,individuoQueMasAguaIndividuo,individuoQueMasReproduccionIndividuo,
                 individuoQueMasClonacionIndividuo,individuoQueMasVidaTotalIndividuo,individuoMasViejo,aguaIndividuo,clonacionIndividuo,
                 reproduccionIndividuo,vidaIndividuo);

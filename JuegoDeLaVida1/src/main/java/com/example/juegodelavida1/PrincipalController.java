@@ -100,6 +100,10 @@ public class PrincipalController {
         return individuosTotales;
     }
 
+    public Map<Individuo, ArbolBinario<Individuo>> getGenealogia() {
+        return genealogia;
+    }
+
     public ListaEnlazada<Individuo> getSupervivientes() {
         return supervivientes;
     }
@@ -659,13 +663,13 @@ public class PrincipalController {
                             actual.getCola().add("Biblioteca leída, clonación aumentado en: "+recursoBiblioteca.getPorcentajeClonacion());
                             if ((actual instanceof IndividuoTipoBasico)) {
                                 IndividuoTipoNormal nuevo1 = new IndividuoTipoNormal(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
-                                IndividuoTipoNormal nuevo = new IndividuoTipoNormal(nuevo1.getId(), nuevo1);
+                                IndividuoTipoNormal nuevo = new IndividuoTipoNormal(nuevo1.getId(), nuevo1,nuevo1.getCola());
                                 añadir.add(nuevo);
                                 desaparecer.add(actual);
                                 desaparecerB.add(recursoActual);
                             } else if ((actual instanceof IndividuoTipoNormal)){
                                 IndividuoTipoAvanzado nuevo1 = new IndividuoTipoAvanzado(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
-                                IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(nuevo1.getId(), nuevo1);
+                                IndividuoTipoAvanzado nuevo = new IndividuoTipoAvanzado(nuevo1.getId(), nuevo1,nuevo1.getCola());
                                 añadir.add(nuevo);
                                 desaparecer.add(actual);
                                 desaparecerB.add(recursoActual);
@@ -908,7 +912,7 @@ public class PrincipalController {
         int prob = r.nextInt(1, 100);
         if (actual.getPorcentajeClonacion() >= prob) {
             actual.getCola().add(("Se ha clonado y ha tenido un hijo, turno: "+turnos));
-            log.trace("Un individuo se ha clonado");
+            log.trace("Ha ocurrido una clonación");
             if (actual instanceof IndividuoTipoBasico) {
                 IndividuoTipoBasico nuevo = new IndividuoTipoBasico(actual.getVidas(), actual.getPorcentajeReproduccion(), actual.getPorcentajeClonacion(), actual.getPorcentajeTipoAlReproducirse());
                 IndividuoTipoBasico nuevo1 = new IndividuoTipoBasico(idIndividuos, nuevo);
@@ -950,8 +954,8 @@ public class PrincipalController {
                             sanPedro = candidato;
                         }
                     }
+                    celdaActual.getIndividuos().getElemento(celdaActual.getIndividuos().getPosicion(sanPedro)).getData().getCola().add(("Muere porque hay más de 3 individuos en la misma casilla, turno: ")+turnos);
                     celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(sanPedro));
-                    sanPedro.getCola().add(("Muere porque hay más de 3 individuos en la misma casilla, turno: ")+turnos);
                 }
             }
         }
