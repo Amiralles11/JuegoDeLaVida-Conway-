@@ -296,14 +296,12 @@ public class PrincipalController {
                         }
                         if (actual.getVidas() == 0) {
                             actual.getCola().add("Muere por causas naturales, turno: "+turnos);
+                            listaIndividuos.add(actual);
                         }
                     }
                     while (!listaIndividuos.isVacia()) {
                         celdaActual.getIndividuos().del(celdaActual.getIndividuos().getPosicion(listaIndividuos.getPrimero()));
                         listaIndividuos.del(0);
-                        for (int t = 0; ; t++) {
-
-                        }
                     }
                 }
             }
